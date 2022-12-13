@@ -1,0 +1,20 @@
+package com.orchardmanager.treedata.repositories
+
+import com.orchardmanager.treedata.daos.OrchardDao
+import com.orchardmanager.treedata.entities.Orchard
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class OrchardRepository @Inject constructor(private val orchardDao: OrchardDao){
+
+    fun createOrchard(orchard:Orchard):Long {
+        return orchardDao.insert(orchard)
+    }
+
+    fun updateOrchard(orchard: Orchard) {
+        orchardDao.update(orchard)
+    }
+
+    fun getOrchards(farmId: Long) = orchardDao.getOrchards(farmId)
+}

@@ -10,7 +10,7 @@
         android:name="com.orchardmanager.treedata.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
+<!--
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.orchardmanager.treedata.ui.gallery.GalleryFragment"
@@ -22,7 +22,7 @@
         android:name="com.orchardmanager.treedata.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
-
+-->
     <fragment
         android:id="@+id/nav_farmer"
         android:name="com.orchardmanager.treedata.ui.farmer.FarmerFragment"
@@ -34,4 +34,9 @@
         android:name="com.orchardmanager.treedata.ui.farm.FarmFragment"
         android:label="Farm"
         tools:layout="@layout/fragment_farm"/>
+    <fragment
+        android:id="@+id/nav_orchard"
+        android:name="com.orchardmanager.treedata.ui.orchard.OrchardFragment"
+        android:label="Orchard"
+        tools:layout="@layout/fragment_orchard"/>
 </navigation>

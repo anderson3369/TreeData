@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.orchard.OrchardFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Spinner
+            android:id="@+id/farmSpinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:contentDescription="Farm"/>
+        <EditText
+            android:id="@+id/crop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/farmSpinner2"/>
+        <EditText
+            android:id="@+id/plantedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Planted Date"
+            android:inputType="date"
+            android:layout_below="@id/crop"
+            android:layout_alignParentLeft="true"/>
+        <Button
+            android:id="@+id/showPlantedDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_baseline_calendar_month_24"
+            android:layout_below="@id/crop"
+            android:layout_alignRight="@id/plantedDate"/>
+        <Button
+            android:id="@+id/saveOrchard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/plantedDate"
+            android:layout_alignParentEnd="true"
+            android:text="Save"/>
+    </RelativeLayout>
+
+
+
+</FrameLayout>
