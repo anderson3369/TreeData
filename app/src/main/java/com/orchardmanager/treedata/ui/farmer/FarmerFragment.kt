@@ -21,8 +21,8 @@ class FarmerFragment : Fragment(), View.OnClickListener {
     private var _binding: FragmentFarmerBinding? = null
     private val binding get() = _binding!!
 
-    private val farmerViewModel:FarmerViewModel by viewModels()
-    private var farmer:Farmer? = null
+    private val farmerViewModel: FarmerViewModel by viewModels()
+    private var farmer: Farmer? = null
 
     companion object {
         fun newInstance() = FarmerFragment()
@@ -40,18 +40,20 @@ class FarmerFragment : Fragment(), View.OnClickListener {
         binding.saveFarmer.setOnClickListener(this)
 
         farmerViewModel.get().observe(viewLifecycleOwner, Observer {
-            farmers -> farmer = farmers.get(0)
-            if(farmer != null) {
-                binding.name.setText(farmer!!.name)
-                binding.address.setText(farmer!!.address)
-                binding.city.setText(farmer!!.city)
-                binding.state.setText(farmer!!.state)
-                binding.zip.setText((farmer!!.zip))
-                binding.phone.setText(farmer!!.phone)
-                binding.email.setText(farmer!!.email)
+            farmers ->
+            if(farmers != null && !farmers.isEmpty()) {
+                farmer = farmers.get(0)
+                if(farmer != null) {
+                    binding.name.setText(farmer!!.name)
+                    binding.address.setText(farmer!!.address)
+                    binding.city.setText(farmer!!.city)
+                    binding.state.setText(farmer!!.state)
+                    binding.zip.setText((farmer!!.zip))
+                    binding.phone.setText(farmer!!.phone)
+                    binding.email.setText(farmer!!.email)
+                }
             }
         })
-
         return vw
     }
     //@Deprecated
@@ -62,36 +64,32 @@ class FarmerFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        if(p0?.id == R.id.saveFarmer) {
-            if(farmer != null) {
-                if (farmer!!.id != null && farmer!!.id > -1L) {
-                    val updFarmer = farmer!!.copy(
-                        name = binding.name?.text.toString(),
-                        address = binding.address?.text.toString(),
-                        city = binding.city?.text.toString(),
-                        state = binding.state?.text.toString(),
-                        zip = binding.zip?.text.toString(),
-                        phone = binding.phone?.text.toString(),
-                        email = binding.email?.text.toString()
-                    )
-                    farmerViewModel.update(updFarmer!!)
-                } else {
-                    farmer = Farmer(
-                        name = binding.name?.text.toString(),
-                        address = binding.address?.text.toString(),
-                        city = binding.city?.text.toString(),
-                        state = binding.state?.text.toString(),
-                        zip = binding.zip?.text.toString(),
-                        phone = binding.phone?.text.toString(),
-                        email = binding.email?.text.toString()
-                    )
-                    farmerViewModel.add(farmer!!).observe(this, Observer { farmerId ->
-                        Log.i("FarmerFragment", "the ID...$farmerId")
-                    })
-                }
-            }
+        if(farmer != null && (farmer!!.id != null && farmer!!.id > 0L)) {
+            val updFarmer = farmer!!.copy(
+                name = binding.name?.text.toString(),
+                address = binding.address?.text.toString(),
+                city = binding.city?.text.toString(),
+                state = binding.state?.text.toString(),
+                zip = binding.zip?.text.toString(),
+                phone = binding.phone?.text.toString(),
+                email = binding.email?.text.toString()
+            )
+            farmerViewModel.update(updFarmer!!)
+        } else {
+            farmer = Farmer(
+                name = binding.name?.text.toString(),
+                address = binding.address?.text.toString(),
+                city = binding.city?.text.toString(),
+                state = binding.state?.text.toString(),
+                zip = binding.zip?.text.toString(),
+                phone = binding.phone?.text.toString(),
+                email = binding.email?.text.toString()
+            )
+            farmerViewModel.add(farmer!!).observe(this, Observer { farmerId ->
+                Log.i("FarmerFragment", "the ID...$farmerId")
+                //farmerViewModel.getFarmerId().value = farmerId
+            })
         }
-
     }
-
 }
+

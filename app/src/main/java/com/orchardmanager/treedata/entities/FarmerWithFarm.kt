@@ -10,6 +10,6 @@ data class FarmerWithFarm(
         parentColumn = "id",
         entityColumn = "farmerId"
     )
-    val farms: List<Farm>
+    val farms: MutableList<Farm>
 
 )

@@ -3,6 +3,7 @@ package com.orchardmanager.treedata.ui.farm
 import android.util.Log
 import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.Farm
+import com.orchardmanager.treedata.entities.FarmerWithFarm
 import com.orchardmanager.treedata.repositories.FarmRepository
 import com.orchardmanager.treedata.repositories.FarmerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,11 @@ class FarmViewModel @Inject constructor(val farmRepository: FarmRepository) : Vi
         }
     }
 
-    fun get(farmerId:Long):LiveData<MutableList<Farm>> {
+    fun get(farmerId:Long): LiveData<MutableList<Farm>> {
         return farmRepository.getFarms(farmerId).asLiveData()
+    }
+
+    fun getFarmerWithFarm(): LiveData<MutableList<FarmerWithFarm>> {
+        return farmRepository.getFarmerWithFarms().asLiveData()
     }
 }

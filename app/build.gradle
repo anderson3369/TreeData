@@ -5,6 +5,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
+
+
+
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildFeatures {
@@ -23,6 +27,7 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {

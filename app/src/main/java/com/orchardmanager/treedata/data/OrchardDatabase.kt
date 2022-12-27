@@ -1,17 +1,17 @@
 package com.orchardmanager.treedata.data
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.RenameColumn
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.workDataOf
-import com.orchardmanager.treedata.daos.FarmDao
-import com.orchardmanager.treedata.daos.FarmerDao
+import com.orchardmanager.treedata.daos.*
 import com.orchardmanager.treedata.entities.*
+import com.orchardmanager.treedata.entities.GeoLocation
 import com.orchardmanager.treedata.utils.DATABASE_NAME
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Database(entities = [
     Disease::class, Orchard::class, Farm::class, Farmer::class,
@@ -19,10 +19,16 @@ import dagger.hilt.android.qualifiers.ApplicationContext
     Pump::class, Rootstock::class, Soil::class, SoilTest::class,
     Spacing::class, Tree::class, Variety::class, IrrigationSystem::class,
     GeoLocation::class, Irrigation::class, Fertilizer::class,
-                     ], version = 1, exportSchema = false)
+                     ],
+    version = 2,
+    exportSchema = false)
 abstract class OrchardDatabase : RoomDatabase() {
-    abstract fun farmerDao():FarmerDao
-    abstract fun farmDao():FarmDao
+    abstract fun farmerDao(): FarmerDao
+    abstract fun farmDao(): FarmDao
+    abstract fun orchardDao(): OrchardDao
+    abstract fun farmWithOrchardsDao(): FarmWithOrchardsDao
+    abstract fun farmerWithFarmDao(): FarmerWithFarmDao
+
 
     companion object {
         @Volatile private var instance: OrchardDatabase? = null
@@ -35,6 +41,7 @@ abstract class OrchardDatabase : RoomDatabase() {
 
         private fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
+                //.fallbackToDestructiveMigration()
                 .addCallback(
                     object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -43,7 +50,8 @@ abstract class OrchardDatabase : RoomDatabase() {
                             //    .setInputData(workDataOf(KEY_FILENAME, ))
                         }
                     }
-                ).build()
+                )
+            .build()
         }
 
 

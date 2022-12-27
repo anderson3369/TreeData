@@ -8,6 +8,7 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
+        <!--
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -16,15 +17,19 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_slideshow" />
+            -->
         <item
             android:id="@+id/nav_farmer"
             android:icon="@drawable/ic_baseline_contact_page_24"
             android:title="Farmer"/>
-
         <item
             android:id="@+id/nav_farm"
-            android:icon="@drawable/ic_baseline_forest_24"
+            android:icon="@drawable/ic_baseline_agriculture_24"
             android:title="Farm"/>
+        <item
+            android:id="@+id/nav_orchard"
+            android:icon="@drawable/ic_baseline_forest_24"
+            android:title="Orchard"/>
 
     </group>
 </menu>

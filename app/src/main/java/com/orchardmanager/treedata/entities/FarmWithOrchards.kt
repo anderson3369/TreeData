@@ -8,7 +8,7 @@ data class FarmWithOrchards(
     val farm: Farm,
     @Relation(
         parentColumn = "id",
-        entityColumn = "orchardId"
+        entityColumn = "farmId"
     )
-    val orchards: List<Orchard>
+    val orchards: MutableList<Orchard>
 )

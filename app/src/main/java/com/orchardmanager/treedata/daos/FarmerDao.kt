@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FarmerDao {
     @Insert
-    suspend fun insert(farmer: Farmer):Long
+    suspend fun insert(farmer: Farmer): Long
 
     @Update
     fun update(farmer: Farmer)

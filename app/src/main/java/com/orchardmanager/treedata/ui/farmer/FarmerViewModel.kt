@@ -7,7 +7,6 @@ import com.orchardmanager.treedata.repositories.FarmerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 
@@ -15,7 +14,7 @@ import javax.inject.Inject
 class FarmerViewModel @Inject constructor(val farmerRepository: FarmerRepository): ViewModel() {
 
     fun add(farmer:Farmer) = liveData {
-        emit("inserting...")
+        emit("inserting farmer...")
         try {
             val id = farmerRepository.createFarmer(farmer)
             Log.i("FarmerViewModel", "the ID " + id.toString())
@@ -31,8 +30,12 @@ class FarmerViewModel @Inject constructor(val farmerRepository: FarmerRepository
         }
     }
 
-    fun get():LiveData<List<Farmer>> {
+    fun get(): LiveData<List<Farmer>> {
         return farmerRepository.getFarmers().asLiveData()
+    }
+
+    fun getFarmerId(): LiveData<Long> {
+        return farmerRepository.getFarmerId().asLiveData()
     }
 
 }

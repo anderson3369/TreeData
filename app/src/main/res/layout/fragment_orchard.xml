@@ -10,36 +10,38 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <Spinner
-            android:id="@+id/farmSpinner2"
+            android:id="@+id/orchardSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:contentDescription="Farm"/>
         <EditText
             android:id="@+id/crop"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/farmSpinner2"/>
+            android:layout_height="100dp"
+            android:hint="Crop"
+            android:inputType="text"
+            android:layout_below="@id/orchardSpinner"/>
         <EditText
             android:id="@+id/plantedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
             android:hint="Planted Date"
             android:inputType="date"
             android:layout_below="@id/crop"
             android:layout_alignParentLeft="true"/>
         <Button
             android:id="@+id/showPlantedDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="100dp"
             android:drawableRight="@drawable/ic_baseline_calendar_month_24"
             android:layout_below="@id/crop"
             android:layout_alignRight="@id/plantedDate"/>
         <Button
             android:id="@+id/saveOrchard"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_below="@id/plantedDate"
             android:layout_alignParentEnd="true"
             android:text="Save"/>

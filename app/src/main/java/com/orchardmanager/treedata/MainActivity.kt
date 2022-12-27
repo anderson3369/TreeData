@@ -13,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.orchardmanager.treedata.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -40,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_farmer
+                R.id.nav_home, R.id.nav_farmer, R.id.nav_farm, R.id.nav_orchard
+                //R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_farmer
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
