@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface OrchardDao {
     @Insert
-    fun insert(orchard: Orchard):Long
+    suspend fun insert(orchard: Orchard): Long
 
     @Update
     fun update(orchard: Orchard)

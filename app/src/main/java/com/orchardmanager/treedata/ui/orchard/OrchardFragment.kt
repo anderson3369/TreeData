@@ -28,7 +28,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
 
     private var _binding: FragmentOrchardBinding? = null
     private val binding get() = _binding
-    private var farmId: Long = 0L
+    private var farmId: Long = -1L
     private var orchards: MutableList<Orchard>? = null
     private var farms: MutableList<Farm>? = null
     private var orchard: Orchard? = null
@@ -49,7 +49,9 @@ class OrchardFragment : Fragment(), View.OnClickListener,
 
         farmViewModel.getFarmerWithFarm().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             farmerWithFarm ->
-            this.farms = farmerWithFarm.get(0).farms
+            if(farmerWithFarm != null && !farmerWithFarm.isEmpty()) {
+                this.farms = farmerWithFarm.get(0).farms
+            }
         })
         orchardViewModel.getAllOrchards().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             orchards -> this.orchards = orchards
@@ -58,6 +60,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
             orchardAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.orchardSpinner?.adapter = orchardAdapter
         })
+        binding?.orchardSpinner?.onItemSelectedListener = this
         binding?.showPlantedDate?.setOnClickListener(View.OnClickListener {
             DatePickerFragment().show(childFragmentManager, "Planted Date")
         })
@@ -83,14 +86,14 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onClick(p0: View?) {
-        if(this.farmId == 0L) {
+        if(this.farmId == -1L) {
             FarmDialogFragment(this.farms!!).show(childFragmentManager, "Set")
             return
         }
         if(p0?.id == R.id.saveOrchard) {
             //save
             //val dc: DateConverter? = DateConverter()
-            if(orchard != null && (orchard?.id != null && orchard?.id!! > 0L)) {
+            if(orchard != null && (orchard?.id != null && orchard?.id!! > -1L)) {
                 val orchard2 = DateConverter().toOffsetDate(
                         binding?.plantedDate?.text.toString())?.let {
                         orchard?.copy(
@@ -109,8 +112,10 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                         plantedDate = it
                     )
                 }
-                val id = orchardViewModel.add(orchard!!)
-                Log.i("OrchardFragment", "the orchard id is..." + id.toString())
+                orchardViewModel.add(orchard!!).observe(this, androidx.lifecycle.Observer {
+                    id -> Log.i("OrchardFragment", "the orchard id is..." + id.toString())
+                })
+
             }
         }
     }

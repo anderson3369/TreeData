@@ -13,7 +13,7 @@ class FarmerRepository @Inject constructor(private val farmerDao: FarmerDao) {
 
     fun getFarmers() = farmerDao.getFarmers()
 
-    suspend fun createFarmer(farmer: Farmer):Long {
+    suspend fun createFarmer(farmer: Farmer): Long {
         return farmerDao.insert(farmer)
     }
 

@@ -16,4 +16,6 @@ data class Orchard(
     val farmId: Long,
     val crop: String,
     val plantedDate: LocalDate
-)
+) {
+    override fun toString():String = crop + "      " + plantedDate
+}

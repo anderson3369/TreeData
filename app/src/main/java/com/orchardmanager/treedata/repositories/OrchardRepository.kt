@@ -9,9 +9,10 @@ import javax.inject.Singleton
 @Singleton
 class OrchardRepository @Inject constructor(
     private val orchardDao: OrchardDao,
-    private val farmWithOrchardsDao: FarmWithOrchardsDao){
+    private val farmWithOrchardsDao: FarmWithOrchardsDao
+    ) {
 
-    fun createOrchard(orchard:Orchard):Long {
+    suspend fun createOrchard(orchard: Orchard): Long {
         return orchardDao.insert(orchard)
     }
 

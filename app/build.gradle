@@ -5,15 +5,27 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
+class RoomSchemaArgProvider implements CommandLineArgumentProvider {
 
+    @InputDirectory
+    @PathSensitive(PathSensitivity.RELATIVE)
+    File schemaDir
 
+    RoomSchemaArgProvider(File schemaDir) {
+        this.schemaDir = schemaDir
+    }
 
+    @Override
+    Iterable<String> asArguments() {
+        // Note: If you're using KSP, you should change the line below to return
+        // ["room.schemaLocation=${schemaDir.path}"]
+        return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
+    }
+}
 
 android {
+
     compileSdkVersion rootProject.compileSdkVersion
-    buildFeatures {
-        dataBinding true
-    }
 
     namespace 'com.orchardmanager.treedata'
     compileSdk 33
@@ -27,6 +39,13 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                compilerArgumentProviders(
+                        new RoomSchemaArgProvider(new File(projectDir, "schemas"))
+                )
+            }
+        }
 
     }
 

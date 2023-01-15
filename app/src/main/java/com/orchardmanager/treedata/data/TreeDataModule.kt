@@ -48,5 +48,15 @@ class TreeDataModule {
         return orchardDatabase.farmerWithFarmDao()
     }
 
+    @Provides
+    fun provideTreeDao(orchardDatabase: OrchardDatabase): TreeDao {
+        return orchardDatabase.treeDao()
+    }
+
+    @Provides
+    fun provideOrchardWithTreesDao(orchardDatabase: OrchardDatabase): OrchardWithTreesDao {
+        return orchardDatabase.orchardWithTreesDao()
+    }
+
 
 }

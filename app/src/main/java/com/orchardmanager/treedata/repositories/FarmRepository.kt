@@ -17,7 +17,7 @@ class FarmRepository @Inject constructor(private val farmDao: FarmDao,
 
     fun getFarms(farmerId:Long) = farmDao.getOrchardLocations(farmerId)
 
-    suspend fun createFarm(farm: Farm):Long {
+    suspend fun createFarm(farm: Farm): Long {
         return farmDao.insert(farm)
     }
 

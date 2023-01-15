@@ -10,7 +10,7 @@ data class OrchardWithTrees(
     val orchard: Orchard,
     @Relation(
         parentColumn = "id",
-        entityColumn = "treeId"
+        entityColumn = "orchardId"
     )
-    val trees: List<Tree>
+    val trees: MutableList<Tree>
 )
