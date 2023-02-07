@@ -1,74 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-<FrameLayout
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/AgricultureEditText"
     tools:context=".ui.farmer.FarmerFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        >
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.125"
-            android:hint="Name"
+            android:layout_height="wrap_content"
+            android:hint="Enter your name"
             android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
         <EditText
             android:id="@+id/address"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Address"
-            android:layout_weight="0.125"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:hint="Enter your address"
+            android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="City"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
         <EditText
             android:id="@+id/city"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="City"
-            android:layout_weight="0.125"
+            android:layout_height="wrap_content"
+            android:hint="Enter your city"
             android:inputType="text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="State"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
         <EditText
             android:id="@+id/state"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="State"
-            android:layout_weight="0.125"
+            android:layout_height="wrap_content"
+            android:hint="Enter your state"
             android:inputType="text" />
-        <EditText
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Zip"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+         <EditText
             android:id="@+id/zip"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Zip"
-            android:layout_weight="0.125"
+            android:layout_height="wrap_content"
+            android:hint="Enter your zip"
             android:inputType="text"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
         <EditText
             android:id="@+id/phone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Phone"
-            android:layout_weight="0.125"
+            android:layout_height="wrap_content"
+            android:hint="Enter you phone"
             android:inputType="phone"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Email"
-            android:layout_weight="0.125"
-            android:inputType="text"/>
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"/>
         <Button
             android:id="@+id/saveFarmer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.125"
-            android:text="Save"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_button_text"/>
     </LinearLayout>
 
 </FrameLayout>
-</layout>

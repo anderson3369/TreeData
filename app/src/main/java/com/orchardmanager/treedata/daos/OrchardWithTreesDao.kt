@@ -10,6 +10,10 @@ import kotlinx.coroutines.flow.Flow
 interface OrchardWithTreesDao {
 
     @Transaction
+    @Query("SELECT * FROM Orchard")
+    fun getAllOrchardWithTrees(): Flow<MutableList<OrchardWithTrees>>
+
+    @Transaction
     @Query("SELECT * FROM Orchard WHERE id = :id")
     fun getOrchardWithTrees(id: Long?): Flow<MutableList<OrchardWithTrees>>
 }

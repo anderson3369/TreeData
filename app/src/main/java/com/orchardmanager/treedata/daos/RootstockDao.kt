@@ -2,11 +2,13 @@ package com.orchardmanager.treedata.daos
 
 import androidx.room.*
 import com.orchardmanager.treedata.entities.Rootstock
+import kotlinx.coroutines.flow.Flow
+
 
 @Dao
 interface RootstockDao {
     @Insert
-    fun insert(rootstock: Rootstock)
+    suspend fun insert(rootstock: Rootstock): Long
 
     @Update
     fun update(rootstock: Rootstock)
@@ -15,5 +17,5 @@ interface RootstockDao {
     fun delete(rootstock: Rootstock)
 
     @Query("SELECT * FROM Rootstock")
-    fun getRootstocks(): List<Rootstock>
+    fun getRootstocks(): Flow<MutableList<Rootstock>>
 }

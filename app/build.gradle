@@ -3,25 +3,25 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'androidx.navigation.safeargs'
 
-class RoomSchemaArgProvider implements CommandLineArgumentProvider {
+//class RoomSchemaArgProvider implements CommandLineArgumentProvider {
 
-    @InputDirectory
-    @PathSensitive(PathSensitivity.RELATIVE)
-    File schemaDir
+  //  @InputDirectory
+  //  @PathSensitive(PathSensitivity.RELATIVE)
+  //  File schemaDir
 
-    RoomSchemaArgProvider(File schemaDir) {
-        this.schemaDir = schemaDir
-    }
+  //  RoomSchemaArgProvider(File schemaDir) {
+  //      this.schemaDir = schemaDir
+  //  }
 
-    @Override
-    Iterable<String> asArguments() {
+  //  @Override
+  //  Iterable<String> asArguments() {
         // Note: If you're using KSP, you should change the line below to return
         // ["room.schemaLocation=${schemaDir.path}"]
-        return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
-    }
-}
+  //      return ["-Aroom.schemaLocation=${schemaDir.path}".toString()]
+  //  }
+//}
 
 android {
 
@@ -32,20 +32,20 @@ android {
 
     defaultConfig {
         applicationId "com.orchardmanager.treedata"
-        minSdk 30
+        minSdk 31
         targetSdk 33
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                compilerArgumentProviders(
-                        new RoomSchemaArgProvider(new File(projectDir, "schemas"))
-                )
-            }
-        }
+        //javaCompileOptions {
+        //    annotationProcessorOptions {
+        //        compilerArgumentProviders(
+        //                new RoomSchemaArgProvider(new File(projectDir, "schemas"))
+        //        )
+        //    }
+        //}
 
     }
 
@@ -86,6 +86,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"

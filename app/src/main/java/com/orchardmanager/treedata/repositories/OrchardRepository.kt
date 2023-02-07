@@ -16,8 +16,12 @@ class OrchardRepository @Inject constructor(
         return orchardDao.insert(orchard)
     }
 
-    fun updateOrchard(orchard: Orchard) {
+    suspend fun updateOrchard(orchard: Orchard) {
         orchardDao.update(orchard)
+    }
+
+    suspend fun deleteOrchard(orchard: Orchard) {
+        orchardDao.delete(orchard)
     }
 
     fun getOrchards(farmId: Long) = orchardDao.getOrchards(farmId)

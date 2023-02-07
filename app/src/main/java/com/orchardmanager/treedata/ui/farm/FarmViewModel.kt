@@ -7,6 +7,7 @@ import com.orchardmanager.treedata.entities.FarmerWithFarm
 import com.orchardmanager.treedata.repositories.FarmRepository
 import com.orchardmanager.treedata.repositories.FarmerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,20 +18,25 @@ class FarmViewModel @Inject constructor(val farmRepository: FarmRepository) : Vi
         return farmRepository.getFarmerId().asLiveData()
     }
 
-    fun add(farm:Farm) = liveData {
-        emit("adding a Farm")
+    fun add(farm:Farm) = liveData<Long> {
         try {
             val id = farmRepository.createFarm(farm)
-            Log.i("FarmViewModel", "the farm ID..." + id.toString())
+            emit(id)
         }catch (e:Exception) {
             e.printStackTrace()
-            emit(e.message)
+            emit(-1000L)
         }
     }
 
     fun update(farm: Farm) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             farmRepository.updateFarm(farm)
+        }
+    }
+
+    fun delete(farm: Farm) {
+        viewModelScope.launch(Dispatchers.IO) {
+            farmRepository.deleteFarm(farm)
         }
     }
 

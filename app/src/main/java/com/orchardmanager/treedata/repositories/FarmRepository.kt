@@ -25,6 +25,10 @@ class FarmRepository @Inject constructor(private val farmDao: FarmDao,
         farmDao.update(farm)
     }
 
+    suspend fun deleteFarm(farm: Farm) {
+        farmDao.delete(farm)
+    }
+
     fun getFarmerWithFarms() = farmerWithFarmDao.getFarmerWithFarm()
 
     companion object{

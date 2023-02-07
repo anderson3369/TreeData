@@ -1,60 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-<FrameLayout
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.farm.FarmFragment">
+    style="@style/AgricultureEditText">
 
     <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <Spinner
             android:id="@+id/farmSpinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:contentDescription="Site Id"/>
+            android:layout_height="wrap_content"
+            android:contentDescription="Site ID"/>
 
-        <EditText
-            android:id="@+id/farmName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:layout_below="@+id/farmSpinner"
-            android:hint="Farm Name"
-            android:inputType="text"/>
-        <EditText
-            android:id="@+id/siteId"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:layout_below="@+id/farmName"
-            android:hint="Site ID"
-            android:inputType="text"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.25"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Farm Name" />
+
+            <EditText
+                android:id="@+id/farmName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter the name of the farm"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Site ID" />
+
+            <EditText
+                android:id="@+id/siteId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter the site id"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp"
+            android:layout_gravity="center">
+
             <Button
                 android:id="@+id/saveFarm"
                 android:layout_width="wrap_content"
-                android:layout_weight="0.50"
-                android:layout_height="match_parent"
-                android:text="Save"/>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="@string/save_button_text" />
 
             <Button
                 android:id="@+id/newFarm"
                 android:layout_width="wrap_content"
-                android:layout_weight="0.50"
-                android:layout_height="match_parent"
-                android:text="New"/>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="@string/new_button_text" />
+
+            <Button
+                android:id="@+id/deleteFarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button_text"/>
         </LinearLayout>
     </LinearLayout>
 
+
 </FrameLayout>
-</layout>

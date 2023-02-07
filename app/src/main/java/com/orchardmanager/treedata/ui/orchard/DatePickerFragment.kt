@@ -25,7 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [DatePickerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment: DialogFragment(), DatePickerDialog.OnDateSetListener {
 
     private var date: LocalDate = LocalDate.now()
 

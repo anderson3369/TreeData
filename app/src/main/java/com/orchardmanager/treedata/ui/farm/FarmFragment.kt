@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
@@ -19,7 +20,7 @@ import com.orchardmanager.treedata.entities.Farm
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FarmFragment : Fragment(), View.OnClickListener,
+class FarmFragment : Fragment(),
     AdapterView.OnItemSelectedListener {
 
     private var _binding: FragmentFarmBinding? = null
@@ -44,21 +45,26 @@ class FarmFragment : Fragment(), View.OnClickListener,
         val vw = binding.root
         
         farmViewModel.getFarmerId().observe(viewLifecycleOwner,  Observer { frmrId ->
-            farmerId = frmrId
-            farmViewModel.get(farmerId).observe(viewLifecycleOwner, Observer {
-                farms -> sites = farms
-                val farmAdapter: ArrayAdapter<Farm> = ArrayAdapter(requireContext(),
-                    R.layout.farm_spinner_layout, R.id.textViewFarmSpinner, sites!!)
-                farmAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
-                //farmSpinner?.adapter = farmAdapter
-                binding.farmSpinner.adapter = farmAdapter
-            })
+            if(frmrId != null) {
+                farmerId = frmrId
+                farmViewModel.get(farmerId).observe(viewLifecycleOwner, Observer {
+                        farms -> sites = farms
+                    val farmAdapter: ArrayAdapter<Farm> = ArrayAdapter(requireContext(),
+                        R.layout.farm_spinner_layout, R.id.textViewFarmSpinner, sites!!)
+                    farmAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+                    //farmSpinner?.adapter = farmAdapter
+                    binding.farmSpinner.adapter = farmAdapter
+                })
+            }
+
         })
         //farmSpinner?.onItemSelectedListener = this
         binding.farmSpinner.onItemSelectedListener = this
 
-        binding.saveFarm.setOnClickListener(this)
-        binding.newFarm.setOnClickListener(this)
+        saveOnClick()
+        newOnClick()
+        deleteOnClick()
+
         return vw
     }
 
@@ -68,16 +74,16 @@ class FarmFragment : Fragment(), View.OnClickListener,
         // TODO: Use the ViewModel
     }
 
-
-    override fun onClick(p0: View?) {
-        if(p0?.id == R.id.saveFarm) {
-            if(farm != null && farm?.id != null) {
+    private fun saveOnClick() {
+        binding?.saveFarm?.setOnClickListener(View.OnClickListener {
+            if(farm != null && farm?.id!! > 0L) {
                 val fm = farm!!.copy(
                     name = binding.farmName.text.toString(),
                     siteId = binding.farmName.text.toString()
                 )
-                farmViewModel.update(farm!!)
+                farmViewModel.update(fm!!)
                 setFragmentResult("requestKey", bundleOf("farmId" to farm?.id))
+                Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
             } else {
                 Log.i("FarmFragment", "sites size = " + sites?.count())
                 val farm = Farm (
@@ -85,22 +91,35 @@ class FarmFragment : Fragment(), View.OnClickListener,
                     name = binding.farmName.text.toString(),
                     siteId = binding.siteId.text.toString()
                 )
-                farmViewModel.add(farm).observe(this, Observer {
-                    id ->
+                farmViewModel.add(farm).observe(viewLifecycleOwner, Observer {
+                        id ->
                     Log.i("FarmFragment",
                         "the id..." + id.toString() + "the farmerId..." + farmerId.toString())
                     setFragmentResult("requestKey", bundleOf("farmId" to farm?.id))
+                    Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
                 })
             }
-        } else if(p0?.id == R.id.newFarm) {
+        })
+    }
+
+    private fun newOnClick() {
+        binding?.newFarm?.setOnClickListener(View.OnClickListener {
             farm = null
             binding.farmName.setText("")
             binding.siteId.setText("")
-        }
+        })
+    }
+
+    private fun deleteOnClick() {
+        binding?.deleteFarm?.setOnClickListener(View.OnClickListener {
+            if(farm != null && farm?.id!! > 0L) {
+                farmViewModel.delete(farm!!)
+            }
+        })
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val frm = p0?.getItemAtPosition(p2)
+        val frm = p0?.adapter?.getItem(p2)
         if(frm != null && frm is Farm) {
             farm = frm
             binding.farmName.setText(frm.name)

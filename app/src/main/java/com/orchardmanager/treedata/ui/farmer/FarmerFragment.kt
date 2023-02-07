@@ -1,17 +1,14 @@
 package com.orchardmanager.treedata.ui.farmer
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.databinding.FragmentFarmerBinding
 import com.orchardmanager.treedata.entities.Farmer
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +24,6 @@ class FarmerFragment : Fragment(), View.OnClickListener {
     companion object {
         fun newInstance() = FarmerFragment()
     }
-
-    //private lateinit var viewModel: FarmerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +70,7 @@ class FarmerFragment : Fragment(), View.OnClickListener {
                 email = binding.email?.text.toString()
             )
             farmerViewModel.update(updFarmer!!)
+            Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
         } else {
             farmer = Farmer(
                 name = binding.name?.text.toString(),
@@ -86,8 +82,8 @@ class FarmerFragment : Fragment(), View.OnClickListener {
                 email = binding.email?.text.toString()
             )
             farmerViewModel.add(farmer!!).observe(this, Observer { farmerId ->
-                Log.i("FarmerFragment", "the ID...$farmerId")
-                //farmerViewModel.getFarmerId().value = farmerId
+                Log.i("FarmerFragment", "the farmer ID...$farmerId")
+                Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
             })
         }
     }

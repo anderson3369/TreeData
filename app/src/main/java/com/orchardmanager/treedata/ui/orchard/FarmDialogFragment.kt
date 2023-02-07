@@ -34,11 +34,6 @@ class FarmDialogFragment constructor(val farms: MutableList<Farm>) : DialogFragm
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             builder.setTitle("Select a Farm")
-            val farm1 = Farm(
-                    farmerId = 10L,
-                    name = "Ranch",
-                    siteId = "1A"
-            )
 
             val adapter = ArrayAdapter(requireContext(),R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, farms)
@@ -46,14 +41,14 @@ class FarmDialogFragment constructor(val farms: MutableList<Farm>) : DialogFragm
 
             builder.setSingleChoiceItems(adapter, pos, DialogInterface.OnClickListener {
                     dialog, id ->
-                farmId = farms.get(pos).id
+                farmId = farms.get(id).id
                 setFragmentResult("requestKey", bundleOf("farmId" to farmId))
             })
-            builder.setPositiveButton(R.string.select_farm, DialogInterface.OnClickListener { dialog, pos ->
-                if(farmId == 0L) {
-                    builder.setMessage("Please Select a Farm")
-                }
-            })
+            //builder.setPositiveButton(R.string.select_farm, DialogInterface.OnClickListener { dialog, pos ->
+            //    if(farmId == 0L) {
+            //        builder.setMessage("Please Select a Farm")
+            //    }
+            //})
             builder.create()
         }!!
     }

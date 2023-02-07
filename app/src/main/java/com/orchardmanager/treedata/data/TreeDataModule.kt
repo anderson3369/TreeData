@@ -17,9 +17,8 @@ class TreeDataModule {
 
     @Provides
     @Singleton
-    //@Named("orchardDatabase")
     fun provideOrchardDatabase(@ApplicationContext context: Context) : OrchardDatabase {
-
+        OrchardDatabase.buildDatabase(context)
         return OrchardDatabase.getInstance(context)
     }
 
@@ -56,6 +55,16 @@ class TreeDataModule {
     @Provides
     fun provideOrchardWithTreesDao(orchardDatabase: OrchardDatabase): OrchardWithTreesDao {
         return orchardDatabase.orchardWithTreesDao()
+    }
+
+    @Provides
+    fun provideRootstock(orchardDatabase: OrchardDatabase): RootstockDao {
+        return orchardDatabase.rootstockDao()
+    }
+
+    @Provides
+    fun provideVariety(orchardDatabase: OrchardDatabase): VarietyDao {
+        return orchardDatabase.varietyDao()
     }
 
 

@@ -13,14 +13,13 @@ import javax.inject.Inject
 @HiltViewModel
 class FarmerViewModel @Inject constructor(val farmerRepository: FarmerRepository): ViewModel() {
 
-    fun add(farmer:Farmer) = liveData {
-        emit("inserting farmer...")
+    fun add(farmer:Farmer) = liveData<Long> {
         try {
             val id = farmerRepository.createFarmer(farmer)
-            Log.i("FarmerViewModel", "the ID " + id.toString())
+            emit(id)
         } catch (e: Exception) {
             e.printStackTrace()
-            emit(e.message)
+            emit(-1000L)
         }
     }
 

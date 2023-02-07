@@ -1,26 +1,22 @@
 package com.orchardmanager.treedata.ui.orchard
 
-import android.app.DatePickerDialog
-import android.app.ProgressDialog.show
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.DatePicker
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
 import com.orchardmanager.treedata.databinding.FragmentOrchardBinding
 import com.orchardmanager.treedata.entities.Farm
-import com.orchardmanager.treedata.entities.FarmWithOrchards
 import com.orchardmanager.treedata.entities.Orchard
 import com.orchardmanager.treedata.ui.farm.FarmViewModel
+import com.orchardmanager.treedata.ui.trees.FarmWithOrchardAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class OrchardFragment : Fragment(), View.OnClickListener,
@@ -29,7 +25,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     private var _binding: FragmentOrchardBinding? = null
     private val binding get() = _binding
     private var farmId: Long = -1L
-    private var orchards: MutableList<Orchard>? = null
+    //private var orchards: MutableList<Orchard>? = null
     private var farms: MutableList<Farm>? = null
     private var orchard: Orchard? = null
 
@@ -49,22 +45,40 @@ class OrchardFragment : Fragment(), View.OnClickListener,
 
         farmViewModel.getFarmerWithFarm().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             farmerWithFarm ->
-            if(farmerWithFarm != null && !farmerWithFarm.isEmpty()) {
-                this.farms = farmerWithFarm.get(0).farms
+            if(farmerWithFarm != null) {
+                if(farmerWithFarm != null && !farmerWithFarm.isEmpty()) {
+                    this.farms = farmerWithFarm.get(0).farms
+                }
             }
         })
-        orchardViewModel.getAllOrchards().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            orchards -> this.orchards = orchards
-            val orchardAdapter: ArrayAdapter<Orchard> = ArrayAdapter(requireActivity().applicationContext,
-            R.layout.farm_spinner_layout, R.id.textViewFarmSpinner, this.orchards!!)
-            orchardAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
-            binding?.orchardSpinner?.adapter = orchardAdapter
+
+        val headerView = layoutInflater.inflate(R.layout.orchard_child_textview, container, false)
+        binding?.farmWithOrchardListView?.addHeaderView(headerView)
+        orchardViewModel.getFarmWithOrchards().observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            farmWithOrchards ->
+            //this.orchards = orchards
+            val adapter = FarmWithOrchardAdapter(requireActivity(), farmWithOrchards)
+            binding?.farmWithOrchardListView?.setAdapter(adapter)
         })
-        binding?.orchardSpinner?.onItemSelectedListener = this
+
+        binding?.farmWithOrchardListView?.onItemSelectedListener = this
+
         binding?.showPlantedDate?.setOnClickListener(View.OnClickListener {
             DatePickerFragment().show(childFragmentManager, "Planted Date")
         })
         binding?.saveOrchard?.setOnClickListener(this)
+
+        binding?.newOrchard?.setOnClickListener(View.OnClickListener {
+            this.orchard = null
+            binding?.crop?.setText("")
+            binding?.plantedDate?.setText("")
+        })
+
+        binding?.deleteOrchard?.setOnClickListener(View.OnClickListener {
+            if(orchard != null) {
+                orchardViewModel.delete(orchard!!)
+            }
+        })
 
         return vw
     }
@@ -93,7 +107,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         if(p0?.id == R.id.saveOrchard) {
             //save
             //val dc: DateConverter? = DateConverter()
-            if(orchard != null && (orchard?.id != null && orchard?.id!! > -1L)) {
+            if(orchard != null && (orchard?.id != null && orchard?.id!! > 0L)) {
                 val orchard2 = DateConverter().toOffsetDate(
                         binding?.plantedDate?.text.toString())?.let {
                         orchard?.copy(
@@ -102,8 +116,8 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                             plantedDate = it
                         )
                     }
-
                 orchardViewModel.update(orchard2!!)
+                Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
             } else {
                 orchard = DateConverter().toOffsetDate(binding?.plantedDate?.text.toString())?.let {
                     Orchard(
@@ -114,6 +128,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                 }
                 orchardViewModel.add(orchard!!).observe(this, androidx.lifecycle.Observer {
                     id -> Log.i("OrchardFragment", "the orchard id is..." + id.toString())
+                    Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
                 })
 
             }
@@ -121,9 +136,14 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        val orch = p0?.getItemAtPosition(p2)
-        if(orch != null && orch is Orchard) {
-            this.orchard = orch
+        val obj = p0?.adapter?.getItem(p2)
+        //val obj = p0?.getItemAtPosition(p2)
+        if(obj != null) {
+            if(obj is Farm) {
+                this.farmId = obj.id
+            } else if(obj is Orchard) {
+                this.orchard = obj
+            }
         }
     }
 

@@ -38,6 +38,8 @@ abstract class OrchardDatabase : RoomDatabase() {
     abstract fun farmerWithFarmDao(): FarmerWithFarmDao
     abstract fun treeDao(): TreeDao
     abstract fun orchardWithTreesDao(): OrchardWithTreesDao
+    abstract fun rootstockDao(): RootstockDao
+    abstract fun varietyDao(): VarietyDao
 
     //@DeleteTable.Entries(DeleteTable(tableName = "Tree"))
     //class ODBAutoMigration: AutoMigrationSpec
@@ -51,23 +53,12 @@ abstract class OrchardDatabase : RoomDatabase() {
             }
         }
 
-        private fun buildDatabase(context: Context): OrchardDatabase {
+        fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
-                .addCallback(
-                    object : RoomDatabase.Callback() {
-                        override fun onCreate(db: SupportSQLiteDatabase) {
-                            super.onCreate(db)
-                            //val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>()
-                            //    .setInputData(workDataOf(KEY_FILENAME, ))
-                        }
-                    }
-                )
-                //.fallbackToDestructiveMigration()
-            .build()
+                .fallbackToDestructiveMigration()
+                .build()
         }
 
-
     }
-
 
 }

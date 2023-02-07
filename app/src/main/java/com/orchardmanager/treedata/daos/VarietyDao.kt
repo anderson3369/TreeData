@@ -2,11 +2,12 @@ package com.orchardmanager.treedata.daos
 
 import androidx.room.*
 import com.orchardmanager.treedata.entities.Variety
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VarietyDao {
     @Insert
-    fun insert(variety: Variety)
+    suspend fun insert(variety: Variety): Long
 
     @Update
     fun update(variety: Variety)
@@ -15,5 +16,5 @@ interface VarietyDao {
     fun delete(variety: Variety)
 
     @Query("SELECT * FROM Variety")
-    fun getVarieties(): List<Variety>
+    fun getVarieties(): Flow<MutableList<Variety>>
 }

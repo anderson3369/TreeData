@@ -14,20 +14,25 @@ import javax.inject.Inject
 class OrchardViewModel @Inject constructor(
     private val orchardRepository: OrchardRepository): ViewModel() {
 
-    fun add(orchard: Orchard) = liveData {
-        emit("inserting orchard...")
+    fun add(orchard: Orchard) = liveData<Long> {
         try {
             val id = orchardRepository.createOrchard(orchard)
-            Log.i("OrchardViewModel", "orchard id..." + id.toString())
+            emit(id)
         } catch(e: Exception) {
             e.printStackTrace()
-            emit(e.message)
+            emit(-1000L)
         }
     }
 
     fun update(orchard: Orchard) {
         viewModelScope.launch(Dispatchers.IO) {
             orchardRepository.updateOrchard(orchard)
+        }
+    }
+
+    fun delete(orchard: Orchard) {
+        viewModelScope.launch(Dispatchers.IO) {
+            orchardRepository.deleteOrchard(orchard)
         }
     }
 

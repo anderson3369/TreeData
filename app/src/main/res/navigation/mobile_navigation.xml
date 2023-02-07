@@ -10,19 +10,7 @@
         android:name="com.orchardmanager.treedata.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-<!--
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.orchardmanager.treedata.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
 
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.orchardmanager.treedata.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
--->
     <fragment
         android:id="@+id/nav_farmer"
         android:name="com.orchardmanager.treedata.ui.farmer.FarmerFragment"
@@ -34,12 +22,26 @@
         android:name="com.orchardmanager.treedata.ui.farm.FarmFragment"
         android:label="Farm"
         tools:layout="@layout/fragment_farm"/>
-    <dialog
-        android:id="@+id/nav_farm_to_orchard"/>
 
     <fragment
         android:id="@+id/nav_orchard"
         android:name="com.orchardmanager.treedata.ui.orchard.OrchardFragment"
         android:label="Orchard"
-        tools:layout="@layout/fragment_orchard"/>
+        tools:layout="@layout/fragment_orchard1"/>
+
+    <fragment
+        android:id="@+id/nav_tree"
+        android:name="com.orchardmanager.treedata.ui.trees.TreeFragment"
+        android:label="Tree"
+        tools:layout="@layout/fragment_tree">
+        <action
+            android:id="@+id/action_nav_tree_to_nav_rootstock"
+            app:destination="@id/nav_rootstock" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_rootstock"
+        android:name="com.orchardmanager.treedata.ui.trees.RootstockFragment"
+        android:label="Rootstock"
+        tools:layout="@layout/fragment_rootstock"/>
+
 </navigation>
