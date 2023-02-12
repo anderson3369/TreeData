@@ -27,7 +27,7 @@
         android:id="@+id/nav_orchard"
         android:name="com.orchardmanager.treedata.ui.orchard.OrchardFragment"
         android:label="Orchard"
-        tools:layout="@layout/fragment_orchard1"/>
+        tools:layout="@layout/fragment_orchard"/>
 
     <fragment
         android:id="@+id/nav_tree"
@@ -37,11 +37,19 @@
         <action
             android:id="@+id/action_nav_tree_to_nav_rootstock"
             app:destination="@id/nav_rootstock" />
+        <action
+            android:id="@+id/action_nav_tree_to_nav_variety"
+            app:destination="@+id/nav_variety"/>
     </fragment>
     <fragment
         android:id="@+id/nav_rootstock"
         android:name="com.orchardmanager.treedata.ui.trees.RootstockFragment"
         android:label="Rootstock"
         tools:layout="@layout/fragment_rootstock"/>
+    <fragment
+        android:id="@+id/nav_variety"
+        android:name="com.orchardmanager.treedata.ui.trees.VarietyFragment"
+        android:label="Variety"
+        tools:layout="@layout/fragment_variety"/>
 
 </navigation>

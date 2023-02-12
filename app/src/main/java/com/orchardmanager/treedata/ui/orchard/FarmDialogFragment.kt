@@ -44,11 +44,15 @@ class FarmDialogFragment constructor(val farms: MutableList<Farm>) : DialogFragm
                 farmId = farms.get(id).id
                 setFragmentResult("requestKey", bundleOf("farmId" to farmId))
             })
-            //builder.setPositiveButton(R.string.select_farm, DialogInterface.OnClickListener { dialog, pos ->
-            //    if(farmId == 0L) {
-            //        builder.setMessage("Please Select a Farm")
-            //    }
-            //})
+            builder.setPositiveButton("Close", DialogInterface.OnClickListener { dialog, pos ->
+                if(farmId == 0L) {
+                    builder.setMessage("Please select a farm")
+                } else {
+                    dismiss()
+                }
+
+            })
+            setStyle(DialogFragment.STYLE_NORMAL, R.style.AgricultureEditText)
             builder.create()
         }!!
     }

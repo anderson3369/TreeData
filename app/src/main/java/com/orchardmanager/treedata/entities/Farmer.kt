@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 /*
 Technically you could have multiple Farmers
-managing multiple locations, but for version 1
+managing multiple locations, but for now
 we don't
  */
 @Entity

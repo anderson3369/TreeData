@@ -1,59 +1,51 @@
 package com.orchardmanager.treedata.ui.trees
 
 import android.Manifest
-import android.app.ProgressDialog.show
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.GnssCapabilities
-import android.location.GnssStatus
-import android.location.GnssStatus.Callback
-import android.location.Location
-import android.location.LocationManager
+import android.location.*
 import android.location.provider.ProviderProperties
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions.Companion
-import androidx.activity.result.registerForActivityResult
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
-import com.orchardmanager.treedata.databinding.FragmentOrchardBinding
 import com.orchardmanager.treedata.databinding.FragmentTreeBinding
-import com.orchardmanager.treedata.entities.Farm
-import com.orchardmanager.treedata.entities.Orchard
-import com.orchardmanager.treedata.entities.Tree
+import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.ui.orchard.DatePickerFragment
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
+import java.util.function.Consumer
 
 private const val REQUEST_CODE = 100
 
 @AndroidEntryPoint
-class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClickListener {
+class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
+    View.OnClickListener, LocationListener {
 
     private var _binding: FragmentTreeBinding? = null
     private val binding get() = _binding
     private var orchardId: Long = -1L
-    private var locationManager: LocationManager? = null
-    private var providerProperties: ProviderProperties? = null
-    private var gnssCapabilities: GnssCapabilities? = null
-    private var location: Location? = null
+    internal var location: Location? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var tree: Tree? = null
     private var rootstockId: Long = 0L
     private var varietyId: Long = 0L
+    //val locationPermissionRequest: ActivityResultLauncher = null
 
     companion object {
         fun newInstance() = TreeFragment()
@@ -66,16 +58,39 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        locationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        providerProperties = locationManager?.getProviderProperties(LocationManager.GPS_PROVIDER)
-        gnssCapabilities = locationManager?.gnssCapabilities
+
 
         _binding = FragmentTreeBinding.inflate(inflater, container, false)
         val vw = binding?.root
+
         orchardViewModel.getFarmWithOrchards().observe(viewLifecycleOwner, Observer {
             farmWithOrchards ->
-            val adapter = FarmWithOrchardAdapter(requireActivity(), farmWithOrchards)
-            binding?.farmWithOrchardListView?.setAdapter(adapter)
+            //if(farmWithOrchards != null) {
+                val list = createFarmWithOrchardsIO(farmWithOrchards)
+                val adapter = ArrayAdapter<FarmWithOrchardsID>(requireContext(), R.layout.farm_spinner_layout,
+                R.id.textViewFarmSpinner, list)
+                adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+                binding?.farmWithOrchardsSpinner?.adapter = adapter
+           // }
+            //val adapter = FarmWithOrchardAdapter(requireActivity(), farmWithOrchards)
+            //binding?.farmWithOrchardListView?.setAdapter(adapter)
+        })
+
+        treeViewModel?.getAllRootstocks()?.observe(viewLifecycleOwner, Observer {
+            rootstocks ->
+            val adapter = ArrayAdapter<Rootstock>(requireContext(), R.layout.farm_spinner_layout,
+            R.id.textViewFarmSpinner, rootstocks)
+            adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+            binding?.rootstockSpinner?.adapter = adapter
+            binding?.rootstockSpinner?.onItemSelectedListener = this
+        })
+
+        treeViewModel?.getAllVarieties()?.observe(viewLifecycleOwner, Observer {
+            varieties ->
+            val adapter = ArrayAdapter<Variety>(requireContext(), R.layout.farm_spinner_layout,
+            R.id.textViewFarmSpinner, varieties)
+            adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+            binding?.varietySpinner?.adapter = adapter
         })
 
         binding?.showTreePlantedDate?.setOnClickListener(View.OnClickListener {
@@ -83,59 +98,86 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
         })
         binding?.saveTree?.setOnClickListener(this)
 
-        if (ActivityCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            val locationPermissionRequest = registerForActivityResult(
-                ActivityResultContracts.RequestMultiplePermissions()
-            ) { permissions ->
-                when {
-                    permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                        // Precise location access granted.
-                        Log.i("TreeFragment", "Precise location granted")
-                    }
-                    permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                        // Only approximate location access granted.
-                        Log.i("TreeFragment", "Coarse location granted")
-                    } else -> {
-                    // No location access granted.
+        markTree()
+        addRootstock()
+        addVariety()
 
-                    }
-                }
-            }
-            locationPermissionRequest.launch(
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION))
-            //locationManager?.registerGnssStatusCallback(ThreadPerTaskExecutor(), GnssCallback())
-        }
+        return vw
+    }
 
+    private fun addRootstock() {
         binding?.addRootstock?.setOnClickListener(View.OnClickListener {
-           val action = TreeFragmentDirections.actionNavTreeToNavRootstock()
+            val action = TreeFragmentDirections.actionNavTreeToNavRootstock()
             view?.findNavController()?.navigate(action)
         })
+    }
 
-        binding?.markTree?.setOnClickListener(View.OnClickListener {
-            if(providerProperties?.accuracy == ProviderProperties.ACCURACY_FINE
-                && gnssCapabilities?.hasMeasurements() == true) {
-                location = locationManager?.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if(location != null) {
-                    val accuracy = location?.accuracy
-                    Log.i("TreeFragment", "accuracy in meters " + accuracy.toString())
-                    latitude = location?.latitude!!
-                    longitude = location?.longitude!!
-                }
-            }
+    private fun addVariety() {
+        binding?.addVariety?.setOnClickListener(View.OnClickListener {
+            val action = TreeFragmentDirections.actionNavTreeToNavVariety()
+            view?.findNavController()?.navigate(action)
         })
-        return vw
+    }
+
+    private fun markTree() {
+
+        val locationManager:LocationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        if(locationManager?.hasProvider(LocationManager.GPS_PROVIDER) == true) {
+            val providerProperties: ProviderProperties = locationManager.getProviderProperties(LocationManager.GPS_PROVIDER)!!
+            val locationRequest = LocationRequest.Builder(60000L).build()
+
+            val gnssCapabilities = locationManager?.gnssCapabilities
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                val locationPermissionRequest = registerForActivityResult(
+                    ActivityResultContracts.RequestMultiplePermissions()
+                ) { permissions ->
+                    when {
+                        permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                            // Precise location access granted.
+                            Log.i("TreeFragment", "Precise location granted")
+                            locationManager?.registerGnssStatusCallback(ThreadPerTaskExecutor(), GnssCallback())
+                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                                locationRequest, ThreadPerTaskExecutor(), this)
+                        }
+                        permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                            // Only approximate location access granted.
+                            Log.i("TreeFragment", "Coarse location granted")
+                        } else -> {
+
+                        }
+                    }
+                }
+                locationPermissionRequest.launch(
+                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION))
+
+            } else {
+                locationManager?.registerGnssStatusCallback(ThreadPerTaskExecutor(), GnssCallback())
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    locationRequest, ThreadPerTaskExecutor(), this)
+            }
+
+            binding?.markTree?.setOnClickListener(View.OnClickListener {
+                if(providerProperties?.accuracy == ProviderProperties.ACCURACY_FINE
+                    && gnssCapabilities?.hasMeasurements() == true) {
+                    //locationManager?.registerGnssStatusCallback(ThreadPerTaskExecutor(), GnssCallback())
+                    //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                     //   locationRequest, ThreadPerTaskExecutor(), this)
+
+                    if(location != null) {
+                       val accuracy = location?.accuracy
+                       Log.i("TreeFragment", "accuracy in meters " + accuracy.toString())
+                       latitude = location?.latitude!!
+                       longitude = location?.longitude!!
+                    }
+                }
+            })
+        }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,6 +187,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
         }
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         //viewModel = ViewModelProvider(this).get(TreeViewModel::class.java)
@@ -152,20 +195,50 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val obj = parent?.getItemAtPosition(position)
-        if(obj != null) {
-            if(obj is Farm) {
-                //alert dialog please select a orchard
-            } else if(obj is Orchard) {
-                orchardId = obj.id
+        val obj = parent?.adapter?.getItem(position)
+        if(obj is FarmWithOrchardsID) {
+            val sid = obj.id
+            if(!sid.isEmpty()) {
+                val sList = sid.split(":", ignoreCase = true,limit = 2)
+                try {
+                    val oid = sList.get(1)
+                    this.orchardId = oid.toLong()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
+
+        //if(obj != null) {
+        //    if(obj is Farm) {
+        //        //alert dialog please select a orchard
+        //    } else if(obj is Orchard) {
+        //        orchardId = obj.id
+        //    }
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        if(parent?.getItemAtPosition(0) != null) {
-            binding?.farmWithOrchardListView?.expandGroup(0)
+
+    }
+
+    private fun createFarmWithOrchardsIO(farmWithOrchards: MutableList<FarmWithOrchards>): MutableList<FarmWithOrchardsID> {
+        val list = mutableListOf<FarmWithOrchardsID>()
+        val farmWithOrchardsIterator = farmWithOrchards.iterator()
+        while (farmWithOrchardsIterator.hasNext()) {
+            val farmWithOrchard = farmWithOrchardsIterator.next()
+            //val fid = farmWithOrchard.farm.id
+            val orchards = farmWithOrchard.orchards
+            val orchardsIterator = orchards.iterator()
+            while (orchardsIterator.hasNext()) {
+                val orchard = orchardsIterator.next()
+                val fwo = FarmWithOrchardsID(
+                    id = farmWithOrchard.farm.id.toString()+":"+orchard.id.toString(),
+                    name = farmWithOrchard.farm.siteId + " - " + orchard.crop
+                )
+                list.add(fwo)
+            }
         }
+        return list
     }
 
     inner class ThreadPerTaskExecutor: Executor {
@@ -181,8 +254,16 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
         }
     }
 
-    override fun onClick(v: View?) {
-        if(tree != null && (tree?.id != null && tree?.id!! > 0L)) {
+
+
+    inner class LocationConsumer: Consumer<Location> {
+        override fun accept(t: Location) {
+            location = t
+        }
+    }
+
+    private fun saveTree() {
+        if(tree != null && tree?.id!! > 0L) {
             //update
             val plantDate = binding?.treePlantedDate?.text.toString()
             val date = DateConverter().toOffsetDate(plantDate)
@@ -207,10 +288,18 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener, View.OnClic
                 longitude = longitude
             )
             treeViewModel.add(tree!!).observe(this, Observer {
-                id ->
+                    id ->
                 Log.i("TreeFragment", "the tree saved " + id.toString())
             })
         }
+    }
+
+    override fun onClick(v: View?) {
+        saveTree()
+    }
+
+    override fun onLocationChanged(location: Location) {
+        this.location = location
     }
 
 }

@@ -9,4 +9,8 @@ data class Variety(
     val id: Long = 0L,
     val name: String,
     val cultivar: String
-)
+) {
+    override fun toString(): String {
+        return name
+    }
+}

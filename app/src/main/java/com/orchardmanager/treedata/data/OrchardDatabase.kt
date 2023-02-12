@@ -55,7 +55,7 @@ abstract class OrchardDatabase : RoomDatabase() {
 
         fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
+                //.fallbackToDestructiveMigrationFrom(1,2,3)
                 .build()
         }
 

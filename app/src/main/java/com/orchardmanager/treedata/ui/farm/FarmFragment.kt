@@ -75,7 +75,7 @@ class FarmFragment : Fragment(),
     }
 
     private fun saveOnClick() {
-        binding?.saveFarm?.setOnClickListener(View.OnClickListener {
+        binding.saveFarm?.setOnClickListener(View.OnClickListener {
             if(farm != null && farm?.id!! > 0L) {
                 val fm = farm!!.copy(
                     name = binding.farmName.text.toString(),
