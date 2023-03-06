@@ -11,9 +11,12 @@ import java.time.LocalDateTime
 @TypeConverters(DateConverter::class)
 data class Irrigation(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="rowid")
-    val id: Long,
+    val id: Long = 0L,
     val irrigationSystemId: Long,
     val startTime: LocalDateTime,
-    val endTime: LocalDateTime
-)
+    val stopTime: LocalDateTime
+) {
+    override fun toString(): String {
+        return DateConverter().fromOffsetDateTime(startTime)!!
+    }
+}

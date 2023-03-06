@@ -1,14 +1,9 @@
 package com.orchardmanager.treedata.data
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
-import androidx.room.DeleteTable
-import androidx.room.RenameColumn
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.AutoMigrationSpec
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.orchardmanager.treedata.daos.*
 import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.utils.DATABASE_NAME
@@ -16,8 +11,8 @@ import com.orchardmanager.treedata.utils.DATABASE_NAME
 @Database(entities = [
     Disease::class, Orchard::class, Farm::class, Farmer::class,
     FertilizerApplication::class, PesticideApplication::class,
-    Pump::class, Rootstock::class, Soil::class, SoilTest::class,
-    Spacing::class, Tree::class, Variety::class, IrrigationSystem::class,
+    Pump::class, Rootstock::class,  SoilTest::class,
+    Tree::class, Variety::class, IrrigationSystem::class,
     Irrigation::class, Fertilizer::class,
                      ],
     version = 3,
@@ -40,6 +35,12 @@ abstract class OrchardDatabase : RoomDatabase() {
     abstract fun orchardWithTreesDao(): OrchardWithTreesDao
     abstract fun rootstockDao(): RootstockDao
     abstract fun varietyDao(): VarietyDao
+    abstract fun irrigationDao(): IrrigationDao
+    abstract fun irrigationSystemDao(): IrrigationSystemDao
+    abstract fun irrigationSystemWithIrrigationsDao(): IrrigationSystemWithIrrigationsDao
+    abstract fun pumpWithIrrigationSystemDao(): PumpWithIrrigationSystemDao
+    abstract fun pumpDao(): PumpDao
+    abstract fun orchardAndIrrigationSystemDao(): OrcahardAndIrrigationSystemDao
 
     //@DeleteTable.Entries(DeleteTable(tableName = "Tree"))
     //class ODBAutoMigration: AutoMigrationSpec
@@ -55,7 +56,7 @@ abstract class OrchardDatabase : RoomDatabase() {
 
         fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
-                //.fallbackToDestructiveMigrationFrom(1,2,3)
+                .fallbackToDestructiveMigration()
                 .build()
         }
 

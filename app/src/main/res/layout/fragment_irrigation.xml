@@ -4,23 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/AgricultureEditText"
-    tools:context=".ui.trees.TreeFragment">
-
+    tools:context=".ui.irrigation.IrrigationFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:orientation="vertical">
-        <Spinner
-            android:id="@+id/farmWithOrchardsSpinner"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
-    <!--    <ExpandableListView
-            android:id="@+id/farmWithOrchardListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </ExpandableListView>
-       -->
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Select a Past Irrigation"/>
+        <Spinner
+            android:id="@+id/irrigations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Select an Irrigation System"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/irrigationSystemWithIrrigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/addIrrigationSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_baseline_add_24"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,19 +50,19 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Planted Date"/>
+                android:text="Start Date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/treePlantedDate"
+                    android:id="@+id/irrigationStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="mm-dd-yyyy"
                     android:inputType="date"/>
                 <Button
-                    android:id="@+id/showTreePlantedDate"
+                    android:id="@+id/irrigationStartDateCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -58,22 +78,23 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Select a rootstock"/>
+                android:text="Start Time"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Spinner
-                    android:id="@+id/rootstockSpinner"
+                <EditText
+                    android:id="@+id/irrigationStartTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Rootstock"/>
+                    android:hint="00:00"
+                    android:inputType="time"/>
                 <Button
-                    android:id="@+id/addRootstock"
+                    android:id="@+id/irrigationStartTimeClock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                    android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -85,48 +106,74 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Select a variety"/>
+                android:text="Stop Date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <Spinner
-                    android:id="@+id/varietySpinner"
+                <EditText
+                    android:id="@+id/irrigationStopDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="Variety"/>
+                    android:hint="mm-dd-yyyy"
+                    android:inputType="date"/>
                 <Button
-                    android:id="@+id/addVariety"
+                    android:id="@+id/irrigationStopDateCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
         </LinearLayout>
-        <Button
-            android:id="@+id/markTree"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mark a Tree"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Stop Time"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/irrigationStopTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="00:00"
+                    android:inputType="time"/>
+                <Button
+                    android:id="@+id/irrigationStopTimeClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/saveTree"
+                android:id="@+id/saveIrrigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="Save"/>
+                android:layout_marginRight="20dp"
+                android:text="@string/save_button_text"/>
             <Button
-                android:id="@+id/newTree"
+                android:id="@+id/newIrrigation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/new_button_text"/>
-
+            <Button
+                android:id="@+id/deleteIrrigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_button_text"/>
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

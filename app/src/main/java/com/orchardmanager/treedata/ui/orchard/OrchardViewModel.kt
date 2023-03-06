@@ -5,10 +5,13 @@ import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.FarmWithOrchards
 import com.orchardmanager.treedata.entities.Orchard
 import com.orchardmanager.treedata.repositories.OrchardRepository
+import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.LinkedHashMap
 
 @HiltViewModel
 class OrchardViewModel @Inject constructor(
@@ -20,7 +23,7 @@ class OrchardViewModel @Inject constructor(
             emit(id)
         } catch(e: Exception) {
             e.printStackTrace()
-            emit(-1000L)
+            emit(SAVE_FAILED)
         }
     }
 
@@ -46,5 +49,9 @@ class OrchardViewModel @Inject constructor(
 
     fun getFarmWithOrchards(): LiveData<MutableList<FarmWithOrchards>> {
         return orchardRepository.getFarmWithOrchards().asLiveData()
+    }
+
+    fun getFarmWithOrchardsMap(): LiveData<Map<Long, String>> {
+        return orchardRepository.getFarmWithOrchardsMap().asLiveData()
     }
 }

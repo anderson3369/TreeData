@@ -7,4 +7,8 @@ enum class RootstockType(val type: String) {
     override fun toString(): String {
         return type
     }
+
+    companion object {
+        fun from(search: String): RootstockType =  requireNotNull(RootstockType.values().find { it.type == search }) { "No RootstockType with value $search" }
+    }
 }

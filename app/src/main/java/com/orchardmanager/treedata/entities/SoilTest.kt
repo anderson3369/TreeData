@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.orchardmanager.treedata.data.DateConverter
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Entity
@@ -12,8 +13,7 @@ data class SoilTest(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     val orchardId: Long,
-    //A & L Western Laboratory
-    val testDate: LocalDateTime,
+    val testDate: LocalDate,
     val nitrate: Double,
     val nitrateUnit: SoilUnit,
     val phosphorousBray: Double,

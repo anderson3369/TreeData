@@ -3,12 +3,12 @@ package com.orchardmanager.treedata.entities
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class OrchardAndSpacing(
+data class PumpsWithIrrigationSystem(
     @Embedded
-    val orchard: Orchard,
+    val pump: Pump,
     @Relation(
         parentColumn = "id",
-        entityColumn = "spacingId"
+        entityColumn = "pumpId"
     )
-    val spacing: Spacing
+    val pumps: MutableList<IrrigationSystem>
 )

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText">
+    style="@style/AgricultureEditText"
+    tools:context=".ui.irrigation.IrrigationSystemFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Farm"/>
+            android:text="Select an Irrigation System"/>
         <Spinner
-            android:id="@+id/farms"
+            android:id ="@+id/irrigationSystems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <View
@@ -27,9 +29,64 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Existing Orchard"/>
+            android:text="Select an Orchard"/>
         <Spinner
-            android:id="@+id/orchardSpinner"
+            android:id="@+id/irrigationSystemOrchard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Select a Pump"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/pumps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/addPump"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_baseline_add_24"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/field_name"/>
+        <EditText
+            android:id="@+id/irrigationSystemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Primary, secondary, Surface, Well, etc."
+            android:inputType="text"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="Irrigation Method"/>
+        <Spinner
+            android:id="@+id/irrigationMethod"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <View
@@ -37,55 +94,6 @@
             android:layout_height="1dp"
             android:background="@android:color/darker_gray"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Crop"/>
-            <EditText
-                android:id="@+id/crop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter a crop"
-                android:inputType="text"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Planted Date"/>
-                <EditText
-                    android:id="@+id/plantedDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
-                    android:inputType="date"/>
-            </LinearLayout>
-            <Button
-                android:id="@+id/showPlantedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -98,13 +106,13 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Row Width                     "/>
+                    android:text="Emitter Flow Rate"/>
                 <EditText
-                    android:id="@+id/rowWidth"
-                    android:layout_width="100dp"
+                    android:id="@+id/emitterFlowRate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="00.0"
-                    android:inputType="numberDecimal"/>
+                    android:hint="15"
+                    android:inputType="number"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -115,11 +123,11 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select the Unit"/>
+                    android:text="Select a Unit"/>
                 <Spinner
-                    android:id="@+id/rowWidthUnit"
+                    android:id="@+id/emitterFlowRateUnit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <View
@@ -139,12 +147,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Distance Between Trees"/>
+                    android:text="Emitter Radius"/>
                 <EditText
-                    android:id="@+id/distanceBetweenTrees"
-                    android:layout_width="100dp"
+                    android:id="@+id/emitterRadius"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="00.0"
+                    android:hint="12"
                     android:inputType="numberDecimal"/>
             </LinearLayout>
             <LinearLayout
@@ -156,11 +164,11 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select the Unit"/>
+                    android:text="Select a Unit"/>
                 <Spinner
-                    android:id="@+id/distanceBetweenUnit"
+                    android:id="@+id/emitterRadiusUnit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <View
@@ -170,37 +178,38 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Percent Sand, Silt, and Clay"/>/
+            android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <EditText
-                    android:id="@+id/sand"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:hint="Sand"
-                    android:inputType="numberDecimal"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="Emitter Spacing"/>
                 <EditText
-                    android:id="@+id/silt"
+                    android:id="@+id/emitterSpacing"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:hint="Silt"
+                    android:hint="12"
                     android:inputType="numberDecimal"/>
-                <EditText
-                    android:id="@+id/clay"
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Clay"
-                    android:inputType="numberDecimal"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="Select a Unit"/>
+                <Spinner
+                    android:id="@+id/emitterSpacingUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
         <View
@@ -209,43 +218,25 @@
             android:background="@android:color/darker_gray"/>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Percent Organic Matter"/>/
-            <EditText
-                android:id="@+id/organicMatter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Enter the percent organic matter (ex 5.0)"
-                android:inputType="numberDecimal"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/saveOrchard"
+                android:id="@+id/saveIrrigationSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/save_button_text"/>
             <Button
-                android:id="@+id/newOrchard"
+                android:id="@+id/newIrrigationSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="20dp"
                 android:text="@string/new_button_text"/>
             <Button
-                android:id="@+id/deleteOrchard"
+                android:id="@+id/deleteIrrigationSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/delete_button_text"/>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

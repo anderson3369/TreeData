@@ -1,14 +1,12 @@
 package com.orchardmanager.treedata.data
 
 import android.content.Context
-import androidx.room.Room
 import com.orchardmanager.treedata.daos.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -18,8 +16,9 @@ class TreeDataModule {
     @Provides
     @Singleton
     fun provideOrchardDatabase(@ApplicationContext context: Context) : OrchardDatabase {
-        OrchardDatabase.buildDatabase(context)
-        return OrchardDatabase.getInstance(context)
+         val db = OrchardDatabase.buildDatabase(context)
+        //return OrchardDatabase.getInstance(context)
+        return db
     }
 
     @Provides
@@ -67,5 +66,33 @@ class TreeDataModule {
         return orchardDatabase.varietyDao()
     }
 
+    @Provides
+    fun provideIrrigation(orchardDatabase: OrchardDatabase): IrrigationDao {
+        return orchardDatabase.irrigationDao()
+    }
 
+    @Provides
+    fun provideIrrigationSystem(orchardDatabase: OrchardDatabase): IrrigationSystemDao {
+        return orchardDatabase.irrigationSystemDao()
+    }
+
+    @Provides
+    fun provideIrrigationSystemWithIrrigation(orchardDatabase: OrchardDatabase): IrrigationSystemWithIrrigationsDao {
+        return orchardDatabase.irrigationSystemWithIrrigationsDao()
+    }
+
+    @Provides
+    fun provideIrrigationSystemWithPumps(orchardDatabase: OrchardDatabase): PumpWithIrrigationSystemDao {
+        return orchardDatabase.pumpWithIrrigationSystemDao()
+    }
+
+    @Provides
+    fun providePump(orchardDatabase: OrchardDatabase): PumpDao {
+        return orchardDatabase.pumpDao()
+    }
+
+    @Provides
+    fun provideOrchardAndIrrigationSystem(orchardDatabase: OrchardDatabase): OrcahardAndIrrigationSystemDao {
+        return orchardDatabase.orchardAndIrrigationSystemDao()
+    }
 }

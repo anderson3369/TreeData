@@ -16,11 +16,11 @@ class OrchardRepository @Inject constructor(
         return orchardDao.insert(orchard)
     }
 
-    suspend fun updateOrchard(orchard: Orchard) {
+    fun updateOrchard(orchard: Orchard) {
         orchardDao.update(orchard)
     }
 
-    suspend fun deleteOrchard(orchard: Orchard) {
+    fun deleteOrchard(orchard: Orchard) {
         orchardDao.delete(orchard)
     }
 
@@ -29,4 +29,6 @@ class OrchardRepository @Inject constructor(
     fun getAllOrchards() = orchardDao.getAllrchards()
 
     fun getFarmWithOrchards() = farmWithOrchardsDao.getFarmWithOrchards()
+
+    fun getFarmWithOrchardsMap() = farmWithOrchardsDao.getFarmWithOrchardsMap()
 }

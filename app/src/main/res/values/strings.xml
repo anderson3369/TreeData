@@ -11,7 +11,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="field_name">Name</string>
     <string name="select_farm">Select Farm</string>
     <string name="save_button_text">Save</string>
     <string name="new_button_text">New</string>

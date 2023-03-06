@@ -7,6 +7,7 @@ import com.orchardmanager.treedata.entities.Rootstock
 import com.orchardmanager.treedata.entities.Tree
 import com.orchardmanager.treedata.entities.Variety
 import com.orchardmanager.treedata.repositories.TreeRepository
+import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class TreeViewModel @Inject constructor(private val treeRepository: TreeReposito
             emit(id)
         } catch(e: Exception) {
             e.printStackTrace()
-            emit(-1000L)
+            emit(SAVE_FAILED)
         }
     }
 

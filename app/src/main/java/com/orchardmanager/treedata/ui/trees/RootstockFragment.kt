@@ -28,6 +28,7 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var rootstockId = -1L
     private var rootstock: Rootstock? = null
     private var rootstockType: RootstockType? = RootstockType.BAREROOT
+    private val rootstocktypes = arrayOf(RootstockType.BAREROOT, RootstockType.POTTED)
 
     companion object {
         fun newInstance() = RootstockFragment()
@@ -48,8 +49,7 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         })
         val rootstockAdapter = ArrayAdapter<RootstockType>(requireContext(),
-            R.layout.farm_spinner_layout, R.id.textViewFarmSpinner,
-            arrayOf(RootstockType.BAREROOT, RootstockType.POTTED)
+            R.layout.farm_spinner_layout, R.id.textViewFarmSpinner,rootstocktypes
         )
         rootstockAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
 
@@ -123,6 +123,9 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
             val stock = parent?.adapter?.getItem(position)
             if(stock is Rootstock) {
                 this.rootstock = stock
+                binding?.rootstockName?.setText(rootstock!!.name)
+                binding?.rootstockCultivar?.setText(rootstock!!.cultivar)
+                binding?.rootstockType?.setSelection(rootstocktypes.indexOf(rootstock!!.rootstockType))
             }
         }
     }

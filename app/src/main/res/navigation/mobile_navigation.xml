@@ -51,5 +51,28 @@
         android:name="com.orchardmanager.treedata.ui.trees.VarietyFragment"
         android:label="Variety"
         tools:layout="@layout/fragment_variety"/>
+    <fragment
+        android:id="@+id/nav_irrigation"
+        android:name="com.orchardmanager.treedata.ui.irrigation.IrrigationFragment"
+        android:label="Irrigation"
+        tools:layout="@layout/fragment_irrigation">
+        <action
+            android:id="@+id/action_nav_irrigation_to_nav_irrigationSystem"
+            app:destination="@+id/nav_irrigationSystem"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_irrigationSystem"
+        android:name="com.orchardmanager.treedata.ui.irrigation.IrrigationSystemFragment"
+        android:label="Irrigation System"
+        tools:layout="@layout/fragment_irrigation_system">
+        <action
+            android:id="@+id/actiion_nav_irrigationSystem_to_nav_pump"
+            app:destination="@+id/nav_pump"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pump"
+        android:name="com.orchardmanager.treedata.ui.irrigation.PumpFragment"
+        android:label="Pump"
+        tools:layout="@layout/fragment_pump"/>
 
 </navigation>

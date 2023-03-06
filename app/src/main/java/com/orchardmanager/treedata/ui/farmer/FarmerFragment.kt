@@ -1,6 +1,7 @@
 package com.orchardmanager.treedata.ui.farmer
 
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,7 @@ class FarmerFragment : Fragment(), View.OnClickListener {
                 }
             }
         })
+        //binding?.phone?.inputType = InputType.TYPE_CLASS_PHONE
         return vw
     }
     //@Deprecated
@@ -59,7 +61,7 @@ class FarmerFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        if(farmer != null && (farmer!!.id != null && farmer!!.id > 0L)) {
+        if(farmer != null && farmer!!.id > 0L) {
             val updFarmer = farmer!!.copy(
                 name = binding.name?.text.toString(),
                 address = binding.address?.text.toString(),
@@ -72,7 +74,7 @@ class FarmerFragment : Fragment(), View.OnClickListener {
             farmerViewModel.update(updFarmer!!)
             Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
         } else {
-            farmer = Farmer(
+            this.farmer = Farmer(
                 name = binding.name?.text.toString(),
                 address = binding.address?.text.toString(),
                 city = binding.city?.text.toString(),

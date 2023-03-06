@@ -10,5 +10,5 @@ data class IrrigationSystemWithIrrigation(
         parentColumn = "id",
         entityColumn = "irrigationSystemId"
     )
-    val irrigations: List<Irrigation>
+    val irrigations: MutableList<Irrigation>
 )

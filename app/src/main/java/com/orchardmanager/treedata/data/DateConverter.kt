@@ -3,12 +3,14 @@ package com.orchardmanager.treedata.data
 import androidx.room.TypeConverter
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
 class DateConverter {
-    val df = DateTimeFormatter.ISO_OFFSET_DATE_TIME
-    val daet = DateTimeFormatter.ISO_LOCAL_DATE
+    val df = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm")
+    val daet = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+    val dft = DateTimeFormatter.ofPattern("HH:mm")
 
     @TypeConverter
     fun toOffsetDateTime(date: String?): LocalDateTime? {
@@ -23,7 +25,7 @@ class DateConverter {
 
     @TypeConverter
     fun toOffsetDate(date: String?): LocalDate? {
-        val format = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val format = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         return format.parse(
             date
         ) { temporal: TemporalAccessor? ->
@@ -31,6 +33,11 @@ class DateConverter {
                 temporal
             )
         }
+    }
+
+    @TypeConverter
+    fun fromTime(time: LocalTime): String? {
+        return time.format(dft)
     }
 
     @TypeConverter

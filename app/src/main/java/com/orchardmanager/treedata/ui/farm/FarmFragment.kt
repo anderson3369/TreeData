@@ -26,7 +26,7 @@ class FarmFragment : Fragment(),
     private var _binding: FragmentFarmBinding? = null
     private val binding get() = _binding!!
 
-    private var farmerId:Long = -1L
+    private var farmerId:Long = 0L
     private var farm:Farm? = null
     private var sites:MutableList<Farm>? = null
 
