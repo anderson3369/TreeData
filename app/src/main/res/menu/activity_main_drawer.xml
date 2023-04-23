@@ -21,6 +21,10 @@
             android:icon="@drawable/ic_baseline_forest_24"
             android:title="Orchard"/>
         <item
+            android:id="@+id/nav_orchardTask"
+            android:icon="@drawable/ic_baseline_crop_landscape_24"
+            android:title="Orchard Activity"/>
+        <item
             android:id="@+id/nav_tree"
             android:icon="@drawable/ic_baseline_add_location_24"
             android:title="Tree"/>
@@ -28,6 +32,13 @@
             android:id="@+id/nav_irrigation"
             android:icon="@drawable/ic_baseline_water_drop_24"
             android:title="Irrigation"/>
-
+        <item
+            android:id="@+id/nav_fertilizerApplication"
+            android:icon="@drawable/ic_baseline_all_inclusive_24"
+            android:title="Fertilizer Application"/>
+        <item
+            android:id="@+id/nav_pesticideApplication"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="Pesticide Application"/>
     </group>
 </menu>

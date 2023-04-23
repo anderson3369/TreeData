@@ -198,7 +198,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is String) {
-                val key = this@IrrigationSystemFragment.farmOrchardsMap?.filter { it == obj }?.keys?.first()
+                val key = this@IrrigationSystemFragment.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
                 this@IrrigationSystemFragment.orchardId = key!!
             }
         }
@@ -215,7 +215,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     private fun newPump() {
         binding?.addPump?.setOnClickListener(View.OnClickListener {
-            val action = IrrigationSystemFragmentDirections.actiionNavIrrigationSystemToNavPump()
+            val action = IrrigationSystemFragmentDirections.actionNavIrrigationSystemToNavPump()
             view?.findNavController()?.navigate(action)
         })
     }

@@ -22,5 +22,10 @@ data class Fertilizer(
     val molybdenum: Double,
     val chloride: Double,
     val copper: Double,
-    val nickel: Double
-)
+    val nickel: Double,
+    val organicMatter: Double
+) {
+    override fun toString(): String {
+        return name
+    }
+}

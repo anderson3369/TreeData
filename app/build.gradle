@@ -130,6 +130,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$rootProject.viewModelComposeVersion"
     implementation "com.google.android.material:compose-theme-adapter:$rootProject.composeThemeAdapterVersion"
     implementation "io.coil-kt:coil-compose:$rootProject.coilVersion"
+    implementation "org.osmdroid:osmdroid-android:6.1.14"
     debugImplementation "androidx.compose.ui:ui-tooling:$rootProject.composeVersion"
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

@@ -45,7 +45,6 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var rootstockId: Long = 0L
     private var varietyId: Long = 0L
     private var farmWithOrchardsMap: Map<Long, String>? = null
-    //val locationPermissionRequest: ActivityResultLauncher = null
 
     companion object {
         fun newInstance() = TreeFragment()
@@ -64,11 +63,11 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner, Observer {
             farmWithOrchards ->
             this.farmWithOrchardsMap = farmWithOrchards
-            //val list = FarmOrchardConverter(farmWithOrchards)
             val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.farmWithOrchardsSpinner?.adapter = adapter
+            binding?.farmWithOrchardsSpinner?.onItemSelectedListener = this
         })
 
         treeViewModel?.getAllRootstocks()?.observe(viewLifecycleOwner, Observer {
@@ -77,7 +76,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
             R.id.textViewFarmSpinner, rootstocks)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.rootstockSpinner?.adapter = adapter
-            binding?.rootstockSpinner?.onItemSelectedListener = this
+            binding?.rootstockSpinner?.onItemSelectedListener = rootstockSelector()
         })
 
         treeViewModel?.getAllVarieties()?.observe(viewLifecycleOwner, Observer {
@@ -86,6 +85,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
             R.id.textViewFarmSpinner, varieties)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.varietySpinner?.adapter = adapter
+            binding?.varietySpinner?.onItemSelectedListener = varietySelector()
         })
 
         binding?.showTreePlantedDate?.setOnClickListener(View.OnClickListener {
@@ -98,6 +98,34 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         addVariety()
 
         return vw
+    }
+
+    inner class rootstockSelector: AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val obj = parent?.adapter?.getItem(position)
+            if(obj is Rootstock) {
+                rootstockId = obj.id
+            }
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+    inner class varietySelector: AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val obj = parent?.adapter?.getItem(position)
+            if(obj is Variety) {
+                varietyId = obj.id
+            }
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            TODO("Not yet implemented")
+        }
+
     }
 
     private fun addRootstock() {

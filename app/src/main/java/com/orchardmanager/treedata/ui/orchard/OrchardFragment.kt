@@ -51,7 +51,6 @@ class OrchardFragment : Fragment(), View.OnClickListener,
 
         orchardViewModel.getFarmWithOrchards().observe(viewLifecycleOwner, Observer {
             farmWithOrchards ->
-            //val list = FarmOrchardConverter(farmWithOrchards)
             val farmWithOrchardsIterator = farmWithOrchards.iterator()
             this.farms = mutableListOf<Farm>()
 

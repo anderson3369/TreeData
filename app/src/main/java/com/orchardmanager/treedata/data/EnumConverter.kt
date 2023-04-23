@@ -34,4 +34,22 @@ class EnumConverter {
 
     @TypeConverter
     fun fromWeightOrMeasureUnit(value: WeightOrMeasureUnit) = value.type
+
+    @TypeConverter
+    fun toSignalWord(value: String) = SignalWord.from(value)
+
+    @TypeConverter
+    fun fromSignalWord(value: SignalWord) = value.value
+
+    @TypeConverter
+    fun toREI(value: String) = REIUnit.from(value)
+
+    @TypeConverter
+    fun fromREI(value: REIUnit) = value.value
+
+    @TypeConverter
+    fun toApplicationMethod(value: String) = ApplicationMethod.from(value)
+
+    @TypeConverter
+    fun fromApplicationMethod(value: ApplicationMethod) = value.method
 }

@@ -95,4 +95,29 @@ class TreeDataModule {
     fun provideOrchardAndIrrigationSystem(orchardDatabase: OrchardDatabase): OrcahardAndIrrigationSystemDao {
         return orchardDatabase.orchardAndIrrigationSystemDao()
     }
+
+    @Provides
+    fun provideFertilizerDao(orchardDatabase: OrchardDatabase): FertilizerDao {
+        return orchardDatabase.fertilizerDao()
+    }
+
+    @Provides
+    fun provideFertilizerApplicationDao(orchardDatabase: OrchardDatabase): FertilizerApplicationDao {
+        return orchardDatabase.fertilizerApplicationDao()
+    }
+
+    @Provides
+    fun providePesticideDao(orchardDatabase: OrchardDatabase): PesticideDao {
+        return orchardDatabase.pesticideDao()
+    }
+
+    @Provides
+    fun providePesticideApplicationDao(orchardDatabase: OrchardDatabase): PesticideApplicationDao {
+        return orchardDatabase.pesticideApplicationDao()
+    }
+
+    @Provides
+    fun provideOrchardActivityDao(orchardDatabase: OrchardDatabase): OrchardActivityDao {
+        return orchardDatabase.orchardActivityDao()
+    }
 }

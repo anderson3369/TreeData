@@ -11,9 +11,9 @@ import com.orchardmanager.treedata.utils.DATABASE_NAME
 @Database(entities = [
     Disease::class, Orchard::class, Farm::class, Farmer::class,
     FertilizerApplication::class, PesticideApplication::class,
-    Pump::class, Rootstock::class,  SoilTest::class,
+    Pump::class, Rootstock::class,  SoilTest::class, Pesticide::class,
     Tree::class, Variety::class, IrrigationSystem::class,
-    Irrigation::class, Fertilizer::class,
+    Irrigation::class, Fertilizer::class, OrchardActivity::class
                      ],
     version = 3,
     //autoMigrations = [
@@ -41,6 +41,11 @@ abstract class OrchardDatabase : RoomDatabase() {
     abstract fun pumpWithIrrigationSystemDao(): PumpWithIrrigationSystemDao
     abstract fun pumpDao(): PumpDao
     abstract fun orchardAndIrrigationSystemDao(): OrcahardAndIrrigationSystemDao
+    abstract fun fertilizerDao(): FertilizerDao
+    abstract fun fertilizerApplicationDao(): FertilizerApplicationDao
+    abstract fun pesticideDao(): PesticideDao
+    abstract fun pesticideApplicationDao(): PesticideApplicationDao
+    abstract fun orchardActivityDao(): OrchardActivityDao
 
     //@DeleteTable.Entries(DeleteTable(tableName = "Tree"))
     //class ODBAutoMigration: AutoMigrationSpec

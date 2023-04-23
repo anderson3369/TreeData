@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.FarmWithOrchards
 import com.orchardmanager.treedata.entities.Orchard
+import com.orchardmanager.treedata.entities.OrchardActivity
 import com.orchardmanager.treedata.repositories.OrchardRepository
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,9 +28,25 @@ class OrchardViewModel @Inject constructor(
         }
     }
 
+    fun addOrchardActivity(orchardActivity: OrchardActivity) = liveData<Long> {
+        try {
+            val id = orchardRepository.createOrchardActivity(orchardActivity)
+            emit(id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(SAVE_FAILED)
+        }
+    }
+
     fun update(orchard: Orchard) {
         viewModelScope.launch(Dispatchers.IO) {
             orchardRepository.updateOrchard(orchard)
+        }
+    }
+
+    fun updateOrchardActivity(orchardActivity: OrchardActivity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            orchardRepository.updateOrchardActivity(orchardActivity)
         }
     }
 
@@ -39,8 +56,18 @@ class OrchardViewModel @Inject constructor(
         }
     }
 
+    fun deleteOrchardActivity(orchardActivity: OrchardActivity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            orchardRepository.deleteOrchardActivity(orchardActivity)
+        }
+    }
+
     fun getOrchards(farmId: Long): LiveData<MutableList<Orchard>> {
         return orchardRepository.getOrchards(farmId).asLiveData()
+    }
+
+    fun getOrchardActivity(): LiveData<MutableList<OrchardActivity>> {
+        return orchardRepository.getOrchardActivity().asLiveData()
     }
 
     fun getAllOrchards(): LiveData<MutableList<Orchard>> {

@@ -21,11 +21,11 @@ class FarmRepository @Inject constructor(private val farmDao: FarmDao,
         return farmDao.insert(farm)
     }
 
-    suspend fun updateFarm(farm: Farm) {
+    fun updateFarm(farm: Farm) {
         farmDao.update(farm)
     }
 
-    suspend fun deleteFarm(farm: Farm) {
+    fun deleteFarm(farm: Farm) {
         farmDao.delete(farm)
     }
 
