@@ -1,23 +1,27 @@
 package com.orchardmanager.treedata.ui.orchard
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
 import com.orchardmanager.treedata.databinding.FragmentOrchardTaskBinding
 import com.orchardmanager.treedata.entities.OrchardActivity
 import com.orchardmanager.treedata.ui.SAVE_FAILED
+import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.TimePickerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 
+@AndroidEntryPoint
 class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
     View.OnClickListener {
 
@@ -25,15 +29,20 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var _binding: FragmentOrchardTaskBinding? = null
     private val binding get() = _binding
     private var activities: MutableList<OrchardActivity>? = null
-    private val activityArray = resources.getStringArray(R.array.orchard_activities)
+    private var activityArray: Array<String>? = null
     private var task: String? = null
     private var orchardActivity: OrchardActivity? = null
+    private val taskStartDateRequestKey = "requestTaskStartDateKey"
+    private val taskStopDateRequestKey = "requestTaskStopDateKey"
+    private val taskDateKey = "taskDate"
+    private val taskStartTimeRequestKey = "requestTaskStartTimeKey"
+    private val taskStopTimeRequestKey = "requestTaskStopTimeKey"
+    private val taskTimeKey = "taskTime"
 
     companion object {
         fun newInstance() = OrchardTaskFragment()
     }
 
-    //private lateinit var viewModel: OrchardTaskViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +50,8 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
     ): View? {
         _binding = FragmentOrchardTaskBinding.inflate(inflater, container, false)
         val vw = binding?.root
+
+        activityArray = resources.getStringArray(R.array.orchard_activities)
 
         orchardViewModel?.getOrchardActivity()?.observe(viewLifecycleOwner, Observer {
             activities ->
@@ -53,7 +64,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         })
 
         val activityAdapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
-            R.id.textViewFarmSpinner, activityArray)
+            R.id.textViewFarmSpinner, activityArray!!)
         activityAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.activities?.adapter = activityAdapter
         binding?.activities?.onItemSelectedListener = activitySelector()
@@ -73,7 +84,39 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
             orchardViewModel?.deleteOrchardActivity(this.orchardActivity!!)
         })
 
+        binding?.showActivityStartDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(taskStartDateRequestKey, taskDateKey)
+                .show(childFragmentManager, R.string.start_date.toString())
+        })
+        binding?.showActivityStopDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(taskStopDateRequestKey, taskDateKey)
+                .show(childFragmentManager, R.string.stop_date.toString())
+        })
+        binding?.showActivityStartTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(taskStartTimeRequestKey, taskTimeKey)
+                .show(childFragmentManager, R.string.start_time.toString())
+        })
+        binding?.showActivityStopTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(taskStopTimeRequestKey, taskTimeKey)
+                .show(childFragmentManager, R.string.stop_time.toString())
+        })
         return vw
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(taskStartDateRequestKey, requireActivity()) {
+            dateKey, bundle -> binding?.activityStartDate?.setText(bundle?.getString(taskDateKey))
+        }
+        childFragmentManager.setFragmentResultListener(taskStopDateRequestKey, requireActivity()) {
+            datekey, bundle -> binding?.activityStopDate?.setText(bundle?.getString(taskDateKey))
+        }
+        childFragmentManager.setFragmentResultListener(taskStartTimeRequestKey, requireActivity()) {
+            dateKey, bundle -> binding?.activityStartTime?.setText(bundle?.getString(taskTimeKey))
+        }
+        childFragmentManager.setFragmentResultListener(taskStopTimeRequestKey, requireActivity()) {
+            dateKey, bundle -> binding?.activityStopTime?.setText(bundle?.getString(taskTimeKey))
+        }
     }
 
     inner class activitySelector: AdapterView.OnItemSelectedListener {
@@ -81,6 +124,10 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
             val obj = parent?.adapter?.getItem(position)
             if(obj is String) {
                 this@OrchardTaskFragment.task = obj
+                if(obj == getString(R.string.soil_moisture)) {
+                    val action = OrchardTaskFragmentDirections.actionNavOrchardTaskToNavSoilMoisture()
+                    view?.findNavController()?.navigate(action)
+                }
             }
         }
 
@@ -90,16 +137,14 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(OrchardTaskViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
         if(obj is OrchardActivity) {
             this.orchardActivity = obj
+            binding?.activities?.setSelection(activityArray!!.indexOf(obj.activity))
+            binding?.notes?.setText(obj.notes)
+            parseLocalDateTime(true, obj.activityStart)
+            parseLocalDateTime(false, obj.activityStop)
         }
     }
 
@@ -122,7 +167,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
     }
 
     private fun buildLocalDateTime(isStart: Boolean): LocalDateTime {
-        var dateString = ""
+        var dateString: String
         if(isStart) {
             dateString = binding?.activityStartDate?.text.toString()
             dateString = dateString + " " + binding?.activityStartTime?.text.toString()

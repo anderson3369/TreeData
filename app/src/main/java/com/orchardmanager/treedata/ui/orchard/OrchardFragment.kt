@@ -18,6 +18,7 @@ import com.orchardmanager.treedata.databinding.FragmentOrchardBinding
 import com.orchardmanager.treedata.entities.Farm
 import com.orchardmanager.treedata.entities.LinearUnit
 import com.orchardmanager.treedata.entities.Orchard
+import com.orchardmanager.treedata.utils.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +34,8 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     private var distanceBetweenUnit: LinearUnit? = null
     private val linearUnits = arrayOf(LinearUnit.FEET,LinearUnit.METERS, LinearUnit.INCHES)
     private var orchardList: MutableList<Orchard>? = null
+    private val platedDateRequestKey = "plantedDateRequestKey"
+    private val plantedDateKey = "plantedDateKey"
     val farmOrchardMap = hashMapOf<Long, MutableList<Orchard>>()
 
     companion object {
@@ -81,7 +84,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         })
 
         binding?.showPlantedDate?.setOnClickListener(View.OnClickListener {
-            PlantedDatePickerFragment().show(childFragmentManager, "Planted Date")
+            DatePickerFragment(platedDateRequestKey, plantedDateKey).show(childFragmentManager, "Planted Date")
         })
         binding?.saveOrchard?.setOnClickListener(this)
 
@@ -108,8 +111,8 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         childFragmentManager.setFragmentResultListener("requestKey", requireActivity()) {
             key, bundle -> this.farmId = bundle.getLong("farmId")
         }
-        childFragmentManager.setFragmentResultListener("requestDateKey", requireActivity()) {
-            dateKey, bundle -> binding?.plantedDate?.setText(bundle.getString("plantedDate"))
+        childFragmentManager.setFragmentResultListener(platedDateRequestKey, requireActivity()) {
+            dateKey, bundle -> binding?.plantedDate?.setText(bundle.getString(plantedDateKey))
         }
     }
 

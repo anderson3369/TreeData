@@ -120,4 +120,9 @@ class TreeDataModule {
     fun provideOrchardActivityDao(orchardDatabase: OrchardDatabase): OrchardActivityDao {
         return orchardDatabase.orchardActivityDao()
     }
+
+    @Provides
+    fun provideSoilMoistureDao(orchardDatabase: OrchardDatabase): SoilMoistureDao {
+        return orchardDatabase.soilMoistureDao()
+    }
 }

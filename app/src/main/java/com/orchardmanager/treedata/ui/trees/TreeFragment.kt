@@ -3,7 +3,11 @@ package com.orchardmanager.treedata.ui.trees
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.*
+import android.location.GnssStatus
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.location.LocationRequest
 import android.location.provider.ProviderProperties
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +17,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -24,9 +26,11 @@ import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
 import com.orchardmanager.treedata.databinding.FragmentTreeBinding
-import com.orchardmanager.treedata.entities.*
+import com.orchardmanager.treedata.entities.Rootstock
+import com.orchardmanager.treedata.entities.Tree
+import com.orchardmanager.treedata.entities.Variety
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
-import com.orchardmanager.treedata.ui.orchard.PlantedDatePickerFragment
+import com.orchardmanager.treedata.utils.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
 import java.util.function.Consumer
@@ -45,6 +49,8 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var rootstockId: Long = 0L
     private var varietyId: Long = 0L
     private var farmWithOrchardsMap: Map<Long, String>? = null
+    private val plantedDateRequestKey = "plantedDateRequestKey"
+    private val plantedDateKey = "plantedDateKey"
 
     companion object {
         fun newInstance() = TreeFragment()
@@ -89,7 +95,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         })
 
         binding?.showTreePlantedDate?.setOnClickListener(View.OnClickListener {
-            PlantedDatePickerFragment().show(childFragmentManager, "Planted Date")
+            DatePickerFragment(plantedDateRequestKey, plantedDateKey).show(childFragmentManager, "Planted Date")
         })
         binding?.saveTree?.setOnClickListener(this)
 
@@ -201,8 +207,8 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener("requestDateKey", requireActivity()) {
-                dateKey, bundle -> binding?.showTreePlantedDate?.setText(bundle.getString("plantedDate"))
+        childFragmentManager.setFragmentResultListener(plantedDateRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.showTreePlantedDate?.setText(bundle.getString(plantedDateKey))
         }
     }
 

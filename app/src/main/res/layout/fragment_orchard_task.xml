@@ -40,7 +40,7 @@
         <EditText
             android:id="@+id/notes"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:lines="6"
             android:maxLength="1000"
             android:inputType="text"/>
@@ -66,7 +66,7 @@
                     android:inputType="date"/>
             </LinearLayout>
             <Button
-                android:id="@+id/activityStartDateBtn"
+                android:id="@+id/showActivityStartDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -93,7 +93,7 @@
                     android:hint="00:00"
                     android:inputType="time"/>
                 <Button
-                    android:id="@+id/activityStartTimeClock"
+                    android:id="@+id/showActivityStartTimeClock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
@@ -122,7 +122,7 @@
                     android:inputType="date"/>
             </LinearLayout>
             <Button
-                android:id="@+id/activityStopDateBtn"
+                android:id="@+id/showActivityStopDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -149,7 +149,7 @@
                     android:hint="00:00"
                     android:inputType="time"/>
                 <Button
-                    android:id="@+id/activityStopTimeClock"
+                    android:id="@+id/showActivityStopTimeClock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"

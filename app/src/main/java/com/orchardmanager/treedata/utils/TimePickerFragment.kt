@@ -1,29 +1,19 @@
-package com.orchardmanager.treedata.ui.fertilizer
+package com.orchardmanager.treedata.utils
 
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat
-import android.text.format.DateFormat.is24HourFormat
 import android.widget.TimePicker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import com.orchardmanager.treedata.data.DateConverter
 import java.time.LocalTime
-import java.util.*
+import java.util.Calendar
 
-class FertilizerTimePickerFragment constructor(private val isStartTime: Boolean): DialogFragment(),
+class TimePickerFragment constructor(private val requestKey: String, private val key: String): DialogFragment(),
     TimePickerDialog.OnTimeSetListener {
-
-    private var requestKey = "requestFertilizerStartTimeKey"
-
-    init {
-        if (!isStartTime) {
-            requestKey = "requestFertilizerStopTimeKey"
-        }
-    }
-
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
@@ -35,6 +25,6 @@ class FertilizerTimePickerFragment constructor(private val isStartTime: Boolean)
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val time = LocalTime.of(hourOfDay, minute)
-        setFragmentResult(requestKey, bundleOf("fertilizerTime" to DateConverter().fromTime(time)))
+        setFragmentResult(requestKey, bundleOf(key to DateConverter().fromTime(time)))
     }
 }

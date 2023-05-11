@@ -17,6 +17,8 @@ import com.orchardmanager.treedata.databinding.FragmentPesticideApplicationBindi
 import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
+import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 
@@ -43,6 +45,13 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         WeightOrMeasureUnit.PINTS, WeightOrMeasureUnit.FLUIDOUNCES, WeightOrMeasureUnit.OUNCES, WeightOrMeasureUnit.GRAMS)
     private val applicationMethodArray = arrayOf(ApplicationMethod.AIRBLAST, ApplicationMethod.AIR, ApplicationMethod.GROUNDBOOM,
         ApplicationMethod.CHEMIGATION, ApplicationMethod.FOGGER, ApplicationMethod.HAND)
+    //private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
+    private val pesticideStartDateRequestKey = "requestPesticideStartDateKey"
+    private val pesticideStopDateRequestKey = "requestPesticideStopDateKey"
+    private val pesticideDateKey = "pesticideDate"
+    private val pesticideStartTimeRequestKey = "requestPesticideStartTimeKey"
+    private val pesticideStopTimeRequestKey = "requestPesticideStopTimeKey"
+    private val pesticideTimeKey = "pesticideTime"
 
     companion object {
         fun newInstance() = PesticideApplicationFragment()
@@ -130,7 +139,39 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
             pesticideViewModel?.deletePesticideApplication(this.pesticideApplication!!)
         })
 
+        binding?.showPesticideApplicationStartDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(pesticideStartDateRequestKey, pesticideDateKey).show(childFragmentManager, "Start Date")
+        })
+
+        binding?.showPesticideApplicationStopDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(pesticideStopDateRequestKey, pesticideDateKey).show(childFragmentManager, "Stop Date")
+        })
+
+        binding?.pesticideApplicationStartTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(pesticideStartTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Start Time")
+        })
+
+        binding?.pesticideApplicationStopTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(pesticideStopTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Stop Time")
+        })
+
         return vw
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        childFragmentManager.setFragmentResultListener(pesticideStartDateRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.pesticideApplicationStartDate?.setText(bundle.getString(pesticideDateKey))
+        }
+        childFragmentManager.setFragmentResultListener(pesticideStopDateRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.pesticideApplicationStopDate?.setText(bundle.getString(pesticideDateKey))
+        }
+        childFragmentManager.setFragmentResultListener(pesticideStartTimeRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.pesticideApplicationStartTime?.setText(bundle.getString(pesticideTimeKey))
+        }
+        childFragmentManager.setFragmentResultListener(pesticideStopTimeRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.pesticideApplicationStopTime?.setText(bundle.getString(pesticideTimeKey))
+        }
     }
 
     inner class pesticideSelector: AdapterView.OnItemSelectedListener {
@@ -216,11 +257,6 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(PesticideApplicationViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     private fun parseLocalDateTime(isStart: Boolean, dateTime: LocalDateTime) {
         if(isStart) {

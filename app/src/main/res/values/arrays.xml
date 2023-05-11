@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="orchard_activities">
+    <string-array name="orchard_activities">
         <item>Mowing</item>
         <item>Pruning</item>
         <item>Discing</item>
         <item>Harvesting</item>
         <item>Equipment Maintenance</item>
-    </array>
+        <item>@string/soil_moisture</item>
+    </string-array>
 </resources>

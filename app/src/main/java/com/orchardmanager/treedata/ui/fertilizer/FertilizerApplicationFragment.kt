@@ -20,6 +20,8 @@ import com.orchardmanager.treedata.entities.OrchardUnit
 import com.orchardmanager.treedata.entities.WeightOrMeasureUnit
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
+import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
 
@@ -42,6 +44,12 @@ class FertilizerApplicationFragment : Fragment(),
     private val wmUnitArray = arrayOf(WeightOrMeasureUnit.POUNDS, WeightOrMeasureUnit.GALLONS, WeightOrMeasureUnit.QUARTS,
         WeightOrMeasureUnit.PINTS, WeightOrMeasureUnit.FLUIDOUNCES, WeightOrMeasureUnit.OUNCES, WeightOrMeasureUnit.GRAMS)
     private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
+    private val fertilizerStartDateRequestKey = "requestFertilizerStartDateKey"
+    private val fertilizerStopDateRequestKey = "requestFertilizerStopDateKey"
+    private val fertilizerDateKey = "fertilizerDate"
+    private val fertilizerStartTimeRequestKey = "requestFertilizerStartTimeKey"
+    private val fertilizerStopTimeRequestKey = "requestFertilizerStopTimeKey"
+    private val fertilizerTimeKey = "fertilizerTime"
 
 
     companion object {
@@ -118,19 +126,19 @@ class FertilizerApplicationFragment : Fragment(),
         })
 
         binding?.showFertilizerApplicationStartDate?.setOnClickListener(View.OnClickListener {
-            FertilizerDatePickerFragment(true).show(childFragmentManager, "Start Date")
+            DatePickerFragment(fertilizerStopDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Start Date")
         })
 
         binding?.showFertilizerApplicationStopDate?.setOnClickListener(View.OnClickListener {
-            FertilizerDatePickerFragment(false).show(childFragmentManager, "Stop Date")
+            DatePickerFragment(fertilizerStartDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Stop Date")
         })
 
         binding?.fertilizerApplicationStartTimeClock?.setOnClickListener(View.OnClickListener {
-            FertilizerTimePickerFragment(true).show(childFragmentManager, "Start Time")
+            TimePickerFragment(fertilizerStartTimeRequestKey, fertilizerTimeKey).show(childFragmentManager, "Start Time")
         })
 
         binding?.fertilizerApplicationStopTimeClock?.setOnClickListener(View.OnClickListener {
-            FertilizerTimePickerFragment(false).show(childFragmentManager, "Stop Time")
+            TimePickerFragment(fertilizerStopTimeRequestKey, fertilizerTimeKey).show(childFragmentManager, "Stop Time")
         })
 
         return vw
@@ -138,17 +146,17 @@ class FertilizerApplicationFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener("requestFertilizerStartDateKey", requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStartDate?.setText(bundle.getString("fertilizerDate"))
+        childFragmentManager.setFragmentResultListener(fertilizerStartDateRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.fertilizerApplicationStartDate?.setText(bundle.getString(fertilizerDateKey))
         }
-        childFragmentManager.setFragmentResultListener("requestFertilizerStopDateKey", requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStopDate?.setText(bundle.getString("fertilizerDate"))
+        childFragmentManager.setFragmentResultListener(fertilizerStopDateRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.fertilizerApplicationStopDate?.setText(bundle.getString(fertilizerDateKey))
         }
-        childFragmentManager.setFragmentResultListener("requestFertilizerStartTimeKey", requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStartTime?.setText(bundle.getString("fertilizerTime"))
+        childFragmentManager.setFragmentResultListener(fertilizerStartTimeRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.fertilizerApplicationStartTime?.setText(bundle.getString(fertilizerTimeKey))
         }
-        childFragmentManager.setFragmentResultListener("requestFertilizerStopTimeKey", requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStopTime?.setText(bundle.getString("fertilizerTime"))
+        childFragmentManager.setFragmentResultListener(fertilizerStopTimeRequestKey, requireActivity()) {
+                dateKey, bundle -> binding?.fertilizerApplicationStopTime?.setText(bundle.getString(fertilizerTimeKey))
         }
     }
 

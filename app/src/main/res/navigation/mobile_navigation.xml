@@ -33,7 +33,11 @@
         android:id="@+id/nav_orchardTask"
         android:name="com.orchardmanager.treedata.ui.orchard.OrchardTaskFragment"
         android:label="Orchard Activity"
-        tools:layout="@layout/fragment_orchard_task"/>
+        tools:layout="@layout/fragment_orchard_task">
+        <action
+            android:id="@+id/action_nav_orchardTask_to_nav_soilMoisture"
+            app:destination="@id/nav_soilMoisture" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_tree"
@@ -80,6 +84,11 @@
         android:name="com.orchardmanager.treedata.ui.irrigation.PumpFragment"
         android:label="Pump"
         tools:layout="@layout/fragment_pump"/>
+    <fragment
+        android:id="@+id/nav_soilMoisture"
+        android:name="com.orchardmanager.treedata.ui.irrigation.SoilMoistureFragment"
+        android:label="Soil Moisture"
+        tools:layout="@layout/fragment_soil_moisture"/>
     <fragment
         android:id="@+id/nav_fertilizerApplication"
         android:name="com.orchardmanager.treedata.ui.fertilizer.FertilizerApplicationFragment"

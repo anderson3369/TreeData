@@ -3,6 +3,7 @@ package com.orchardmanager.treedata.ui.irrigation
 import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.Irrigation
 import com.orchardmanager.treedata.entities.IrrigationSystem
+import com.orchardmanager.treedata.entities.SoilMoisture
 import com.orchardmanager.treedata.repositories.IrrigationRepository
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,6 +35,32 @@ class IrrigationViewModel @Inject constructor(private val irrigationRepository: 
         viewModelScope.launch(Dispatchers.IO) {
             irrigationRepository.delete(irrigation)
         }
+    }
+
+    fun addSoilMoisture(soilMoisture: SoilMoisture) = liveData<Long> {
+        try {
+            val id = irrigationRepository.createSoilMoisture(soilMoisture)
+            emit(id)
+        } catch(e: Exception) {
+            e.printStackTrace()
+            emit(SAVE_FAILED)
+        }
+    }
+
+    fun updateSoilMoisture(soilMoisture: SoilMoisture) {
+        viewModelScope.launch(Dispatchers.IO) {
+            irrigationRepository.updateSoilMoisture(soilMoisture)
+        }
+    }
+
+    fun deleteSoilMoisture(soilMoisture: SoilMoisture) {
+        viewModelScope.launch(Dispatchers.IO) {
+            irrigationRepository.deleteSoilMoisture(soilMoisture)
+        }
+    }
+
+    fun getSoilMoisture(): LiveData<MutableList<SoilMoisture>> {
+        return irrigationRepository.getSoilMoisture().asLiveData()
     }
 
     fun getIrrigations(): LiveData<MutableList<Irrigation>> {

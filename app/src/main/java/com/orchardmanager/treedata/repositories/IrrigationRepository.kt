@@ -3,6 +3,7 @@ package com.orchardmanager.treedata.repositories
 import com.orchardmanager.treedata.daos.*
 import com.orchardmanager.treedata.entities.Irrigation
 import com.orchardmanager.treedata.entities.IrrigationSystem
+import com.orchardmanager.treedata.entities.SoilMoisture
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -12,7 +13,8 @@ class IrrigationRepository @Inject constructor(private val irrigationDao: Irriga
                                                private val irrigationSystemDao: IrrigationSystemDao,
                                                private val irrigationSystemWithIrrigationsDao: IrrigationSystemWithIrrigationsDao,
                                                private val pumpWithIrrigationSystemDao: PumpWithIrrigationSystemDao,
-                                               private val orchardAndIrrigationSystemDao: OrcahardAndIrrigationSystemDao
+                                               private val orchardAndIrrigationSystemDao: OrcahardAndIrrigationSystemDao,
+                                               private val soilMoistureDao: SoilMoistureDao
 ) {
     suspend fun createIrrigation(irrigation: Irrigation): Long {
         return irrigationDao.insert(irrigation)
@@ -39,6 +41,20 @@ class IrrigationRepository @Inject constructor(private val irrigationDao: Irriga
     fun delete(irrigationSystem: IrrigationSystem) {
         irrigationSystemDao.delete(irrigationSystem)
     }
+
+    suspend fun createSoilMoisture(soilMoisture: SoilMoisture): Long {
+        return soilMoistureDao.insert(soilMoisture)
+    }
+
+    fun updateSoilMoisture(soilMoisture: SoilMoisture) {
+        soilMoistureDao.update(soilMoisture)
+    }
+
+    fun deleteSoilMoisture(soilMoisture: SoilMoisture) {
+        soilMoistureDao.delete(soilMoisture)
+    }
+
+    fun getSoilMoisture() = soilMoistureDao.getSoilMoisture()
 
     fun getIrrigationSystems() = irrigationSystemDao.getIrrigationSystems()
 
