@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.orchardmanager.treedata.daos.*
 import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.utils.DATABASE_NAME
@@ -25,7 +26,7 @@ import com.orchardmanager.treedata.utils.DATABASE_NAME
     //    )
     //],
     exportSchema = false)
-
+@TypeConverters(DateConverter::class, EnumConverter::class)
 abstract class OrchardDatabase : RoomDatabase() {
     abstract fun farmerDao(): FarmerDao
     abstract fun farmDao(): FarmDao
@@ -63,7 +64,7 @@ abstract class OrchardDatabase : RoomDatabase() {
 
         fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
+                //.fallbackToDestructiveMigration()
                 .build()
         }
 

@@ -16,9 +16,9 @@ class TreeDataModule {
     @Provides
     @Singleton
     fun provideOrchardDatabase(@ApplicationContext context: Context) : OrchardDatabase {
-         val db = OrchardDatabase.buildDatabase(context)
-        //return OrchardDatabase.getInstance(context)
-        return db
+         //val db = OrchardDatabase.buildDatabase(context)
+        return OrchardDatabase.getInstance(context)
+        //return db
     }
 
     @Provides

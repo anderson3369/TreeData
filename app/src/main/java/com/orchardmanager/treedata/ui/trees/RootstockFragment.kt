@@ -1,19 +1,18 @@
 package com.orchardmanager.treedata.ui.trees
 
-import androidx.lifecycle.ViewModelProvider
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.databinding.adapters.AdapterViewBindingAdapter.OnItemSelected
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.orchardmanager.treedata.R
+import com.orchardmanager.treedata.data.EnumConverter
 import com.orchardmanager.treedata.databinding.FragmentRootstockBinding
 import com.orchardmanager.treedata.entities.Rootstock
 import com.orchardmanager.treedata.entities.RootstockType
@@ -27,8 +26,8 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private val binding get() = _binding
     private var rootstockId = -1L
     private var rootstock: Rootstock? = null
-    private var rootstockType: RootstockType? = RootstockType.BAREROOT
-    private val rootstocktypes = arrayOf(RootstockType.BAREROOT, RootstockType.POTTED)
+    private var rootstockType: RootstockType? = null
+    private val rootstocktypes = arrayOf(RootstockType.BAREROOT.toString(), RootstockType.POTTED.toString())
 
     companion object {
         fun newInstance() = RootstockFragment()
@@ -43,30 +42,38 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
         treeViewModel.getAllRootstocks().observe(viewLifecycleOwner, Observer {
             rootstocks ->
             val adapter = ArrayAdapter<Rootstock>(requireContext(), R.layout.farm_spinner_layout,
-            R.id.textViewFarmSpinner, rootstocks)
+                R.id.textViewFarmSpinner, rootstocks)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.rootstock?.adapter = adapter
-
+            binding?.rootstock?.onItemSelectedListener = this
         })
-        val rootstockAdapter = ArrayAdapter<RootstockType>(requireContext(),
+        val rootstockAdapter = ArrayAdapter<String>(requireContext(),
             R.layout.farm_spinner_layout, R.id.textViewFarmSpinner,rootstocktypes
         )
         rootstockAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
 
         binding?.rootstockType?.adapter = rootstockAdapter
-        binding?.rootstockType?.onItemSelectedListener = this
+        binding?.rootstockType?.onItemSelectedListener = rootStockTypeSelector()
 
         saveOnClick()
         newOnClick()
         deleteOnClick()
 
         return vw
-        //return inflater.inflate(R.layout.fragment_rootstock, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        // TODO: Use the ViewModel
+    inner class rootStockTypeSelector(): AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            val obj = parent?.adapter?.getItem(position)
+            if(obj is String) {
+                this@RootstockFragment.rootstockType = EnumConverter().toRootstockType(obj)
+            }
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+            TODO("Not yet implemented")
+        }
+
     }
 
     private fun saveOnClick() {
@@ -114,19 +121,12 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if(view?.id == binding?.rootstockType?.id) {
-            val type = parent?.adapter?.getItem(position)
-            if(type is RootstockType) {
-                rootstockType = type
-            }
-        } else if(view?.id == binding?.rootstock?.id) {
-            val stock = parent?.adapter?.getItem(position)
-            if(stock is Rootstock) {
-                this.rootstock = stock
-                binding?.rootstockName?.setText(rootstock!!.name)
-                binding?.rootstockCultivar?.setText(rootstock!!.cultivar)
-                binding?.rootstockType?.setSelection(rootstocktypes.indexOf(rootstock!!.rootstockType))
-            }
+        val stock = parent?.adapter?.getItem(position)
+        if(stock is Rootstock) {
+            this.rootstock = stock
+            binding?.rootstockName?.setText(rootstock!!.name)
+            binding?.rootstockCultivar?.setText(rootstock!!.cultivar)
+            binding?.rootstockType?.setSelection(rootstocktypes.indexOf(rootstock!!.rootstockType.toString()))
         }
     }
 

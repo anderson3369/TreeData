@@ -62,6 +62,15 @@
         android:label="Variety"
         tools:layout="@layout/fragment_variety"/>
     <fragment
+        android:id="@+id/nav_map"
+        android:name="com.orchardmanager.treedata.ui.trees.OSMTreeFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_o_s_m_tree">
+        <action
+            android:id="@+id/action_nav_map_to_nav_tree"
+            app:destination="@+id/nav_tree"/>
+    </fragment>
+    <fragment
         android:id="@+id/nav_irrigation"
         android:name="com.orchardmanager.treedata.ui.irrigation.IrrigationFragment"
         android:label="Irrigation"

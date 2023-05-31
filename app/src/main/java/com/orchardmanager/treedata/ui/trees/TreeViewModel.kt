@@ -1,7 +1,10 @@
 package com.orchardmanager.treedata.ui.trees
 
-import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.orchardmanager.treedata.entities.OrchardWithTrees
 import com.orchardmanager.treedata.entities.Rootstock
 import com.orchardmanager.treedata.entities.Tree
@@ -32,8 +35,22 @@ class TreeViewModel @Inject constructor(private val treeRepository: TreeReposito
         }
     }
 
+    fun delete(tree: Tree) {
+        viewModelScope.launch(Dispatchers.IO) {
+            treeRepository.deleteTree(tree)
+        }
+    }
+
     fun getAllOrchardWithTrees(): LiveData<MutableList<OrchardWithTrees>> {
         return treeRepository.getAllOrchardWithTrees().asLiveData()
+    }
+
+    fun getAllTrees(): LiveData<MutableList<Tree>> {
+        return treeRepository.getAllTrees().asLiveData()
+    }
+
+    fun getTree(id: Long): LiveData<Tree> {
+        return treeRepository.getTree(id).asLiveData()
     }
 
     fun getOrchardWithTrees(orchardId: Long): LiveData<MutableList<OrchardWithTrees>> {
@@ -66,6 +83,10 @@ class TreeViewModel @Inject constructor(private val treeRepository: TreeReposito
         return treeRepository.getAllRootstocks().asLiveData()
     }
 
+    fun getRootstocksMap(): LiveData<Map<Long, String>> {
+        return treeRepository.getRootstocksMap().asLiveData()
+    }
+
     fun add(variety: Variety) = liveData<Long> {
         try {
             val id = treeRepository.createVariety(variety)
@@ -90,5 +111,9 @@ class TreeViewModel @Inject constructor(private val treeRepository: TreeReposito
 
     fun getAllVarieties(): LiveData<MutableList<Variety>> {
         return treeRepository.getAllVarieties().asLiveData()
+    }
+
+    fun getVarietiesMap(): LiveData<Map<Long, String>> {
+        return treeRepository.getVarietiesMap().asLiveData()
     }
 }

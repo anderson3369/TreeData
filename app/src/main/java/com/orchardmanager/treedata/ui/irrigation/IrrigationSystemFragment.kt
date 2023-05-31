@@ -194,7 +194,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
     inner class orchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String) {
+            if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
                 val key = this@IrrigationSystemFragment.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
                 this@IrrigationSystemFragment.orchardId = key!!
             }
@@ -218,6 +218,10 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
     }
 
     override fun onClick(v: View?) {
+        if(this.orchardId == 0L) {
+            Toast.makeText(requireContext(), "Please select an orchard", Toast.LENGTH_LONG).show()
+            return
+        }
         var emitterFlowRate: Double = 0.0
         val semitterFlowRate = binding?.emitterFlowRate?.text.toString()
         if(!semitterFlowRate.isEmpty()) {

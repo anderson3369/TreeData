@@ -17,4 +17,8 @@ interface VarietyDao {
 
     @Query("SELECT * FROM Variety")
     fun getVarieties(): Flow<MutableList<Variety>>
+
+    @Query("SELECT id, name FROM Variety")
+    @MapInfo(keyColumn = "id", valueColumn = "name")
+    fun getVarietiesMap(): Flow<Map<Long, String>>
 }

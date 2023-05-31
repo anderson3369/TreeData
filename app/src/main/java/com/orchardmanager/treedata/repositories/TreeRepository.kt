@@ -24,7 +24,13 @@ class TreeRepository @Inject constructor(private val treeDao: TreeDao,
         treeDao.update(tree)
     }
 
+    fun deleteTree(tree: Tree) {
+        treeDao.delete(tree)
+    }
+
     fun getAllTrees() = treeDao.getAllTrees()
+
+    fun getTree(id: Long) = treeDao.getTree(id)
 
     fun getOrchardWithTrees(id: Long) = orchardWithTreesDao.getOrchardWithTrees(id)
 
@@ -44,6 +50,8 @@ class TreeRepository @Inject constructor(private val treeDao: TreeDao,
 
     fun getAllRootstocks() = rootstockDao.getRootstocks()
 
+    fun getRootstocksMap() = rootstockDao.getRootstocksMap()
+
     suspend fun createVariety(variety: Variety): Long {
         return varietyDao.insert(variety)
     }
@@ -57,4 +65,6 @@ class TreeRepository @Inject constructor(private val treeDao: TreeDao,
     }
 
     fun getAllVarieties() = varietyDao.getVarieties()
+
+    fun getVarietiesMap() = varietyDao.getVarietiesMap()
 }

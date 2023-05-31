@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentFertilizerApplicationBinding
 import com.orchardmanager.treedata.entities.Fertilizer
 import com.orchardmanager.treedata.entities.FertilizerApplication
@@ -109,6 +110,42 @@ class FertilizerApplicationFragment : Fragment(),
             view?.findNavController()?.navigate(action)
         })
 
+        binding?.fertilizerApplicationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.fertilizerApplicationStartDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.fertilizerApplicationStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.fertilizerApplicationStartTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.fertilizerApplicationStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.fertilizerApplicationStopDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.fertilizerApplicationStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.fertilizerApplicationStopTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
         binding?.saveFertilizerApplication?.setOnClickListener(this)
 
         binding?.newFertilizerApplication?.setOnClickListener(View.OnClickListener {
@@ -122,7 +159,9 @@ class FertilizerApplicationFragment : Fragment(),
         })
 
         binding?.deleteFertilzerApplication?.setOnClickListener(View.OnClickListener {
-            fertilizerViewModel?.deleteFertilizerApplication(fertilizerApplication!!)
+            if(this.fertilizerApplication != null) {
+                fertilizerViewModel?.deleteFertilizerApplication(fertilizerApplication!!)
+            }
         })
 
         binding?.showFertilizerApplicationStartDate?.setOnClickListener(View.OnClickListener {
@@ -191,7 +230,7 @@ class FertilizerApplicationFragment : Fragment(),
     inner class orchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String) {
+            if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
                 this@FertilizerApplicationFragment.orchardId = farmOrchardsMap?.filter { it.value == obj }?.keys!!.first()
             }
         }
@@ -263,6 +302,10 @@ class FertilizerApplicationFragment : Fragment(),
     }
 
     override fun onClick(v: View?) {
+        if(this.orchardId == 0L || this.fertilizerId == 0L) {
+            Toast.makeText(requireContext(), "Please select an orchard or fertilizer", Toast.LENGTH_LONG).show()
+            return
+        }
         var applied: Double = 0.0
         val sapplied = binding?.applied?.text.toString()
         if(!sapplied.isEmpty()) {

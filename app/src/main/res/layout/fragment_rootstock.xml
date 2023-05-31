@@ -9,46 +9,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a rootstock"/>
+            android:text="@string/select_a_rootstock"/>
         <Spinner
             android:id="@+id/rootstock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Rootstock"/>
+            android:contentDescription="@string/rootstock"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:text="Name" />
+            android:text="@string/name" />
         <EditText
             android:id="@+id/rootstockName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter the name of the rootstock"
+            android:hint="@string/enter_the_name_of_the_rootstock"
             android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Cultivar"/>
+            android:text="@string/cultivar"/>
         <EditText
             android:id="@+id/rootstockCultivar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter the cultivar (if applicable)"
+            android:hint="@string/enter_the_cultivar_if_applicable"
             android:inputType="text"/>
         <Spinner
             android:id="@+id/rootstockType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="Rootstock Type"/>
+            android:contentDescription="@string/rootstock_type"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

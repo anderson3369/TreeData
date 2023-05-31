@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentPesticideApplicationBinding
 import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.ui.SAVE_FAILED
@@ -124,6 +125,42 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
         binding?.savePesticideApplication?.setOnClickListener(this)
 
+        binding?.pesticideApplicationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.pesticideApplicationStartDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.pesticideApplicationStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.pesticideApplicationStartTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.pesticideApplicationStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.pesticideApplicationStopDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.pesticideApplicationStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.pesticideApplicationStopTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
         binding?.newPesticideApplication?.setOnClickListener(View.OnClickListener {
             this.pesticideApplication = null
             binding?.pesticideApplicationStartDate?.setText("")
@@ -136,7 +173,9 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         })
 
         binding?.deletePesticideApplication?.setOnClickListener(View.OnClickListener {
-            pesticideViewModel?.deletePesticideApplication(this.pesticideApplication!!)
+            if(this.pesticideApplication != null) {
+                pesticideViewModel?.deletePesticideApplication(this.pesticideApplication!!)
+            }
         })
 
         binding?.showPesticideApplicationStartDate?.setOnClickListener(View.OnClickListener {
@@ -247,7 +286,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
     inner class orchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String) {
+            if(obj is String && !obj.isEmpty()  && !farmOrchardsMap?.isEmpty()!!) {
                 this@PesticideApplicationFragment.orchardId = farmOrchardsMap?.filter { it.value == obj }?.keys!!.first()
             }
         }
@@ -308,6 +347,10 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
     }
 
     override fun onClick(v: View?) {
+        if(this.orchardId == 0L || this.pesticideId == 0L) {
+            Toast.makeText(requireContext(), "Please select an Orchard or Pesticide", Toast.LENGTH_LONG).show()
+            return
+        }
         val sapplied = binding?.pesticideApplied?.text.toString()
         var applied = 0.0
         if(!sapplied.isEmpty()) {

@@ -20,6 +20,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -33,7 +34,6 @@ import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
 import com.orchardmanager.treedata.utils.DatePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
-import java.util.function.Consumer
 
 @AndroidEntryPoint
 class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
@@ -41,7 +41,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     private var _binding: FragmentTreeBinding? = null
     private val binding get() = _binding
-    private var orchardId: Long = -1L
+    private var orchardId: Long = 0L
     internal var location: Location? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
@@ -51,6 +51,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var farmWithOrchardsMap: Map<Long, String>? = null
     private val plantedDateRequestKey = "plantedDateRequestKey"
     private val plantedDateKey = "plantedDateKey"
+
 
     companion object {
         fun newInstance() = TreeFragment()
@@ -99,6 +100,20 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         })
         binding?.saveTree?.setOnClickListener(this)
 
+        binding?.newTree?.setOnClickListener(View.OnClickListener {
+            this.tree = null
+            binding?.treePlantedDate?.setText("")
+            binding?.treeNotes?.setText("")
+        })
+
+        binding?.deleteTree?.setOnClickListener(View.OnClickListener {
+            if(this.tree != null)  {
+                treeViewModel.delete(this.tree!!)
+            } else {
+                Toast.makeText(requireContext(), "Select a tree first", Toast.LENGTH_LONG)
+            }
+        })
+
         markTree()
         addRootstock()
         addVariety()
@@ -117,7 +132,6 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         override fun onNothingSelected(parent: AdapterView<*>?) {
             TODO("Not yet implemented")
         }
-
     }
 
     inner class varietySelector: AdapterView.OnItemSelectedListener {
@@ -202,7 +216,6 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 }
             })
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -210,24 +223,41 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         childFragmentManager.setFragmentResultListener(plantedDateRequestKey, requireActivity()) {
                 dateKey, bundle -> binding?.showTreePlantedDate?.setText(bundle.getString(plantedDateKey))
         }
+        setFragmentResultListener(getString(R.string.treerequestkey)) {
+            treeKey, bundle ->
+            Log.i("TreeFragment", treeKey)
+            treeViewModel.getTree(bundle.getLong(getString(R.string.treekey))).observe(viewLifecycleOwner, Observer {
+                tree ->
+                this.tree = tree
+                populateTree()
+            })
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(TreeViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String) {
-            val key = farmWithOrchardsMap?.filter { it == obj }?.keys?.first()
-            this.orchardId = key!!
+        if(obj is String && !obj.isEmpty() && !farmWithOrchardsMap?.isEmpty()!!) {
+            val keys = farmWithOrchardsMap?.filter { it == obj }?.keys
+            if(keys != null && !keys.isEmpty()) {
+                this.orchardId = keys.first()
+            }
+
         }
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
+    }
+
+    private fun populateTree() {
+        if(this.tree != null) {
+            this.orchardId = this.tree?.orchardId!!
+            this.rootstockId = this.tree?.rootstockId!!
+            this.varietyId = this.tree?.varietyId!!
+            binding?.treePlantedDate?.setText(DateConverter().fromOffsetDate(this.tree?.plantedDate!!))
+            binding?.treeNotes?.setText(this.tree?.notes)
+        }
     }
 
     inner class ThreadPerTaskExecutor: Executor {
@@ -243,13 +273,12 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         }
     }
 
-    inner class LocationConsumer: Consumer<Location> {
-        override fun accept(t: Location) {
-            location = t
-        }
-    }
 
     private fun saveTree() {
+        if(this.orchardId == 0L) {
+            Toast.makeText(requireContext(), "Please select an Orchard", Toast.LENGTH_LONG).show()
+            return
+        }
         if(tree != null && tree?.id!! > 0L) {
             //update
             val plantDate = binding?.treePlantedDate?.text.toString()
@@ -259,6 +288,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 rootstockId = rootstockId,
                 varietyId = varietyId,
                 plantedDate = date!!,
+                notes = binding?.treeNotes?.text.toString(),
                 latitude = latitude,
                 longitude = longitude
             )
@@ -272,6 +302,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 rootstockId = rootstockId,
                 varietyId = varietyId,
                 plantedDate = date!!,
+                notes = binding?.treeNotes?.text.toString(),
                 latitude = latitude,
                 longitude = longitude
             )

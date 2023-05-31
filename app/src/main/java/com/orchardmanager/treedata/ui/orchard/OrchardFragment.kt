@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentOrchardBinding
 import com.orchardmanager.treedata.entities.Farm
 import com.orchardmanager.treedata.entities.LinearUnit
@@ -27,7 +28,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
 
     private var _binding: FragmentOrchardBinding? = null
     private val binding get() = _binding
-    private var farmId: Long = -1L
+    private var farmId: Long = 0L
     private var farms: MutableList<Farm>? = null
     private var orchard: Orchard? = null
     private var rowWidthUnit: LinearUnit? = null
@@ -63,24 +64,34 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                 farmOrchardMap[farmWithOrchard.farm.id] = farmWithOrchard.orchards
             }
             //Set a default value
-            this.farmId = farmWithOrchards.get(0).farm.id
-            this.orchardList = farmWithOrchards.get(0).orchards
+            if(!farmWithOrchards.isEmpty()) {
+                this.farmId = farmWithOrchards.get(0).farm.id
+                this.orchardList = farmWithOrchards.get(0).orchards
 
-            val farmAdapter = ArrayAdapter<Farm>(requireContext(), R.layout.farm_spinner_layout,
-                R.id.textViewFarmSpinner, farms!!
-            )
-            farmAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
-            binding?.farms?.adapter = farmAdapter
-            binding?.farms?.onItemSelectedListener = this
-            binding?.farms?.setSelection(0)
-            this.farmId = farmWithOrchards.get(0).farm.id
+                val farmAdapter = ArrayAdapter<Farm>(requireContext(), R.layout.farm_spinner_layout,
+                    R.id.textViewFarmSpinner, farms!!
+                )
+                farmAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+                binding?.farms?.adapter = farmAdapter
+                binding?.farms?.onItemSelectedListener = this
+                //binding?.farms?.setSelection(0)
 
-            val orchardAdapter = ArrayAdapter<Orchard>(requireContext(), R.layout.farm_spinner_layout,
-                R.id.textViewFarmSpinner, orchardList!!
-            )
-            orchardAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
-            binding?.orchardSpinner?.adapter = orchardAdapter
-            binding?.orchardSpinner?.onItemSelectedListener = this
+                val orchardAdapter = ArrayAdapter<Orchard>(requireContext(), R.layout.farm_spinner_layout,
+                    R.id.textViewFarmSpinner, orchardList!!
+                )
+                orchardAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
+                binding?.orchardSpinner?.adapter = orchardAdapter
+                binding?.orchardSpinner?.onItemSelectedListener = this
+            }
+        })
+
+        binding?.plantedDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View, hasFocus: Boolean) {
+                val date = binding?.plantedDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
         })
 
         binding?.showPlantedDate?.setOnClickListener(View.OnClickListener {
@@ -169,6 +180,10 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     }
 
     private fun saveOrchard() {
+        if(this.farmId == 0L) {
+            Toast.makeText(requireContext(), "Please select a farm", Toast.LENGTH_LONG).show()
+            return
+        }
         val ssand = binding?.sand?.text.toString()
         var sand:Double = 0.0
         if(!ssand.equals("")) {

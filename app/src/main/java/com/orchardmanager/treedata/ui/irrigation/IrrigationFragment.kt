@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentIrrigationBinding
 import com.orchardmanager.treedata.entities.Irrigation
 import com.orchardmanager.treedata.entities.IrrigationSystem
@@ -75,6 +76,43 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
             binding?.irrigationSystemWithIrrigation?.onItemSelectedListener = this
         })
 
+        binding?.irrigationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.irrigationStartDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.irrigationStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.irrigationStartTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.irrigationStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.irrigationStopDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.irrigationStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.irrigationStopTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+
         binding?.irrigationStartDateCal?.setOnClickListener(View.OnClickListener {
             DatePickerFragment(irrigationStartDateRequestKey, irrigationDateKey)
                 .show(childFragmentManager, getString(R.string.start_date))
@@ -107,7 +145,9 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
         })
 
         binding?.deleteIrrigation?.setOnClickListener(View.OnClickListener {
-            irrigationViewModel?.deleteIrrigation(irrigation!!)
+            if(irrigation != null) {
+                irrigationViewModel?.deleteIrrigation(irrigation!!)
+            }
         })
 
         addIrrigationSystem()

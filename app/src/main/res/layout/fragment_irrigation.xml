@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Past Irrigation"/>
+            android:text="@string/select_a_past_irrigation"/>
         <Spinner
             android:id="@+id/irrigations"
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Irrigation System"/>
+            android:text="@string/select_an_irrigation_system"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Start Date"/>
+                android:text="@string/start_date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     android:id="@+id/irrigationStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
+                    android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"/>
                 <Button
                     android:id="@+id/irrigationStartDateCal"

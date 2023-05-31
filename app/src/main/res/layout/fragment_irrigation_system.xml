@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Irrigation System"/>
+            android:text="@string/select_an_irrigation_system"/>
         <Spinner
             android:id ="@+id/irrigationSystems"
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Orchard"/>
+            android:text="@string/select_an_orchard"/>
         <Spinner
             android:id="@+id/irrigationSystemOrchard"
             android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Pump"/>
+            android:text="@string/select_a_pump"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Irrigation Method"/>
+            android:text="@string/irrigation_method"/>
         <Spinner
             android:id="@+id/irrigationMethod"
             android:layout_width="wrap_content"
@@ -107,12 +107,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Emitter Flow Rate"/>
+                    android:text="@string/emitter_flow_rate"/>
                 <EditText
                     android:id="@+id/emitterFlowRate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="15"
+                    android:hint="00"
                     android:inputType="number"/>
             </LinearLayout>
             <LinearLayout
@@ -124,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select a Unit"/>
+                    android:text="@string/select_a_unit"/>
                 <Spinner
                     android:id="@+id/emitterFlowRateUnit"
                     android:layout_width="wrap_content"
@@ -148,12 +148,12 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Emitter Radius"/>
+                    android:text="@string/emitter_radius"/>
                 <EditText
                     android:id="@+id/emitterRadius"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="12"
+                    android:hint="00"
                     android:inputType="numberDecimal"/>
             </LinearLayout>
             <LinearLayout
@@ -165,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select a Unit"/>
+                    android:text="@string/select_a_unit"/>
                 <Spinner
                     android:id="@+id/emitterRadiusUnit"
                     android:layout_width="wrap_content"
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select a Unit"/>
+                    android:text="@string/select_a_unit"/>
                 <Spinner
                     android:id="@+id/emitterSpacingUnit"
                     android:layout_width="wrap_content"

@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.orchardmanager.treedata.R
 import com.orchardmanager.treedata.data.DateConverter
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentOrchardTaskBinding
 import com.orchardmanager.treedata.entities.OrchardActivity
 import com.orchardmanager.treedata.ui.SAVE_FAILED
@@ -81,7 +82,45 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         })
 
         binding?.deleteActivity?.setOnClickListener(View.OnClickListener {
-            orchardViewModel?.deleteOrchardActivity(this.orchardActivity!!)
+            if(this.orchardActivity != null) {
+                orchardViewModel?.deleteOrchardActivity(this.orchardActivity!!)
+            }
+        })
+
+        binding?.activityStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.activityStartDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.activityStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.activityStartTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.activityStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val date = binding?.activityStopDate?.text.toString()
+                if(!Validator.validateDate(date)) {
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        binding?.activityStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                val time = binding?.activityStopTime?.text.toString()
+                if(!Validator.validateTime(time)) {
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                }
+            }
         })
 
         binding?.showActivityStartDate?.setOnClickListener(View.OnClickListener {

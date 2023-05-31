@@ -9,7 +9,7 @@ class EnumConverter {
     fun toRootstockType(value: String) = RootstockType.from(value)
 
     @TypeConverter
-    fun fromRootstocktype(value: RootstockType) = value.name
+    fun fromRootstockType(value: RootstockType) = value.type
 
     @TypeConverter
     fun toIrrigationMethod(value: String) = IrrigationMethod.from(value)

@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Farm"/>
+            android:text="@string/select_a_farm"/>
         <Spinner
             android:id="@+id/farms"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Existing Orchard"/>
+            android:text="@string/select_an_existing_orchard"/>
         <Spinner
             android:id="@+id/orchardSpinner"
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:id="@+id/crop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter a crop"
+                android:hint="@string/enter_a_crop"
                 android:inputType="text"/>
         </LinearLayout>
         <LinearLayout
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Planted Date"/>
+                    android:text="@string/planted_date"/>
                 <EditText
                     android:id="@+id/plantedDate"
                     android:layout_width="wrap_content"
@@ -78,6 +78,7 @@
                 android:id="@+id/showPlantedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Planted Date"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
         </LinearLayout>
@@ -176,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Percent Sand, Silt, and Clay"/>/
+                android:text="@string/percent_sand_silt_and_clay"/>/
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -186,20 +187,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:hint="Sand"
+                    android:hint="Sand 0.0"
                     android:inputType="numberDecimal"/>
                 <EditText
                     android:id="@+id/silt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    android:hint="Silt"
+                    android:hint="Silt 0.0"
                     android:inputType="numberDecimal"/>
                 <EditText
                     android:id="@+id/clay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Clay"
+                    android:hint="Clay 0.0"
                     android:inputType="numberDecimal"/>
             </LinearLayout>
         </LinearLayout>
@@ -221,7 +222,7 @@
                 android:id="@+id/organicMatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Enter the percent organic matter (ex 5.0)"
+                android:hint="Percent organic matter (ex 5.0)"
                 android:inputType="numberDecimal"/>
         </LinearLayout>
         <LinearLayout

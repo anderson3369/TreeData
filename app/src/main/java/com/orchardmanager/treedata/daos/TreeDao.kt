@@ -16,7 +16,11 @@ interface TreeDao {
     fun delete(tree: Tree)
 
     @Query("SELECT * FROM Tree")
+    //@TypeConverters(GeoPointConverter::class)
     fun getAllTrees(): Flow<MutableList<Tree>>
+
+    @Query("SELECT * FROM Tree WHERE id = :id")
+    fun getTree(id: Long): Flow<Tree>
 
     @Query("SELECT * FROM Tree WHERE orchardId = :orchardId")
     fun getTrees(orchardId: Long): Flow<MutableList<Tree>>
