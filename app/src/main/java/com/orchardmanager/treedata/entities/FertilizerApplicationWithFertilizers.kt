@@ -9,8 +9,8 @@ data class FertilizerApplicationWithFertilizers(
     @Embedded
     val fertilizerApplication: FertilizerApplication,
     @Relation(
-        parentColumn = "id",
-        entityColumn = "fertilizerId"
+        parentColumn = "fertilizerId",
+        entityColumn = "id"
     )
-    val fertilizers: List<Fertilizer>
+    val fertilizers: MutableList<Fertilizer>
 )

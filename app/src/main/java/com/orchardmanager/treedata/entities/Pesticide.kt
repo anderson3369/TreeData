@@ -8,7 +8,7 @@ import com.orchardmanager.treedata.data.EnumConverter
 @TypeConverters(EnumConverter::class)
 @Entity
 data class Pesticide(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val productName: String,
     val eparegno: String,

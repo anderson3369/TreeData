@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:drawableLeft">@color/vectorNight</item>
         <!-- Customize your theme here. -->
     </style>
 

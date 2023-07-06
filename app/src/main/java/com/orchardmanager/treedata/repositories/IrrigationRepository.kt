@@ -58,12 +58,14 @@ class IrrigationRepository @Inject constructor(private val irrigationDao: Irriga
 
     fun getIrrigationSystems() = irrigationSystemDao.getIrrigationSystems()
 
-    fun getIrrigationSystemWithIrrigatioin() = irrigationSystemWithIrrigationsDao.getIrrigationSystemWithIrrigation()
+    fun getIrrigationSystemWithIrrigation(orchardId: Long, startTime: LocalDate, endTime: LocalDate) =
+         irrigationSystemWithIrrigationsDao.getIrrigationSystemWithIrrigation(orchardId, startTime, endTime)
 
-    fun getPumpWithIrrigationSystem() = pumpWithIrrigationSystemDao.getPumpWithIrrigationSystem()
+    fun getPumpWithIrrigationSystem(orchardId: Long) = pumpWithIrrigationSystemDao.getPumpWithIrrigationSystem(orchardId)
 
     fun getOrchardAndIrrigationSystem() = orchardAndIrrigationSystemDao.getOrchardAndIrrigationSystem()
 
     fun getIrrigationsBetween(firstYear: LocalDate, endYear: LocalDate) = irrigationDao.getIrrigations(firstYear, endYear)
+
 
 }

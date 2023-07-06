@@ -19,6 +19,7 @@ import com.orchardmanager.treedata.entities.*
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
 import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.SortPesticideApplications
 import com.orchardmanager.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
@@ -42,7 +43,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
     private var pesticides: MutableList<Pesticide>? = null
     private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
     private val wmUnitArray = arrayOf(
-        WeightOrMeasureUnit.POUNDS, WeightOrMeasureUnit.GALLONS, WeightOrMeasureUnit.QUARTS,
+        WeightOrMeasureUnit.POUNDS, WeightOrMeasureUnit.TONS, WeightOrMeasureUnit.GALLONS, WeightOrMeasureUnit.QUARTS,
         WeightOrMeasureUnit.PINTS, WeightOrMeasureUnit.FLUIDOUNCES, WeightOrMeasureUnit.OUNCES, WeightOrMeasureUnit.GRAMS)
     private val applicationMethodArray = arrayOf(ApplicationMethod.AIRBLAST, ApplicationMethod.AIR, ApplicationMethod.GROUNDBOOM,
         ApplicationMethod.CHEMIGATION, ApplicationMethod.FOGGER, ApplicationMethod.HAND)
@@ -69,6 +70,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
             applications ->
             val adapter = ArrayAdapter<PesticideApplication>(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, applications)
+            adapter.sort(SortPesticideApplications())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pesticideApplications?.adapter = adapter
             binding?.pesticideApplications?.onItemSelectedListener = this
@@ -125,6 +127,66 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
         binding?.savePesticideApplication?.setOnClickListener(this)
 
+        validateDateTime()
+
+        newPestiideApplication()
+
+        deletePesticideApplication()
+
+        fragmentListener()
+
+        pesticideReport()
+
+        return vw
+    }
+
+    private fun pesticideReport() {
+        binding?.pesticideReport?.setOnClickListener(View.OnClickListener {
+            val action = PesticideApplicationFragmentDirections.actionNavPesticideApplicationToNavPesticideReport()
+            view?.findNavController()?.navigate(action)
+        })
+    }
+
+    private fun fragmentListener() {
+        binding?.showPesticideApplicationStartDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(pesticideStartDateRequestKey, pesticideDateKey).show(childFragmentManager, "Start Date")
+        })
+
+        binding?.showPesticideApplicationStopDate?.setOnClickListener(View.OnClickListener {
+            DatePickerFragment(pesticideStopDateRequestKey, pesticideDateKey).show(childFragmentManager, "Stop Date")
+        })
+
+        binding?.pesticideApplicationStartTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(pesticideStartTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Start Time")
+        })
+
+        binding?.pesticideApplicationStopTimeClock?.setOnClickListener(View.OnClickListener {
+            TimePickerFragment(pesticideStopTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Stop Time")
+        })
+    }
+
+    private fun deletePesticideApplication() {
+        binding?.deletePesticideApplication?.setOnClickListener(View.OnClickListener {
+            if(this.pesticideApplication != null) {
+                pesticideViewModel?.deletePesticideApplication(this.pesticideApplication!!)
+            }
+        })
+    }
+
+    private fun newPestiideApplication() {
+        binding?.newPesticideApplication?.setOnClickListener(View.OnClickListener {
+            this.pesticideApplication = null
+            binding?.pesticideApplicationStartDate?.setText("")
+            binding?.pesticideApplicationStartTime?.setText("")
+            binding?.pesticideApplicationStopDate?.setText("")
+            binding?.pesticideApplicationStopTime?.setText("")
+            binding?.pesticideApplied?.setText("")
+            binding?.dilution?.setText("")
+            binding?.areaTreated?.setText("")
+        })
+    }
+
+    private fun validateDateTime() {
         binding?.pesticideApplicationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val date = binding?.pesticideApplicationStartDate?.text.toString()
@@ -160,41 +222,6 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
                 }
             }
         })
-
-        binding?.newPesticideApplication?.setOnClickListener(View.OnClickListener {
-            this.pesticideApplication = null
-            binding?.pesticideApplicationStartDate?.setText("")
-            binding?.pesticideApplicationStartTime?.setText("")
-            binding?.pesticideApplicationStopDate?.setText("")
-            binding?.pesticideApplicationStopTime?.setText("")
-            binding?.pesticideApplied?.setText("")
-            binding?.dilution?.setText("")
-            binding?.areaTreated?.setText("")
-        })
-
-        binding?.deletePesticideApplication?.setOnClickListener(View.OnClickListener {
-            if(this.pesticideApplication != null) {
-                pesticideViewModel?.deletePesticideApplication(this.pesticideApplication!!)
-            }
-        })
-
-        binding?.showPesticideApplicationStartDate?.setOnClickListener(View.OnClickListener {
-            DatePickerFragment(pesticideStartDateRequestKey, pesticideDateKey).show(childFragmentManager, "Start Date")
-        })
-
-        binding?.showPesticideApplicationStopDate?.setOnClickListener(View.OnClickListener {
-            DatePickerFragment(pesticideStopDateRequestKey, pesticideDateKey).show(childFragmentManager, "Stop Date")
-        })
-
-        binding?.pesticideApplicationStartTimeClock?.setOnClickListener(View.OnClickListener {
-            TimePickerFragment(pesticideStartTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Start Time")
-        })
-
-        binding?.pesticideApplicationStopTimeClock?.setOnClickListener(View.OnClickListener {
-            TimePickerFragment(pesticideStopTimeRequestKey, pesticideTimeKey).show(childFragmentManager, "Stop Time")
-        })
-
-        return vw
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -286,7 +313,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
     inner class orchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String && !obj.isEmpty()  && !farmOrchardsMap?.isEmpty()!!) {
+            if(obj is String && !farmOrchardsMap?.isEmpty()!!) {
                 this@PesticideApplicationFragment.orchardId = farmOrchardsMap?.filter { it.value == obj }?.keys!!.first()
             }
         }
@@ -325,11 +352,13 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is PesticideApplication) {
+        if(obj is PesticideApplication && !parent.adapter.isEmpty) {
             this.pesticideApplication = obj
             binding?.pesticideOrchard?.setSelection(farmOrchardsMap?.values!!.indexOf(farmOrchardsMap?.get(obj.orchardId)))
             val pestIndex = this.pesticides?.indexOf(this.pesticides?.filter { it.id == obj.pesticideId }!!.first())
-            binding?.pesticidesSpinner?.setSelection(pestIndex!!)
+            if(binding?.pesticidesSpinner?.adapter?.isEmpty == false) {
+                binding?.pesticidesSpinner?.setSelection(pestIndex!!)
+            }
             parseLocalDateTime(true, obj.applicationStart)
             parseLocalDateTime(false, obj.applicationStop)
             binding?.pesticideApplied?.setText(obj.applied.toString())

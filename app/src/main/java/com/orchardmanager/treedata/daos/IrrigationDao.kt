@@ -28,4 +28,6 @@ interface IrrigationDao {
     @TypeConverters(DateConverter::class)
     @Query("SELECT * FROM Irrigation WHERE startTime BETWEEN :firstYear AND :endYear ORDER BY startTime DESC")
     fun getIrrigations(firstYear: LocalDate, endYear: LocalDate): Flow<MutableList<Irrigation>>
+
+
 }

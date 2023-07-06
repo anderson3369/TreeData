@@ -68,11 +68,6 @@ class FarmFragment : Fragment(),
         return vw
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(FarmViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     private fun saveOnClick() {
         binding.saveFarm?.setOnClickListener(View.OnClickListener {

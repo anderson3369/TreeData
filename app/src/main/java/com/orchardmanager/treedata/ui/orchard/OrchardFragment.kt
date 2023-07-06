@@ -39,9 +39,6 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     private val plantedDateKey = "plantedDateKey"
     val farmOrchardMap = hashMapOf<Long, MutableList<Orchard>>()
 
-    companion object {
-        fun newInstance() = OrchardFragment()
-    }
 
     private val orchardViewModel: OrchardViewModel by viewModels()
     //private val farmViewModel: FarmViewModel by viewModels()
@@ -127,11 +124,6 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(OrchardViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     private fun linearUnit(): ArrayAdapter<LinearUnit> {
         val adapter = ArrayAdapter<LinearUnit>(requireContext(), R.layout.farm_spinner_layout,
@@ -240,7 +232,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                 )
             }
             orchardViewModel.add(orchard!!).observe(this, androidx.lifecycle.Observer {
-                    id -> Log.i("OrchardFragment", "the orchard id is..." + id.toString())
+                    id ->
                 Toast.makeText(requireContext(), "Saved", Toast.LENGTH_SHORT).show()
             })
 

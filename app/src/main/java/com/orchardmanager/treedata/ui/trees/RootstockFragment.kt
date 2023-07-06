@@ -29,9 +29,6 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var rootstockType: RootstockType? = null
     private val rootstocktypes = arrayOf(RootstockType.BAREROOT.toString(), RootstockType.POTTED.toString())
 
-    companion object {
-        fun newInstance() = RootstockFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

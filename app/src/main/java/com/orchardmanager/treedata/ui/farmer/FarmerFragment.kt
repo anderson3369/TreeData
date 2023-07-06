@@ -53,12 +53,6 @@ class FarmerFragment : Fragment(), View.OnClickListener {
         //binding?.phone?.inputType = InputType.TYPE_CLASS_PHONE
         return vw
     }
-    //@Deprecated
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(FarmerViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     override fun onClick(p0: View?) {
         if(farmer != null && farmer!!.id > 0L) {

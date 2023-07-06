@@ -1,15 +1,20 @@
 package com.orchardmanager.treedata.repositories
 
 import com.orchardmanager.treedata.daos.FertilizerApplicationDao
+import com.orchardmanager.treedata.daos.FertilizerApplicationWithFertilizersDao
 import com.orchardmanager.treedata.daos.FertilizerDao
 import com.orchardmanager.treedata.entities.Fertilizer
 import com.orchardmanager.treedata.entities.FertilizerApplication
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FertilizerRepository @Inject constructor(private val fertilizerDao: FertilizerDao,
-                                               private val fertilizerApplicationDao: FertilizerApplicationDao) {
+class FertilizerRepository @Inject constructor(
+    private val fertilizerDao: FertilizerDao,
+    private val fertilizerApplicationDao: FertilizerApplicationDao,
+    private val fertilizerApplicationWithFertilizersDao: FertilizerApplicationWithFertilizersDao
+    ) {
 
     suspend fun createFertilizer(fertilizer: Fertilizer): Long {
         return fertilizerDao.insert(fertilizer)
@@ -38,4 +43,7 @@ class FertilizerRepository @Inject constructor(private val fertilizerDao: Fertil
     }
 
     fun getFertilizerApplications() = fertilizerApplicationDao.getFertilizerApplications()
+
+    fun getFertilizerApplicationWithFertilizers(orchardId: Long, startDate: LocalDate, endDate: LocalDate) =
+        fertilizerApplicationWithFertilizersDao.getFertilizerApplicationWithFertilizers(orchardId,startDate,endDate)
 }

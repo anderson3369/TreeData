@@ -22,6 +22,7 @@ import com.orchardmanager.treedata.entities.WeightOrMeasureUnit
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import com.orchardmanager.treedata.ui.orchard.OrchardViewModel
 import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.SortFertilizerApplications
 import com.orchardmanager.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDateTime
@@ -42,8 +43,10 @@ class FertilizerApplicationFragment : Fragment(),
     private var weightOrMeasureUnit: WeightOrMeasureUnit? = null
     private var orchardUnit: OrchardUnit? = null
     private var fertilizers: MutableList<Fertilizer>? = null
-    private val wmUnitArray = arrayOf(WeightOrMeasureUnit.POUNDS, WeightOrMeasureUnit.GALLONS, WeightOrMeasureUnit.QUARTS,
-        WeightOrMeasureUnit.PINTS, WeightOrMeasureUnit.FLUIDOUNCES, WeightOrMeasureUnit.OUNCES, WeightOrMeasureUnit.GRAMS)
+    private val wmUnitArray = arrayOf(WeightOrMeasureUnit.POUNDS, WeightOrMeasureUnit.TONS,WeightOrMeasureUnit.GALLONS,
+        WeightOrMeasureUnit.QUARTS, WeightOrMeasureUnit.PINTS, WeightOrMeasureUnit.FLUIDOUNCES, WeightOrMeasureUnit.OUNCES,
+        WeightOrMeasureUnit.GRAMS
+    )
     private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
     private val fertilizerStartDateRequestKey = "requestFertilizerStartDateKey"
     private val fertilizerStopDateRequestKey = "requestFertilizerStopDateKey"
@@ -51,7 +54,6 @@ class FertilizerApplicationFragment : Fragment(),
     private val fertilizerStartTimeRequestKey = "requestFertilizerStartTimeKey"
     private val fertilizerStopTimeRequestKey = "requestFertilizerStopTimeKey"
     private val fertilizerTimeKey = "fertilizerTime"
-
 
     companion object {
         fun newInstance() = FertilizerApplicationFragment()
@@ -68,6 +70,7 @@ class FertilizerApplicationFragment : Fragment(),
             fertilizerApplications ->
             val adapter = ArrayAdapter<FertilizerApplication>(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, fertilizerApplications)
+            adapter.sort(SortFertilizerApplications())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.fertilizerApplications?.adapter = adapter
             binding?.fertilizerApplications?.onItemSelectedListener = this
@@ -105,6 +108,11 @@ class FertilizerApplicationFragment : Fragment(),
             binding?.fertilizers?.onItemSelectedListener = fertilizerSelector()
         })
 
+        binding?.fertilizerReport?.setOnClickListener(View.OnClickListener {
+            val action = FertilizerApplicationFragmentDirections.actionNavFertilizerApplicationToNavFertilizerReport()
+            view?.findNavController()?.navigate(action)
+        })
+
         binding?.addFertilizer?.setOnClickListener(View.OnClickListener {
             val action = FertilizerApplicationFragmentDirections.actionNavFertilizerApplicationToNavFertilizer()
             view?.findNavController()?.navigate(action)
@@ -114,7 +122,7 @@ class FertilizerApplicationFragment : Fragment(),
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val date = binding?.fertilizerApplicationStartDate?.text.toString()
                 if(!Validator.validateDate(date)) {
-                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -123,7 +131,7 @@ class FertilizerApplicationFragment : Fragment(),
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val time = binding?.fertilizerApplicationStartTime?.text.toString()
                 if(!Validator.validateTime(time)) {
-                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -132,7 +140,7 @@ class FertilizerApplicationFragment : Fragment(),
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val date = binding?.fertilizerApplicationStopDate?.text.toString()
                 if(!Validator.validateDate(date)) {
-                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -141,7 +149,7 @@ class FertilizerApplicationFragment : Fragment(),
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val time = binding?.fertilizerApplicationStopTime?.text.toString()
                 if(!Validator.validateTime(time)) {
-                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -165,11 +173,11 @@ class FertilizerApplicationFragment : Fragment(),
         })
 
         binding?.showFertilizerApplicationStartDate?.setOnClickListener(View.OnClickListener {
-            DatePickerFragment(fertilizerStopDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Start Date")
+            DatePickerFragment(fertilizerStartDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Start Date")
         })
 
         binding?.showFertilizerApplicationStopDate?.setOnClickListener(View.OnClickListener {
-            DatePickerFragment(fertilizerStartDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Stop Date")
+            DatePickerFragment(fertilizerStopDateRequestKey, fertilizerDateKey).show(childFragmentManager, "Stop Date")
         })
 
         binding?.fertilizerApplicationStartTimeClock?.setOnClickListener(View.OnClickListener {
@@ -210,7 +218,6 @@ class FertilizerApplicationFragment : Fragment(),
         override fun onNothingSelected(parent: AdapterView<*>?) {
             TODO("Not yet implemented")
         }
-
     }
 
     inner class wmUnitSelector: AdapterView.OnItemSelectedListener {
@@ -258,10 +265,14 @@ class FertilizerApplicationFragment : Fragment(),
         val obj = parent?.adapter?.getItem(position)
         if(obj is FertilizerApplication) {
             this.fertilizerApplication = obj
-            binding?.fertilizerOrchard?.setSelection(farmOrchardsMap?.values!!.indexOf(farmOrchardsMap?.get(obj.orchardId)))
-            val fert: Fertilizer = this.fertilizers?.filter { it.id == obj.fertilizerId }!!.first()
-            val index: Int = this.fertilizers?.indexOf(fert)!!
-            binding?.fertilizers?.setSelection(index)
+            if(farmOrchardsMap != null && !farmOrchardsMap!!.isEmpty()) {
+                binding?.fertilizerOrchard?.setSelection(farmOrchardsMap?.values!!.indexOf(farmOrchardsMap?.get(obj.orchardId)))
+            }
+            if(fertilizers != null && !fertilizers!!.isEmpty()) {
+                val fert: Fertilizer = this.fertilizers?.filter { it.id == obj.fertilizerId }!!.first()
+                val index: Int = this.fertilizers?.indexOf(fert)!!
+                binding?.fertilizers?.setSelection(index)
+            }
             parseLocalDateTime(true, obj.applicationStart)
             parseLocalDateTime(false, obj.applicationStop)
             binding?.applied?.setText(obj.applied.toString())

@@ -20,6 +20,7 @@ import com.orchardmanager.treedata.entities.Irrigation
 import com.orchardmanager.treedata.entities.IrrigationSystem
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import com.orchardmanager.treedata.utils.DatePickerFragment
+import com.orchardmanager.treedata.utils.SortIrrigations
 import com.orchardmanager.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
@@ -42,9 +43,6 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
     private val irrigationStopTimeRequestKey = "requestIrrigationStopTimeKey"
     private val irrigationTimeKey = "irrigationTime"
 
-    companion object {
-        fun newInstance() = IrrigationFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +59,7 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
             irrigations ->
             val adapter = ArrayAdapter<Irrigation>(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, irrigations)
+            adapter.sort(SortIrrigations())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.irrigations?.adapter = adapter
             binding?.irrigations?.onItemSelectedListener = irrigationsSelector()
@@ -76,6 +75,32 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
             binding?.irrigationSystemWithIrrigation?.onItemSelectedListener = this
         })
 
+        validateDate()
+
+        datePicker()
+
+        binding?.saveIrrigation?.setOnClickListener(this)
+
+        binding?.newIrrigation?.setOnClickListener(View.OnClickListener {
+            irrigation = null
+            binding?.irrigationStartDate?.setText("")
+            binding?.irrigationStartTime?.setText("")
+            binding?.irrigationStopDate?.setText("")
+            binding?.irrigationStopTime?.setText("")
+
+        })
+
+        binding?.deleteIrrigation?.setOnClickListener(View.OnClickListener {
+            if(irrigation != null) {
+                irrigationViewModel?.deleteIrrigation(irrigation!!)
+            }
+        })
+        irrigationReport()
+        addIrrigationSystem()
+        return vw
+    }
+
+    private fun validateDate() {
         binding?.irrigationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 val date = binding?.irrigationStartDate?.text.toString()
@@ -110,9 +135,10 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-
         })
+    }
 
+    private fun datePicker() {
         binding?.irrigationStartDateCal?.setOnClickListener(View.OnClickListener {
             DatePickerFragment(irrigationStartDateRequestKey, irrigationDateKey)
                 .show(childFragmentManager, getString(R.string.start_date))
@@ -132,26 +158,6 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
             TimePickerFragment(irrigationStopTimeRequestKey, irrigationTimeKey)
                 .show(childFragmentManager, getString(R.string.stop_time))
         })
-
-        binding?.saveIrrigation?.setOnClickListener(this)
-
-        binding?.newIrrigation?.setOnClickListener(View.OnClickListener {
-            irrigation = null
-            binding?.irrigationStartDate?.setText("")
-            binding?.irrigationStartTime?.setText("")
-            binding?.irrigationStopDate?.setText("")
-            binding?.irrigationStopTime?.setText("")
-
-        })
-
-        binding?.deleteIrrigation?.setOnClickListener(View.OnClickListener {
-            if(irrigation != null) {
-                irrigationViewModel?.deleteIrrigation(irrigation!!)
-            }
-        })
-
-        addIrrigationSystem()
-        return vw
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -170,10 +176,13 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(IrrigationViewModel::class.java)
-        // TODO: Use the ViewModel
+
+
+    private fun irrigationReport() {
+        binding?.irrigationReport?.setOnClickListener(View.OnClickListener {
+            val action = IrrigationFragmentDirections.actionNavIrrigationToNavIrrigationReport()
+            view?.findNavController()?.navigate(action)
+        })
     }
 
     private fun addIrrigationSystem() {
@@ -191,8 +200,11 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
                 this@IrrigationFragment.irrigationSystemID = obj.irrigationSystemId
                 val irrsys = this@IrrigationFragment.irrigationSystems?.filter {
                     it.id == this@IrrigationFragment.irrigationSystemID }?.get(0)
-                binding?.irrigationSystemWithIrrigation?.setSelection(
-                    this@IrrigationFragment.irrigationSystems!!.indexOf(irrsys!!))
+                if(irrsys != null) {
+                    binding?.irrigationSystemWithIrrigation?.setSelection(
+                        this@IrrigationFragment.irrigationSystems!!.indexOf(irrsys!!))
+                }
+
                 parseLocalDateTime(isStart = true, obj.startTime)
                 parseLocalDateTime(isStart = false, obj.stopTime)
             }

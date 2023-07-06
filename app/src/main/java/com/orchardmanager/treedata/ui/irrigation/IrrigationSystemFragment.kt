@@ -71,6 +71,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
         pumpViewModel.getPumpsMap().observe(viewLifecycleOwner, Observer {
             pumps ->
+            this.pumpMap = pumps
             val adapter = ArrayAdapter<Pump>(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, pumps.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -294,9 +295,11 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
             //val orchard = farmOrchards?.filter { id == orchardId }
             binding?.irrigationSystemOrchard?.setSelection(orchardPosition)
             this.pumpId = obj.pumpId
-            val pmp = pumpMap?.get(pumpId)
-            val pumpPosition = pumpMap?.values!!.indexOf(pmp)
-            binding?.pumps?.setSelection(pumpPosition)
+            if(pumpId != null) {
+                val pmp = pumpMap?.get(pumpId)
+                val pumpPosition = pumpMap?.values!!.indexOf(pmp)
+                binding?.pumps?.setSelection(pumpPosition)
+            }
             binding?.irrigationSystemName?.setText(obj.name)
             binding?.irrigationMethod?.setSelection(irrigationMethods.indexOf(obj.irrigationMethod))
             binding?.emitterFlowRate?.setText(obj.emitterFlowRate.toString())

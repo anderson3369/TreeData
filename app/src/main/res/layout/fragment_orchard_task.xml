@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="Select a Saved Activity"/>
+            android:text="@string/select_a_saved_activity"/>
         <Spinner
             android:id="@+id/orchardActivity"
             android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:text="Orchard Activities"/>
+            android:text="@string/orchard_activities"/>
         <Spinner
             android:id="@+id/activities"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Notes"/>
+            android:text="@string/notes"/>
         <EditText
             android:id="@+id/notes"
             android:layout_width="match_parent"
@@ -47,30 +47,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/start_date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Activity Start Date"/>
+                android:orientation="horizontal">
                 <EditText
                     android:id="@+id/activityStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
+                    android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"/>
+                <Button
+                    android:id="@+id/showActivityStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/showActivityStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Start Time"/>
+                android:text="@string/start_time"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,30 +103,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/stop_date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Activity Stopped"/>
+                android:orientation="horizontal">
                 <EditText
                     android:id="@+id/activityStopDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
+                    android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"/>
+                <Button
+                    android:id="@+id/showActivityStopDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/showActivityStopDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Activity Stop Time"/>
+                android:text="@string/stop_time"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -179,5 +179,4 @@
                 android:text="@string/delete_button_text"/>
         </LinearLayout>
     </LinearLayout>
-
 </FrameLayout>

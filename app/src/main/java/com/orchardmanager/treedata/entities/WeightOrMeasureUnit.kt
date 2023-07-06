@@ -2,6 +2,7 @@ package com.orchardmanager.treedata.entities
 
 enum class WeightOrMeasureUnit(val type: String) {
     POUNDS("Pounds"),
+    TONS("Tons"),
     OUNCES("Ounces"),
     GRAMS("Grams"),
     GALLONS("Gallons"),

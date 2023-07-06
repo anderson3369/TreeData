@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Crop"/>
+                android:text="@string/crop"/>
             <EditText
                 android:id="@+id/crop"
                 android:layout_width="match_parent"
@@ -71,14 +71,13 @@
                     android:id="@+id/plantedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
+                    android:hint="@string/mm_dd_yyyy"
                     android:inputType="date"/>
             </LinearLayout>
             <Button
                 android:id="@+id/showPlantedDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Planted Date"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
         </LinearLayout>

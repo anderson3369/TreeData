@@ -13,26 +13,43 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:text="@string/select_a_fertilizer_application" />
+                    <Spinner
+                        android:id="@+id/fertilizerApplications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <Button
+                    android:id="@+id/fertilizerReport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/baseline_summarize_24"/>
+            </LinearLayout>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Select a Fertilizer Application" />
-            <Spinner
-                android:id="@+id/fertilizerApplications"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="Select an Orchard"/>
+                android:text="@string/select_an_orchard"/>
             <Spinner
                 android:id="@+id/fertilizerOrchard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Select a Fertilizer"/>
+                    android:text="@string/select_a_fertilizer"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,30 +79,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/start_date"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:text="Application Start Date"/>
+                    android:orientation="horizontal">
                     <EditText
                         android:id="@+id/fertilizerApplicationStartDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="mm-dd-yyyy"
+                        android:hint="@string/mm_dd_yyyy"
                         android:inputType="date"/>
+                    <Button
+                        android:id="@+id/showFertilizerApplicationStartDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
-                <Button
-                    android:id="@+id/showFertilizerApplicationStartDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -96,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Start Time"/>
+                    android:text="@string/start_time"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -118,30 +135,31 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:text="@string/stop_date"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:text="Application Stopped"/>
+                    android:orientation="horizontal">
+
                     <EditText
                         android:id="@+id/fertilizerApplicationStopDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="mm-dd-yyyy"
+                        android:hint="@string/mm_dd_yyyy"
                         android:inputType="date"/>
+                    <Button
+                        android:id="@+id/showFertilizerApplicationStopDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
-                <Button
-                    android:id="@+id/showFertilizerApplicationStopDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -152,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Application Stop Time"/>
+                    android:text="@string/stop_time"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,12 +202,12 @@
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="Amount Applied"/>
+                        android:text="@string/amount_applied"/>
                     <EditText
                         android:id="@+id/applied"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="000000"
+                        android:hint="@string/enter_the_amount_applied"
                         android:inputType="number"/>
                 </LinearLayout>
                 <LinearLayout
@@ -201,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="Select a Unit"/>
+                        android:text="@string/select_a_unit"/>
                     <Spinner
                         android:id="@+id/fertilizerAppliedUnit"
                         android:layout_width="wrap_content"
@@ -221,12 +239,12 @@
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="Area Treated"/>
+                        android:text="@string/area_treated"/>
                     <EditText
                         android:id="@+id/fertilizerAreaTreated"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="000.0"
+                        android:hint="@string/enter_the_area_treated"
                         android:inputType="number"/>
                 </LinearLayout>
                 <LinearLayout
@@ -238,7 +256,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="Select a unit"/>
+                        android:text="@string/select_a_unit"/>
                     <Spinner
                         android:id="@+id/fertilizerAreaTreatedUnit"
                         android:layout_width="wrap_content"
@@ -269,5 +287,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
 </FrameLayout>

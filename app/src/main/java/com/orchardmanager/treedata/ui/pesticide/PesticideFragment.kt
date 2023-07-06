@@ -80,11 +80,6 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
         return vw
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(PesticideViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     inner class reiUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

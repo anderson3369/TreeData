@@ -25,10 +25,5 @@ class FarmWithOrchardsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_farm_with_orchards, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(FarmWithOrchardsViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }

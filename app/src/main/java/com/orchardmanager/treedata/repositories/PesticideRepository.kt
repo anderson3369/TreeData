@@ -1,15 +1,20 @@
 package com.orchardmanager.treedata.repositories
 
 import com.orchardmanager.treedata.daos.PesticideApplicationDao
+import com.orchardmanager.treedata.daos.PesticideApplicationWithPesticidesDao
 import com.orchardmanager.treedata.daos.PesticideDao
 import com.orchardmanager.treedata.entities.Pesticide
 import com.orchardmanager.treedata.entities.PesticideApplication
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PesticideRepository @Inject constructor(private val pesticideDao: PesticideDao,
-    private val pesticideApplicationDao: PesticideApplicationDao) {
+class PesticideRepository @Inject constructor(
+    private val pesticideDao: PesticideDao,
+    private val pesticideApplicationDao: PesticideApplicationDao,
+    private val pesticideApplicationWithPesticidesDao: PesticideApplicationWithPesticidesDao
+    ) {
 
     suspend fun createPesticide(pesticide: Pesticide): Long {
         return pesticideDao.insert(pesticide)
@@ -38,4 +43,7 @@ class PesticideRepository @Inject constructor(private val pesticideDao: Pesticid
     }
 
     fun getPesticideApplications() = pesticideApplicationDao.getPesticideApplications()
+
+    fun getPesticideApplicationWithPesticides(orchardId: Long, startDate: LocalDate, endDate: LocalDate) =
+        pesticideApplicationWithPesticidesDao.getPesticideApplicationWithPesticides(orchardId, startDate, endDate)
 }

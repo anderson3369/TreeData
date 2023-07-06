@@ -57,4 +57,27 @@
     <string name="irrigation_method">Irrigation Method</string>
     <string name="emitter_flow_rate">Emitter Flow Rate</string>
     <string name="emitter_radius">Emitter Radius</string>
+    <string name="crop">Crop</string>
+    <string name="select_a_saved_activity">Select a Saved Activity</string>
+    <string name="orchard_activities">Orchard Activities</string>
+    <string name="notes">Notes</string>
+    <string name="select_a_fertilizer_application">Select a Fertilizer Application</string>
+    <string name="select_a_fertilizer">Select a Fertilizer</string>
+    <string name="amount_applied">Amount Applied</string>
+    <string name="enter_the_amount_applied">Enter the amount applied</string>
+    <string name="area_treated">Area Treated</string>
+    <string name="enter_the_area_treated">Enter the area treated</string>
+    <string name="select_a_pesticide_application">Select a Pesticide Application</string>
+    <string name="select_a_pesticide">Select a Pesticide</string>
+    <string name="application_stopped">Application Stopped</string>
+    <string name="application_stop_time">Application Stop Time</string>
+    <string name="dilution">Dilution</string>
+    <string name="select_an_application_method">Select an Application Method</string>
+    <string name="primary_secondary_surface_well_etc">Primary, secondary, Surface, Well, etc.</string>
+    <string name="emitter_spacing">Emitter Spacing</string>
+    <string name="from_date">From Date</string>
+    <string name="to_date">To Date</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="web_client_id">1030395167156-vp3coaeqio6k54a0m9btor488p33it2j.apps.googleusercontent.com</string>
 </resources>

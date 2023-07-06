@@ -10,25 +10,21 @@
         android:name="com.orchardmanager.treedata.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
-
     <fragment
         android:id="@+id/nav_farmer"
         android:name="com.orchardmanager.treedata.ui.farmer.FarmerFragment"
         android:label="Farmer"
         tools:layout="@layout/fragment_farmer" />
-
     <fragment
         android:id="@+id/nav_farm"
         android:name="com.orchardmanager.treedata.ui.farm.FarmFragment"
         android:label="Farm"
         tools:layout="@layout/fragment_farm"/>
-
     <fragment
         android:id="@+id/nav_orchard"
         android:name="com.orchardmanager.treedata.ui.orchard.OrchardFragment"
         android:label="Orchard"
         tools:layout="@layout/fragment_orchard"/>
-
     <fragment
         android:id="@+id/nav_orchardTask"
         android:name="com.orchardmanager.treedata.ui.orchard.OrchardTaskFragment"
@@ -78,6 +74,9 @@
         <action
             android:id="@+id/action_nav_irrigation_to_nav_irrigationSystem"
             app:destination="@+id/nav_irrigationSystem"/>
+        <action
+            android:id="@+id/action_nav_irrigation_to_nav_irrigationReport"
+            app:destination="@+id/nav_irrigationReport"/>
     </fragment>
     <fragment
         android:id="@+id/nav_irrigationSystem"
@@ -94,6 +93,11 @@
         android:label="Pump"
         tools:layout="@layout/fragment_pump"/>
     <fragment
+        android:id="@+id/nav_irrigationReport"
+        android:name="com.orchardmanager.treedata.ui.irrigation.IrrigationReportFragment"
+        android:label="Irrigation Report"
+        tools:layout="@layout/fragment_irrigation_report"/>
+    <fragment
         android:id="@+id/nav_soilMoisture"
         android:name="com.orchardmanager.treedata.ui.irrigation.SoilMoistureFragment"
         android:label="Soil Moisture"
@@ -106,12 +110,20 @@
         <action
             android:id="@+id/action_nav_fertilizerApplication_to_nav_fertilizer"
             app:destination="@+id/nav_fertilizer"/>
+        <action
+            android:id="@+id/action_nav_fertilizerApplication_to_nav_fertilizerReport"
+            app:destination="@+id/nav_fertilizerReport"/>
     </fragment>
     <fragment
         android:id="@+id/nav_fertilizer"
         android:name="com.orchardmanager.treedata.ui.fertilizer.FertilizerFragment"
         android:label="Fertilizer"
         tools:layout="@layout/fragment_fertilizer"/>
+    <fragment
+        android:id="@+id/nav_fertilizerReport"
+        android:name="com.orchardmanager.treedata.ui.fertilizer.FertilizerReportFragment"
+        android:label="Fertilizer Report"
+        tools:layout="@layout/fragment_fertilizer_report"/>
     <fragment
         android:id="@+id/nav_pesticideApplication"
         android:name="com.orchardmanager.treedata.ui.pesticide.PesticideApplicationFragment"
@@ -120,11 +132,18 @@
         <action
             android:id="@+id/action_nav_pesticideApplication_to_nav_pesticide"
             app:destination="@+id/nav_pesticide"/>
-
+        <action
+            android:id="@+id/action_nav_pesticideApplication_to_nav_pesticideReport"
+            app:destination="@+id/nav_pesticideReport"/>
     </fragment>
     <fragment
         android:id="@+id/nav_pesticide"
         android:name="com.orchardmanager.treedata.ui.pesticide.PesticideFragment"
         android:label="Pesticide"
         tools:layout="@layout/fragment_pesticide"/>
+    <fragment
+        android:id="@+id/nav_pesticideReport"
+        android:name="com.orchardmanager.treedata.ui.pesticide.PesticideReportFragment"
+        android:label="Pesticide Report"
+        tools:layout="@layout/fragment_pesticide_report"/>
 </navigation>

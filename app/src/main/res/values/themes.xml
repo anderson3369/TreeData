@@ -10,6 +10,7 @@
         <item name="android:windowBackground">@drawable/agriculture_background</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorBackground</item>
+        <item name="android:drawableLeft">@color/vectorDay</item>
         <!--
         <item name="android:editTextStyle">@style/AgricultureEditText</item>
         -->

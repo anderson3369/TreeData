@@ -3,11 +3,13 @@ package com.orchardmanager.treedata.ui.fertilizer
 import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.Fertilizer
 import com.orchardmanager.treedata.entities.FertilizerApplication
+import com.orchardmanager.treedata.entities.FertilizerApplicationWithFertilizers
 import com.orchardmanager.treedata.repositories.FertilizerRepository
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -64,5 +66,9 @@ class FertilizerViewModel @Inject constructor(private val fertilizerRepository: 
 
     fun getFertilizerApplications(): LiveData<MutableList<FertilizerApplication>> {
         return fertilizerRepository.getFertilizerApplications().asLiveData()
+    }
+
+    fun getFertilizerApplicationsWithFertilizers(orchardId: Long, startDate: LocalDate, endDate: LocalDate): LiveData<MutableList<FertilizerApplicationWithFertilizers>> {
+        return fertilizerRepository.getFertilizerApplicationWithFertilizers(orchardId,startDate,endDate).asLiveData()
     }
 }

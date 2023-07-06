@@ -230,11 +230,6 @@ class OSMTreeFragment : Fragment(), LocationListener {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(OSMTreeViewModel::class.java)
-        //add map overlay's here
-    }
 
     fun parseWMS(url: String) {
         thread(start = true) {

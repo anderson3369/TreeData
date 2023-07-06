@@ -3,11 +3,13 @@ package com.orchardmanager.treedata.ui.pesticide
 import androidx.lifecycle.*
 import com.orchardmanager.treedata.entities.Pesticide
 import com.orchardmanager.treedata.entities.PesticideApplication
+import com.orchardmanager.treedata.entities.PesticideApplicationWithPesticides
 import com.orchardmanager.treedata.repositories.PesticideRepository
 import com.orchardmanager.treedata.ui.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -63,5 +65,10 @@ class PesticideViewModel @Inject constructor(private val pesticideRepository: Pe
 
     fun getPesticideApplications(): LiveData<MutableList<PesticideApplication>> {
         return pesticideRepository.getPesticideApplications().asLiveData()
+    }
+
+    fun getPesticideApplicationWithPesticides(orchardId: Long, startDate: LocalDate, endDate: LocalDate):
+            LiveData<MutableList<PesticideApplicationWithPesticides>> {
+        return pesticideRepository.getPesticideApplicationWithPesticides(orchardId, startDate, endDate).asLiveData()
     }
 }

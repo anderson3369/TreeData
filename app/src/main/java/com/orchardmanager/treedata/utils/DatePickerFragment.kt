@@ -18,13 +18,13 @@ class DatePickerFragment constructor(private val requestKey: String, private val
         //Calendar
         val cal = Calendar.getInstance()
         val yr = cal.get(Calendar.YEAR)
-        val mnth = cal.get(Calendar.MONTH) + 1
+        val mnth = cal.get(Calendar.MONTH)
         val day = cal.get(Calendar.DAY_OF_MONTH)
         return DatePickerDialog(requireActivity(),this, yr, mnth, day)
     }
 
     override fun onDateSet(p0: DatePicker?, p1: Int, p2: Int, p3: Int) {
-        val date = LocalDate.of(p1, p2, p3)
+        val date = LocalDate.of(p1, p2+1, p3)
         setFragmentResult(requestKey, bundleOf(key to DateConverter().fromOffsetDate(date)))
     }
 }

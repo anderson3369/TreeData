@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.orchardmanager.treedata.R
+import com.orchardmanager.treedata.data.Validator
 import com.orchardmanager.treedata.databinding.FragmentFarmBinding
 import com.orchardmanager.treedata.databinding.FragmentFertilizerBinding
 import com.orchardmanager.treedata.databinding.FragmentOrchardBinding
@@ -28,9 +29,6 @@ class FertilizerFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private val fertilzerViewModel: FertilizerViewModel by viewModels()
     private var fertilizer: Fertilizer? = null
 
-    companion object {
-        fun newInstance() = FertilizerFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,11 +75,6 @@ class FertilizerFragment : Fragment(), AdapterView.OnItemSelectedListener,
         return vw
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        //viewModel = ViewModelProvider(this).get(FertilizerViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)

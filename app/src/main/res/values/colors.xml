@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#006600</color>
-    <color name="colorPrimaryDark">#004d00</color>
+    <color name="colorPrimary">#5B6A43</color>
+    <color name="colorPrimaryDark">#3F4A30</color>
     <color name="colorAccent">#ffd700</color>
     <color name="colorBackground">#f5f5dc</color>
     <color name="colorBackgroundDark">#FF000000</color>
@@ -9,4 +9,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#939694</color>
+    <color name="vectorNight">#FFFFFFFF</color>
+    <color name="vectorDay">#FF000000</color>
 </resources>

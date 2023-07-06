@@ -225,7 +225,6 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         }
         setFragmentResultListener(getString(R.string.treerequestkey)) {
             treeKey, bundle ->
-            Log.i("TreeFragment", treeKey)
             treeViewModel.getTree(bundle.getLong(getString(R.string.treekey))).observe(viewLifecycleOwner, Observer {
                 tree ->
                 this.tree = tree
