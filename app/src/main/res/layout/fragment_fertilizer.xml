@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fadeScrollbars="false"
+        android:layout_centerInParent="true"
         android:padding="16dp">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Select a Fertilizer"/>
+                android:text="@string/select_a_fertilizer"/>
             <Spinner
                 android:id="@+id/fertilizerSpinner"
                 android:layout_width="wrap_content"
@@ -35,187 +36,187 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:hint="Enter the fertilizer name"/>
+                android:hint="@string/enter_the_fertilizer_name"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Nitrogen"/>
+                android:text="@string/nitrogen"/>
             <EditText
                 android:id="@+id/nitrogen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent nitrogen"/>
+                android:hint="@string/enter_the_percent_nitrogen"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Phosphorous"/>
+                android:text="@string/phosphorous"/>
             <EditText
                 android:id="@+id/phosphorous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent phosphorous"/>
+                android:hint="@string/enter_the_percent_phosphorous"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Potassium"/>
+                android:text="@string/potassium"/>
             <EditText
                 android:id="@+id/potassium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent potassium"/>
+                android:hint="@string/enter_the_percent_potassium"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Sulfur"/>
+                android:text="@string/sulfur"/>
             <EditText
                 android:id="@+id/sulfur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent sulfur"/>
+                android:hint="@string/enter_the_percent_sulfur"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Calcium"/>
+                android:text="@string/calcium"/>
             <EditText
                 android:id="@+id/calcium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent calcium"/>
+                android:hint="@string/enter_the_percent_calcium"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Magnesium"/>
+                android:text="@string/magnesium"/>
             <EditText
                 android:id="@+id/magnesium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent magnesium"/>
+                android:hint="@string/enter_the_percent_magnesium"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Boron"/>
+                android:text="@string/boron"/>
             <EditText
                 android:id="@+id/boron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent boron"/>
+                android:hint="@string/enter_the_percent_boron"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Zinc"/>
+                android:text="@string/zinc"/>
             <EditText
                 android:id="@+id/zinc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent zinc"/>
+                android:hint="@string/enter_the_percent_zinc"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Iron"/>
+                android:text="@string/iron"/>
             <EditText
                 android:id="@+id/iron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent iron"/>
+                android:hint="@string/enter_the_percent_iron"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Manganese"/>
+                android:text="@string/manganese"/>
             <EditText
                 android:id="@+id/manganese"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent manganese"/>
+                android:hint="@string/enter_the_percent_manganese"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Molybdenum"/>
+                android:text="@string/molybdenum"/>
             <EditText
                 android:id="@+id/molybdenum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent molybdenum"/>
+                android:hint="@string/enter_the_percent_molybdenum"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Chloride"/>
+                android:text="@string/chloride"/>
             <EditText
                 android:id="@+id/chloride"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent chloride"/>
+                android:hint="@string/enter_the_percent_chloride"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Copper"/>
+                android:text="@string/copper"/>
             <EditText
                 android:id="@+id/copper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent copper"/>
+                android:hint="@string/enter_the_percent_copper"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Nickel"/>
+                android:text="@string/nickel"/>
             <EditText
                 android:id="@+id/nickel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent nickel"/>
+                android:hint="@string/enter_the_percent_nickel"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Organic Matter"/>
+                android:text="@string/organic_matter"/>
             <EditText
                 android:id="@+id/organicMatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Enter the percent organic matter"/>
+                android:hint="@string/enter_the_percent_organic_matter"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -236,8 +237,8 @@
                     android:id="@+id/deleteFertilzer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/delete_button_text"/>
+                    android:text="@string/delete_button_text" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</FrameLayout>
+</RelativeLayout>

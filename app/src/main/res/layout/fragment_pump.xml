@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Pump"/>
+            android:text="@string/select_a_pump"/>
         <Spinner
             android:id="@+id/pumps"
             android:layout_width="wrap_content"
@@ -25,74 +25,63 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Pump Type"/>
+            android:text="@string/pump_type"/>
         <EditText
             android:id="@+id/pumpType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Submersible, Turbine, Gate(No Pump)"
+            android:hint="@string/submersible_turbine_gate_no_pump"
             android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Pump Horsepower" />
+            android:text="@string/pump_horsepower" />
         <EditText
             android:id="@+id/horsepower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter the pump's horsepower"
+            android:hint="@string/enter_the_pump_s_horsepower"
             android:inputType="numberDecimal" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Pump Phase"/>
+            android:text="@string/pump_phase"/>
         <EditText
             android:id="@+id/phase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="3, 2, 1 ?"
+            android:hint="@string/_3_2_1"
             android:inputType="number"/>
-        <LinearLayout
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Pump Flow Rate"/>
-                <EditText
-                    android:id="@+id/pumpFlowRate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter the pump's flow rate"
-                    android:inputType="number"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="Select the Unit"/>
-                <Spinner
-                    android:id="@+id/pumpFlowRateUnit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-        </LinearLayout>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/pump_flow_rate"/>
+        <EditText
+            android:id="@+id/pumpFlowRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_the_pump_s_flow_rate"
+            android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/select_a_unit"/>
+        <Spinner
+            android:id="@+id/pumpFlowRateUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

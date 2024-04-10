@@ -2,16 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/signIn"
-        android:title="Sign In"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/signOut"
-        android:title="Sign Out"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/action_settings"
+        android:id="@+id/nav_farmer"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_baseline_contact_page_24"
+        android:title="@string/farmer"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/nav_farm"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_agriculture_24"
+        android:title="@string/farm"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/nav_orchard"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_baseline_forest_24"
+        android:title="@string/orchard"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/nav_version"
+        android:orderInCategory="100"
+        android:title="@string/version"
+        app:showAsAction="never"/>
 </menu>

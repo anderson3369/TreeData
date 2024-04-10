@@ -7,5 +7,13 @@
         <item>Harvesting</item>
         <item>Equipment Maintenance</item>
         <item>@string/soil_moisture</item>
+        <item>Weather Event</item>
+    </string-array>
+    <string-array name="tree_ranking_descriptions">
+        <item>Excellent:  the best performing tree in any orchard</item>
+        <item>Good:  a tree that does not have the same vigor or production as an excellent tree</item>
+        <item>Moderate:  a tree that lacks vigor or production, and may have early onset of disease or nematode infestation</item>
+        <item>Poor:  a tree that lack vigor and production, and has a disease or nematode infestation</item>
+        <item>Dying or Dead</item>
     </string-array>
 </resources>

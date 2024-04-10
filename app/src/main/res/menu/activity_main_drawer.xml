@@ -9,18 +9,6 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_farmer"
-            android:icon="@drawable/ic_baseline_contact_page_24"
-            android:title="@string/farmer"/>
-        <item
-            android:id="@+id/nav_farm"
-            android:icon="@drawable/ic_baseline_agriculture_24"
-            android:title="@string/farm"/>
-        <item
-            android:id="@+id/nav_orchard"
-            android:icon="@drawable/ic_baseline_forest_24"
-            android:title="@string/orchard"/>
-        <item
             android:id="@+id/nav_orchardTask"
             android:icon="@drawable/ic_baseline_crop_landscape_24"
             android:title="@string/orchard_activity"/>

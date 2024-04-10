@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.TreeData.ChatGPT" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
@@ -15,9 +15,22 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.TreeData.ChatGPT.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/colorPrimary</item>
+    </style>
+
     <style name="AgricultureEditText" parent="Widget.AppCompat.EditText">
         <item name="android:background">@color/colorBackgroundDark</item>
         <item name="android:drawableLeft">@drawable/ic_baseline_forest_24</item>
         <item name="android:drawablePadding">10dp</item>
     </style>
+
+    <style name="Theme.TreeData.ChatGPT.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TreeData.ChatGPT.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
