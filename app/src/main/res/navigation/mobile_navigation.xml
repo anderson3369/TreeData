@@ -7,39 +7,206 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.orchardmanager.treedata.ui.home.HomeFragment"
+        android:name="com.orchardlog.treedata.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-<!--
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_first_farmer"
+            app:destination="@+id/nav_first_farmer"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_first_farm"
+            app:destination="@+id/nav_first_farm"/>
+        <action
+            android:id="@+id/action_nav_home_to_nav_first_orchard"
+            app:destination="@+id/nav_first_orchard"/>
+    </fragment>
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.orchardmanager.treedata.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
+        android:id="@+id/nav_first_farmer"
+        android:name="com.orchardlog.treedata.ui.farmer.FirstFarmerFragment"
+        android:label="@string/farmer"
+        tools:layout="@layout/fragment_first_farmer">
+        <action
+            android:id="@+id/action_nav_first_farmer_to_nav_first_farm"
+            app:destination="@+id/nav_first_farm"/>
+    </fragment>
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.orchardmanager.treedata.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
--->
+        android:id="@+id/nav_first_farm"
+        android:name="com.orchardlog.treedata.ui.farm.FirstFarmFragment"
+        android:label="@string/farm"
+        tools:layout="@layout/fragment_first_farm">
+        <action
+            android:id="@+id/action_nav_first_farm_to_nav_first_farmer"
+            app:destination="@+id/nav_first_farmer"/>
+        <action
+            android:id="@+id/action_nav_first_farm_to_nav_first_orchard"
+            app:destination="@+id/nav_first_orchard"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_first_orchard"
+        android:name="com.orchardlog.treedata.ui.orchard.FirstOrchardFragment"
+        android:label="@string/orchard"
+        tools:layout="@layout/fragment_first_orchard">
+        <action
+            android:id="@+id/action_nav_first_orchard_to_nav_first_farm"
+            app:destination="@+id/nav_first_farm"/>
+        <action
+            android:id="@+id/action_nav_first_orchard_to_nav_home"
+            app:destination="@+id/nav_home"/>
+    </fragment>
     <fragment
         android:id="@+id/nav_farmer"
-        android:name="com.orchardmanager.treedata.ui.farmer.FarmerFragment"
+        android:name="com.orchardlog.treedata.ui.farmer.FarmerFragment"
         android:label="Farmer"
-        tools:layout="@layout/fragment_farmer" />
-
+        tools:layout="@layout/fragment_farmer" >
+        <action
+            android:id="@+id/action_nav_farmer_to_nav_farm"
+            app:destination="@+id/nav_farm"/>
+    </fragment>
     <fragment
         android:id="@+id/nav_farm"
-        android:name="com.orchardmanager.treedata.ui.farm.FarmFragment"
+        android:name="com.orchardlog.treedata.ui.farm.FarmFragment"
         android:label="Farm"
-        tools:layout="@layout/fragment_farm"/>
-    <dialog
-        android:id="@+id/nav_farm_to_orchard"/>
-
+        tools:layout="@layout/fragment_farm">
+        <action
+            android:id="@+id/action_nav_farm_to_nav_orchard"
+            app:destination="@+id/nav_orchard"/>
+    </fragment>
     <fragment
         android:id="@+id/nav_orchard"
-        android:name="com.orchardmanager.treedata.ui.orchard.OrchardFragment"
+        android:name="com.orchardlog.treedata.ui.orchard.OrchardFragment"
         android:label="Orchard"
         tools:layout="@layout/fragment_orchard"/>
+    <fragment
+        android:id="@+id/nav_orchardTask"
+        android:name="com.orchardlog.treedata.ui.orchard.OrchardTaskFragment"
+        android:label="Orchard Activity"
+        tools:layout="@layout/fragment_orchard_task">
+        <action
+            android:id="@+id/action_nav_orchardTask_to_nav_soilMoisture"
+            app:destination="@id/nav_soilMoisture" />
+        <action
+            android:id="@+id/action_nav_orchardTask_to_nav_orchardTaskReport"
+            app:destination="@+id/nav_orchardTaskReport"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_orchardTaskReport"
+        android:name="com.orchardlog.treedata.ui.orchard.OrchardTaskReportFragment"
+        android:label="Orchard Activities Report"
+        tools:layout="@layout/fragment_orchard_task_report"/>
+    <fragment
+        android:id="@+id/nav_tree"
+        android:name="com.orchardlog.treedata.ui.trees.TreeFragment"
+        android:label="Tree"
+        tools:layout="@layout/fragment_tree">
+        <action
+            android:id="@+id/action_nav_tree_to_nav_rootstock"
+            app:destination="@id/nav_rootstock" />
+        <action
+            android:id="@+id/action_nav_tree_to_nav_variety"
+            app:destination="@+id/nav_variety"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_rootstock"
+        android:name="com.orchardlog.treedata.ui.trees.RootstockFragment"
+        android:label="Rootstock"
+        tools:layout="@layout/fragment_rootstock"/>
+    <fragment
+        android:id="@+id/nav_variety"
+        android:name="com.orchardlog.treedata.ui.trees.VarietyFragment"
+        android:label="Variety"
+        tools:layout="@layout/fragment_variety"/>
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.orchardlog.treedata.ui.trees.OSMTreeFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_o_s_m_tree">
+        <action
+            android:id="@+id/action_nav_map_to_nav_tree"
+            app:destination="@+id/nav_tree"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_irrigation"
+        android:name="com.orchardlog.treedata.ui.irrigation.IrrigationFragment"
+        android:label="Irrigation"
+        tools:layout="@layout/fragment_irrigation">
+        <action
+            android:id="@+id/action_nav_irrigation_to_nav_irrigationSystem"
+            app:destination="@+id/nav_irrigationSystem"/>
+        <action
+            android:id="@+id/action_nav_irrigation_to_nav_irrigationReport"
+            app:destination="@+id/nav_irrigationReport"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_irrigationSystem"
+        android:name="com.orchardlog.treedata.ui.irrigation.IrrigationSystemFragment"
+        android:label="Irrigation System"
+        tools:layout="@layout/fragment_irrigation_system">
+        <action
+            android:id="@+id/action_nav_irrigationSystem_to_nav_pump"
+            app:destination="@+id/nav_pump"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pump"
+        android:name="com.orchardlog.treedata.ui.irrigation.PumpFragment"
+        android:label="Pump"
+        tools:layout="@layout/fragment_pump"/>
+    <fragment
+        android:id="@+id/nav_irrigationReport"
+        android:name="com.orchardlog.treedata.ui.irrigation.IrrigationReportFragment"
+        android:label="Irrigation Report"
+        tools:layout="@layout/fragment_irrigation_report"/>
+    <fragment
+        android:id="@+id/nav_soilMoisture"
+        android:name="com.orchardlog.treedata.ui.irrigation.SoilMoistureFragment"
+        android:label="Soil Moisture"
+        tools:layout="@layout/fragment_soil_moisture"/>
+    <fragment
+        android:id="@+id/nav_fertilizerApplication"
+        android:name="com.orchardlog.treedata.ui.fertilizer.FertilizerApplicationFragment"
+        android:label="Fertilizer Application"
+        tools:layout="@layout/fragment_fertilizer_application">
+        <action
+            android:id="@+id/action_nav_fertilizerApplication_to_nav_fertilizer"
+            app:destination="@+id/nav_fertilizer"/>
+        <action
+            android:id="@+id/action_nav_fertilizerApplication_to_nav_fertilizerReport"
+            app:destination="@+id/nav_fertilizerReport"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_fertilizer"
+        android:name="com.orchardlog.treedata.ui.fertilizer.FertilizerFragment"
+        android:label="Fertilizer"
+        tools:layout="@layout/fragment_fertilizer"/>
+    <fragment
+        android:id="@+id/nav_fertilizerReport"
+        android:name="com.orchardlog.treedata.ui.fertilizer.FertilizerReportFragment"
+        android:label="Fertilizer Report"
+        tools:layout="@layout/fragment_fertilizer_report"/>
+    <fragment
+        android:id="@+id/nav_pesticideApplication"
+        android:name="com.orchardlog.treedata.ui.pesticide.PesticideApplicationFragment"
+        android:label="Pesticide Application"
+        tools:layout="@layout/fragment_pesticide_application">
+        <action
+            android:id="@+id/action_nav_pesticideApplication_to_nav_pesticide"
+            app:destination="@+id/nav_pesticide"/>
+        <action
+            android:id="@+id/action_nav_pesticideApplication_to_nav_pesticideReport"
+            app:destination="@+id/nav_pesticideReport"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nav_pesticide"
+        android:name="com.orchardlog.treedata.ui.pesticide.PesticideFragment"
+        android:label="Pesticide"
+        tools:layout="@layout/fragment_pesticide"/>
+    <fragment
+        android:id="@+id/nav_pesticideReport"
+        android:name="com.orchardlog.treedata.ui.pesticide.PesticideReportFragment"
+        android:label="Pesticide Report"
+        tools:layout="@layout/fragment_pesticide_report"/>
+    <fragment
+        android:id="@+id/nav_version"
+        android:name="com.orchardlog.treedata.ui.menu.VersionFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_version"/>
 </navigation>

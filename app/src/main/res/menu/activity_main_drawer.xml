@@ -6,30 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
-        <!--
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/nav_orchardTask"
+            android:icon="@drawable/ic_baseline_crop_landscape_24"
+            android:title="@string/orchard_activity"/>
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-            -->
+            android:id="@+id/nav_map"
+            android:icon="@drawable/baseline_map_24"
+            android:title="@string/map"/>
         <item
-            android:id="@+id/nav_farmer"
-            android:icon="@drawable/ic_baseline_contact_page_24"
-            android:title="Farmer"/>
+            android:id="@+id/nav_irrigation"
+            android:icon="@drawable/ic_baseline_water_drop_24"
+            android:title="@string/irrigation"/>
         <item
-            android:id="@+id/nav_farm"
-            android:icon="@drawable/ic_baseline_agriculture_24"
-            android:title="Farm"/>
+            android:id="@+id/nav_fertilizerApplication"
+            android:icon="@drawable/ic_baseline_all_inclusive_24"
+            android:title="@string/fertilizer_application"/>
         <item
-            android:id="@+id/nav_orchard"
-            android:icon="@drawable/ic_baseline_forest_24"
-            android:title="Orchard"/>
-
+            android:id="@+id/nav_pesticideApplication"
+            android:icon="@drawable/ic_baseline_bug_report_24"
+            android:title="@string/pesticide_application"/>
     </group>
 </menu>
