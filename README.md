@@ -1,4 +1,4 @@
 # TreeData
-Orchard Management System
+Orchard Activity Tracking System
 
-The system was designed to help growers, CCAs, and PCAs manage orchard activities without the need to use a calendar or diary.
+The system was designed to help growers track their orchard activities without the need to use a calendar or diary.
