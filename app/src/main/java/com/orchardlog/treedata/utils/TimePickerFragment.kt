@@ -12,7 +12,7 @@ import com.orchardlog.treedata.data.DateConverter
 import java.time.LocalTime
 import java.util.Calendar
 
-class TimePickerFragment constructor(private val requestKey: String, private val key: String): DialogFragment(),
+class TimePickerFragment(private val requestKey: String, private val key: String): DialogFragment(),
     TimePickerDialog.OnTimeSetListener {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

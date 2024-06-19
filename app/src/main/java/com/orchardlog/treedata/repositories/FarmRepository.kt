@@ -31,6 +31,5 @@ class FarmRepository @Inject constructor(private val farmDao: FarmDao,
         farmDao.delete(farm)
     }
 
-    fun getFarmerWithFarms() = farmerWithFarmDao.getFarmerWithFarm()
 
 }

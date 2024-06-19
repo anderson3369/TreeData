@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.pesticide.PesticideFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:orientation="vertical">
+    tools:context=".ui.pesticide.PesticideFragment"
+    android:padding="16dp"
+    android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Pesticide"/>
+            android:text="@string/select_a_pesticide"/>
         <Spinner
             android:id="@+id/pesticides"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/field_name"/>
@@ -30,74 +31,100 @@
             android:id="@+id/pesticideName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter the pesticide name"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            style="@style/AgEditText"
+            android:hint="@string/enter_the_pesticide_name"
+            android:importantForAutofill="no"
             android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="EPA Registration Number"/>
+            android:text="@string/epa_registration_number"/>
         <EditText
             android:id="@+id/eparegno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="epa reg no on the label"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            style="@style/AgEditText"
+            android:hint="@string/epa_reg_no_on_the_label"
+            android:importantForAutofill="no"
             android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select the Signal Word"/>
+            android:text="@string/select_the_signal_word"/>
         <Spinner
             android:id="@+id/signalWord"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="REI"/>
+            android:text="@string/rei"/>
         <EditText
             android:id="@+id/rei"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="00"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            style="@style/AgEditText"
+            android:hint="@string/_24"
+            android:importantForAutofill="no"
             android:inputType="number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Unit"/>
+            android:text="@string/select_the_unit"/>
         <Spinner
             android:id="@+id/reiUnit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <Button
+                style="@style/AgButton"
                 android:id="@+id/savePesticide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="29dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/save_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/newPesticide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/new_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/deletePesticide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
                 android:text="@string/delete_button_text"/>
         </LinearLayout>
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

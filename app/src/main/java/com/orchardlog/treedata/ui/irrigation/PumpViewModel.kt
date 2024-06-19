@@ -7,7 +7,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.orchardlog.treedata.entities.Pump
 import com.orchardlog.treedata.repositories.PumpRepository
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PumpViewModel @Inject constructor(private val pumpRepository: PumpRepository)  : ViewModel() {
 
-    fun addPump(pump: Pump) = liveData<Long> {
+    fun addPump(pump: Pump) = liveData {
         try {
             val id = pumpRepository.createPump(pump)
             emit(id)

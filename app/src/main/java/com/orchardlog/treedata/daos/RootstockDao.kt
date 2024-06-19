@@ -20,6 +20,6 @@ interface RootstockDao {
     fun getRootstocks(): Flow<MutableList<Rootstock>>
 
     @Query("SELECT id, name FROM Rootstock")
-    @MapInfo(keyColumn = "id", valueColumn = "name")
-    fun getRootstocksMap(): Flow<Map<Long, String>>
+    //@MapInfo(keyColumn = "id", valueColumn = "name")
+    fun getRootstocksMap(): Flow<Map<@MapColumn(columnName = "id") Long, @MapColumn(columnName = "name") String>>
 }

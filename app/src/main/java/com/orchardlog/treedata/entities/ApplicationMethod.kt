@@ -13,6 +13,6 @@ enum class ApplicationMethod(val method: String) {
     }
 
     companion object {
-        fun from(search: String): ApplicationMethod =  requireNotNull(ApplicationMethod.values().find { it.method == search }) { "No Application Method with value $search" }
+        fun from(search: String): ApplicationMethod =  requireNotNull(entries.find { it.method == search }) { "No Application Method with value $search" }
     }
 }

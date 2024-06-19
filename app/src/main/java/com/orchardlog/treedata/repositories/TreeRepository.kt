@@ -32,9 +32,6 @@ class TreeRepository @Inject constructor(private val treeDao: TreeDao,
 
     fun getTree(id: Long) = treeDao.getTree(id)
 
-    fun getOrchardWithTrees(id: Long) = orchardWithTreesDao.getOrchardWithTrees(id)
-
-    fun getAllOrchardWithTrees() = orchardWithTreesDao.getAllOrchardWithTrees()
 
     suspend fun createRootstock(rootstock: Rootstock): Long {
         return rootstockDao.insert(rootstock)

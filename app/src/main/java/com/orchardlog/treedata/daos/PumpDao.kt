@@ -21,7 +21,7 @@ interface PumpDao {
     @Query("SELECT * FROM Pump")
     fun getPumps(): Flow<MutableList<Pump>>
 
-    @MapInfo(keyColumn = "id")
+    //@MapInfo(keyColumn = "id")
     @Query("SELECT * FROM Pump")
-    fun getPumpMap(): Flow<Map<Long, Pump>>
+    fun getPumpMap(): Flow<Map<@MapColumn(columnName = "id") Long, Pump>>
 }

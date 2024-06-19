@@ -17,7 +17,7 @@ import com.orchardlog.treedata.entities.IrrigationMethod
 import com.orchardlog.treedata.entities.IrrigationSystem
 import com.orchardlog.treedata.entities.LinearUnit
 import com.orchardlog.treedata.entities.Pump
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +54,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
         val vw = binding?.root
         irrigationViewModel.getIrrigationSystem().observe(viewLifecycleOwner) {
             irrigationSystems ->
-            val adapter = ArrayAdapter<IrrigationSystem>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, irrigationSystems)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.irrigationSystems?.adapter = adapter
@@ -64,46 +64,46 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
             farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.irrigationSystemOrchard?.adapter = adapter
-            binding?.irrigationSystemOrchard?.onItemSelectedListener = orchardSelector()
+            binding?.irrigationSystemOrchard?.onItemSelectedListener = OrchardSelector()
         }
 
         pumpViewModel.getPumpsMap().observe(viewLifecycleOwner) {
             pumps ->
             this.pumpMap = pumps
-            val adapter = ArrayAdapter<Pump>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, pumps.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pumps?.adapter = adapter
-            binding?.pumps?.onItemSelectedListener = pumpSelector()
+            binding?.pumps?.onItemSelectedListener = PumpSelector()
         }
 
-        val irrigationMethodAdapter = ArrayAdapter<IrrigationMethod>(requireContext(), R.layout.farm_spinner_layout,
+        val irrigationMethodAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, irrigationMethods)
         irrigationMethodAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.irrigationMethod?.adapter = irrigationMethodAdapter
-        binding?.irrigationMethod?.onItemSelectedListener = irrigationMethodSelector()
+        binding?.irrigationMethod?.onItemSelectedListener = IrrigationMethodSelector()
 
-        val emitterFlowRateAdapter = ArrayAdapter<FlowRateUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val emitterFlowRateAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, flowRateUnits)
         emitterFlowRateAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.emitterFlowRateUnit?.adapter = emitterFlowRateAdapter
-        binding?.emitterFlowRateUnit?.onItemSelectedListener = emitterFlowUnitSelector()
+        binding?.emitterFlowRateUnit?.onItemSelectedListener = EmitterFlowUnitSelector()
 
-        val emitterRadiusUnitAdapter = ArrayAdapter<LinearUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val emitterRadiusUnitAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, linearUnits)
         emitterRadiusUnitAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.emitterRadiusUnit?.adapter = emitterRadiusUnitAdapter
-        binding?.emitterRadiusUnit?.onItemSelectedListener = emitterRadiusUnitSelector()
+        binding?.emitterRadiusUnit?.onItemSelectedListener = EmitterRadiusUnitSelector()
 
-        val emitterSpacingUnitAdapter = ArrayAdapter<LinearUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val emitterSpacingUnitAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, linearUnits)
         emitterSpacingUnitAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.emitterSpacingUnit?.adapter = emitterSpacingUnitAdapter
-        binding?.emitterSpacingUnit?.onItemSelectedListener = emitterSpacingUnitSelector()
+        binding?.emitterSpacingUnit?.onItemSelectedListener = EmitterSpacingUnitSelector()
 
         binding?.saveIrrigationSystem?.setOnClickListener(this)
 
@@ -124,7 +124,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
         return vw
     }
 
-    inner class emitterSpacingUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class EmitterSpacingUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is LinearUnit) {
@@ -138,7 +138,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     }
 
-    inner class emitterRadiusUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class EmitterRadiusUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is LinearUnit) {
@@ -152,7 +152,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     }
 
-    inner class emitterFlowUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class EmitterFlowUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if( obj is FlowRateUnit) {
@@ -166,7 +166,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     }
 
-    inner class irrigationMethodSelector: AdapterView.OnItemSelectedListener {
+    inner class IrrigationMethodSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is IrrigationMethod) {
@@ -180,7 +180,7 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     }
 
-    inner class pumpSelector: AdapterView.OnItemSelectedListener {
+    inner class PumpSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is Pump) {
@@ -194,10 +194,10 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
 
     }
 
-    inner class orchardSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+            if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
                 val key = this@IrrigationSystemFragment.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
                 this@IrrigationSystemFragment.orchardId = key!!
             }
@@ -223,18 +223,18 @@ class IrrigationSystemFragment : Fragment(), View.OnClickListener,
         }
         var emitterFlowRate = 0.0
         val semitterFlowRate = binding?.emitterFlowRate?.text.toString()
-        if(!semitterFlowRate.isEmpty()) {
+        if(semitterFlowRate.isNotEmpty()) {
             emitterFlowRate = semitterFlowRate.toDouble()
         }
         var emitterRadius = 0.0
         val semitterRadius = binding?.emitterRadius?.text.toString()
-        if(!semitterRadius.isEmpty()) {
+        if(semitterRadius.isNotEmpty()) {
             emitterRadius = semitterRadius.toDouble()
         }
         var emitterSpacing = 0.0
         val semitterSpacing = binding?.emitterSpacing?.text.toString()
-        if(!semitterSpacing.isEmpty()) {
-            emitterSpacing = semitterRadius.toDouble()
+        if(semitterSpacing.isNotEmpty()) {
+            emitterSpacing = semitterSpacing.toDouble()
         }
         if(irrigationSystem != null && irrigationSystem!!.id > 0L) {
             val is2 = irrigationSystem!!.copy(

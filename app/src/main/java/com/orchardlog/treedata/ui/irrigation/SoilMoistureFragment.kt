@@ -15,7 +15,7 @@ import com.orchardlog.treedata.data.Validator
 import com.orchardlog.treedata.databinding.FragmentSoilMoistureBinding
 import com.orchardlog.treedata.entities.Orchard
 import com.orchardlog.treedata.entities.SoilMoisture
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import com.orchardlog.treedata.utils.DatePickerFragment
 import com.orchardlog.treedata.utils.TimePickerFragment
@@ -26,7 +26,7 @@ import java.time.LocalDateTime
 class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
     View.OnClickListener {
 
-    val irrigationViewModel: IrrigationViewModel by viewModels()
+    private val irrigationViewModel: IrrigationViewModel by viewModels()
     val orchardViewModel: OrchardViewModel by viewModels()
     private var _binding: FragmentSoilMoistureBinding? = null
     private val binding get() = _binding
@@ -37,10 +37,10 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
 
     companion object {
-        const val soilMoistureDateKey = "soilMoistureDate"
-        const val soilMoistureRequestDateKey = "soilMoistureDateKey"
-        const val soilMoistureTimeKey = "soilMoistureTime"
-        const val soilMoistureRequestTimeKey = "soilMoistureTimeKey"
+        const val SOILMOISTUREDATEKEY = "soilMoistureDate"
+        const val SOILMOISTUREDATEREQUESTKEY = "soilMoistureDateKey"
+        const val SOILMOISTURETIMEKEY = "soilMoistureTime"
+        const val SOILMOISTURETIMEREQUESTKEY = "soilMoistureTimeKey"
     }
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
         irrigationViewModel.getSoilMoisture().observe(viewLifecycleOwner) {
             soilMoisture ->
             soilMoistureArray = soilMoisture
-            val adapter = ArrayAdapter<SoilMoisture>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, soilMoisture)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.soilMoisture?.adapter = adapter
@@ -61,39 +61,37 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.orchardSoilMoisture?.adapter = adapter
-            binding?.orchardSoilMoisture?.onItemSelectedListener = orchardSelector()
+            binding?.orchardSoilMoisture?.onItemSelectedListener = OrchardSelector()
         }
 
-        binding?.soilMoistureDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.soilMoistureDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.soilMoistureDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_date_format_mm_dd_yyyy),
                         Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.soilMoistureTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.soilMoistureTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.soilMoistureTime?.text.toString()
                 if(Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
         binding?.soilMoistureDateCal?.setOnClickListener {
-            DatePickerFragment(soilMoistureRequestDateKey, soilMoistureDateKey)
+            DatePickerFragment(SOILMOISTUREDATEREQUESTKEY, SOILMOISTUREDATEKEY)
                 .show(childFragmentManager, getString(R.string.date))
         }
 
         binding?.soilMoistureTimeClock?.setOnClickListener {
-            TimePickerFragment(soilMoistureRequestTimeKey, soilMoistureTimeKey)
+            TimePickerFragment(SOILMOISTURETIMEREQUESTKEY, SOILMOISTURETIMEKEY)
                 .show(childFragmentManager, getString(R.string.time))
         }
 
@@ -102,6 +100,7 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
         binding?.newSoilMoisture?.setOnClickListener {
             this.soilMoisture = null
             binding?.soilMoistureDate?.setText("")
+            binding?.soilMoistureTime?.setText("")
             binding?.centibar?.setText("")
             binding?.percentSoilMoisture?.setText("")
         }
@@ -117,15 +116,15 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(soilMoistureRequestDateKey, requireActivity()) {
-            dateKey, bundle -> binding?.soilMoistureDate?.setText(bundle.getString(soilMoistureDateKey))
+        childFragmentManager.setFragmentResultListener(SOILMOISTUREDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.soilMoistureDate?.setText(bundle.getString(SOILMOISTUREDATEKEY))
         }
-        childFragmentManager.setFragmentResultListener(soilMoistureRequestTimeKey, requireActivity()) {
-            dateKey, bundle -> binding?.soilMoistureTime?.setText(bundle.getString(soilMoistureTimeKey))
+        childFragmentManager.setFragmentResultListener(SOILMOISTURETIMEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.soilMoistureTime?.setText(bundle.getString(SOILMOISTURETIMEKEY))
         }
     }
 
-    inner class orchardSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is Orchard) {
@@ -154,19 +153,25 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
     }
 
     override fun onClick(v: View?) {
-        val sdate = binding?.soilMoistureDate?.text.toString()
+        val sdate = binding?.soilMoistureDate?.text.toString() + " " + binding?.soilMoistureTime?.text.toString()
         var date: LocalDateTime? = null
-        if(!sdate.isEmpty()) {
-            date = DateConverter().toOffsetDateTime(sdate)
+        try {
+            if(sdate.isNotEmpty()) {
+                date = DateConverter().toOffsetDateTime(sdate)
+            }
+        } catch (e :Exception) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "please enter the proper date format", Toast.LENGTH_LONG).show()
         }
+
         val scentibar = binding?.centibar?.text.toString()
-        var centibar: Int? = null
-        if(!scentibar.isEmpty()) {
+        var centibar = 0
+        if(scentibar.isNotEmpty()) {
             centibar = scentibar.toInt()
         }
         val spercent = binding?.percentSoilMoisture?.text.toString()
-        var percent: Int? = null
-        if(!spercent.isEmpty()) {
+        var percent = 0
+        if(spercent.isNotEmpty()) {
             percent = spercent.toInt()
         }
         if(soilMoisture != null && soilMoisture!!.id > 0) {
@@ -174,8 +179,8 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 id = soilMoisture!!.id,
                 orchardId = this.orchardId,
                 date = date!!,
-                centibar = centibar!!,
-                percent = percent!!
+                centibar = centibar,
+                percent = percent
             )
             try {
                 irrigationViewModel.updateSoilMoisture(sm)
@@ -188,8 +193,8 @@ class SoilMoistureFragment : Fragment(), AdapterView.OnItemSelectedListener,
             this.soilMoisture = SoilMoisture(
                 orchardId = this.orchardId,
                 date = date!!,
-                centibar = centibar!!,
-                percent = percent!!
+                centibar = centibar,
+                percent = percent
             )
             irrigationViewModel.addSoilMoisture(this.soilMoisture!!).observe(this) {
                 id ->

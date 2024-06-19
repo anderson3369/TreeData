@@ -44,10 +44,10 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
     private var orchardId: Long = 0L
 
     companion object {
-        const val fertilizerReport = "FertilizerReport.pdf"
-        const val fertilizerDateKey = "fertilizerDate"
-        const val fertilizerFromDateRequestKey = "requestFertilizerFromDateKey"
-        const val fertilizerToDateRequestKey = "requestFertilizerToDateKey"
+        const val FERTILIZERREPORT = "FertilizerReport.pdf"
+        const val FERTILIZERDATEKEY = "fertilizerDate"
+        const val FERTILIZERFROMDATEREQUESTKEY = "requestFertilizerFromDateKey"
+        const val FERTILIZERTODATEREQUESTKEY = "requestFertilizerToDateKey"
     }
 
     override fun onCreateView(
@@ -59,7 +59,7 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.fertilizerOrchardSpinner?.adapter = adapter
@@ -68,8 +68,8 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
         datePicker()
 
-        binding?.fertilizerFromDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerFromDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.fertilizerFromDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
@@ -81,10 +81,9 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
                     }
                 }
             }
-        })
 
-        binding?.fertilizerToDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerToDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.fertilizerToDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
@@ -96,7 +95,6 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
                     }
                 }
             }
-        })
 
         binding?.fertilizerReportBtn?.setOnClickListener {
             createPDF()
@@ -107,19 +105,19 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(fertilizerFromDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerFromDate?.setText(bundle.getString(fertilizerDateKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERFROMDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerFromDate?.setText(bundle.getString(FERTILIZERDATEKEY))
             isStartDateValid = true
             if(isEndDateValid && orchardId > 0L) {
-                startDate = DateConverter().toOffsetDate(bundle.getString(fertilizerDateKey))
+                startDate = DateConverter().toOffsetDate(bundle.getString(FERTILIZERDATEKEY))
                 getFertilizerApplicationWithFertilizers()
             }
         }
-        childFragmentManager.setFragmentResultListener(fertilizerToDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerToDate?.setText(bundle.getString(fertilizerDateKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERTODATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerToDate?.setText(bundle.getString(FERTILIZERDATEKEY))
             isEndDateValid = true
             if(isStartDateValid && orchardId > 0L) {
-                endDate = DateConverter().toOffsetDate(bundle.getString(fertilizerDateKey))
+                endDate = DateConverter().toOffsetDate(bundle.getString(FERTILIZERDATEKEY))
                 getFertilizerApplicationWithFertilizers()
             }
         }
@@ -127,12 +125,12 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
     private fun datePicker() {
         binding?.fertilizerFromDateCal?.setOnClickListener {
-            DatePickerFragment(fertilizerFromDateRequestKey, fertilizerDateKey)
+            DatePickerFragment(FERTILIZERFROMDATEREQUESTKEY, FERTILIZERDATEKEY)
                 .show(childFragmentManager, getString(R.string.from_date))
         }
 
         binding?.fertilizerToDateCal?.setOnClickListener {
-            DatePickerFragment(fertilizerToDateRequestKey, fertilizerDateKey)
+            DatePickerFragment(FERTILIZERTODATEREQUESTKEY, FERTILIZERDATEKEY)
                 .show(childFragmentManager, getString(R.string.to_date))
         }
     }
@@ -148,13 +146,13 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+        if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
             val key = this.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
             this.orchardId = key!!
             val ssDate = binding?.fertilizerFromDate?.text.toString()
             val seDate = binding?.fertilizerToDate?.text.toString()
             try {
-                if(!ssDate.isEmpty() && !seDate.isEmpty()) {
+                if(ssDate.isNotEmpty() && seDate.isNotEmpty()) {
                     startDate = DateConverter().toOffsetDate(ssDate)
                     endDate = DateConverter().toOffsetDate(seDate)
                 }
@@ -169,7 +167,7 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
         TODO("Not yet implemented")
     }
 
-    fun Context.isDarkThemeOn(): Boolean {
+    private fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
@@ -214,7 +212,7 @@ class FertilizerReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
         var outputStream: FileOutputStream? = null
         try {
             val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val report = File(path, fertilizerReport)
+            val report = File(path, FERTILIZERREPORT)
             outputStream = FileOutputStream(report.path)
             // write the document content
             document.writeTo(outputStream)

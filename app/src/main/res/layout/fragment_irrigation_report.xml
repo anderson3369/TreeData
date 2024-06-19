@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.irrigation.IrrigationReportFragment">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:orientation="vertical">
+    tools:context=".ui.irrigation.IrrigationReportFragment"
+    android:padding="16dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="@string/select_an_orchard"/>
             <Spinner
                 android:id="@+id/irrigationOrchardSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"/>
             <Button
                 android:id="@+id/irrigationReportBtn"
+                android:layout_marginTop="16dp"
+                style="@style/AgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:text="Irrigation Report"/>
+                android:text="@string/irrigation_report"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -43,14 +51,21 @@
                             android:id="@+id/irrigationFromDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:minWidth="48dp"
                             android:hint="@string/mm_dd_yyyy"
+                            style="@style/AgEditText"
+                            android:importantForAutofill="no"
                             android:inputType="date"/>
-                        <Button
+                        <ImageButton
                             android:id="@+id/irrigationFromDateCal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="75dp"
+                            android:minWidth="75dp"
+                            android:contentDescription="@string/select_a_start_date"
                             android:background="@android:color/transparent"
-                            android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                            android:src="@drawable/ic_baseline_calendar_month_24"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -71,26 +86,35 @@
                             android:id="@+id/irrigationToDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            style="@style/AgEditText"
                             android:hint="@string/mm_dd_yyyy"
+                            android:importantForAutofill="no"
                             android:inputType="date"/>
-                        <Button
+                        <ImageButton
                             android:id="@+id/irrigationToDateCal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:minHeight="48dp"
+                            android:minWidth="48dp"
+                            android:contentDescription="@string/select_an_end_date"
                             android:background="@android:color/transparent"
-                            android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                            android:src="@drawable/ic_baseline_calendar_month_24"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="Total Irrigaiton Hours:  "/>
+                    android:text="@string/total_irrigation_hours"
+                    android:layout_marginEnd="16dp"/>
                 <TextView
                     android:id="@+id/totalIrrigationHours"
                     android:layout_width="wrap_content"
@@ -105,12 +129,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="12sp"
-                    android:text="Total gallons pumped:  "/>
+                    android:text="@string/total_gallons_pumped"
+                    android:layout_marginEnd="16dp"/>
                 <TextView
                     android:id="@+id/totalIrrigationGallons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"/>
             </LinearLayout>
-        </LinearLayout>
-</FrameLayout>
+</LinearLayout>

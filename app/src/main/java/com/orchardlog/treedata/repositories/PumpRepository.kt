@@ -6,7 +6,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class PumpRepository @Inject constructor(val pumpDao: PumpDao) {
+class PumpRepository @Inject constructor(private val pumpDao: PumpDao) {
 
     suspend fun createPump(pump: Pump): Long {
         return pumpDao.insert(pump)

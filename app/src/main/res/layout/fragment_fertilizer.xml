@@ -1,244 +1,368 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.fertilizer.FertilizerFragment">
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    tools:context=".ui.fertilizer.FertilizerFragment"
         android:fadeScrollbars="false"
-        android:layout_centerInParent="true"
         android:padding="16dp">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/select_a_fertilizer"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/select_a_fertilizer"/>
+                android:textStyle="bold" />
+
             <Spinner
                 android:id="@+id/fertilizerSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:text="@string/field_name"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/field_name" />
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/fertilizerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_fertilizer_name"
+                android:importantForAutofill="no"
+                style="@style/AgEditText"
                 android:inputType="text"
-                android:hint="@string/enter_the_fertilizer_name"/>
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/nitrogen"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/nitrogen"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/nitrogen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_nitrogen"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_nitrogen"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/phosphorous"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/phosphorous"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/phosphorous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_phosphorous"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_phosphorous"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/potassium"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/potassium"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/potassium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_potassium"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_potassium"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/sulfur"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/sulfur"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/sulfur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_sulfur"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_sulfur"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/calcium"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/calcium"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/calcium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_calcium"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_calcium"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/magnesium"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/magnesium"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/magnesium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_magnesium"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_magnesium"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/boron"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/boron"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/boron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_boron"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_boron"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/zinc"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/zinc"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/zinc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_zinc"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_zinc"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/iron"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/iron"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/iron"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_iron"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_iron"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/manganese"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/manganese"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/manganese"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_manganese"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_manganese"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/molybdenum"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/molybdenum"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/molybdenum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_molybdenum"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_molybdenum"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/chloride"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/chloride"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/chloride"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_chloride"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_chloride"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/copper"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/copper"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/copper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_copper"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_copper"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/nickel"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/nickel"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/nickel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/enter_the_percent_nickel"
+                android:importantForAutofill="no"
                 android:inputType="number"
-                android:hint="@string/enter_the_percent_nickel"/>
+                style="@style/AgEditText"
+                android:minWidth="48dp"
+                android:minHeight="48dp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/organic_matter"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:text="@string/organic_matter"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/organicMatter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/enter_the_percent_organic_matter"/>
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:hint="@string/enter_the_percent_organic_matter"
+                android:importantForAutofill="no"
+                style="@style/AgEditText"
+                android:inputType="number" />
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/saveFertilizer"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/save_button_text"/>
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/save_button_text" />
+
                 <Button
                     android:id="@+id/newFertilizer"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/new_button_text"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/new_button_text" />
+
                 <Button
-                    android:id="@+id/deleteFertilzer"
+                    android:id="@+id/deleteFertilizer"
+                    style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/delete_button_text" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>

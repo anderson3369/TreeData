@@ -44,10 +44,10 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var orchardId: Long = 0L
 
     companion object {
-        const val pesticideReport = "PesticideReport.pdf"
-        const val pesticideDateKey = "pesticideDate"
-        const val pesticideFromDateRequestKey = "requestPesticideFromDateKey"
-        const val pesticideToDateRequestKey = "requestPesticideToDateKey"
+        const val PESTICIDEREPORT = "PesticideReport.pdf"
+        const val PESTICIDEDATEKEY = "pesticideDate"
+        const val PESTICIDEFROMDATEREQUESTKEY = "requestPesticideFromDateKey"
+        const val PESTICIDETODATEREQUESTKEY = "requestPesticideToDateKey"
     }
 
     override fun onCreateView(
@@ -59,7 +59,7 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pesticideOrchardSpinner?.adapter = adapter
@@ -68,8 +68,8 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         datePicker()
 
-        binding?.pesticideFromDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideFromDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.pesticideFromDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
@@ -81,10 +81,9 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     }
                 }
             }
-        })
 
-        binding?.pesticideToDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideToDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.pesticideToDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
@@ -96,7 +95,6 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     }
                 }
             }
-        })
 
         binding?.pesticideReportBtn?.setOnClickListener {
             createPDF()
@@ -107,19 +105,19 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(pesticideFromDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideFromDate?.setText(bundle.getString(pesticideDateKey))
+        childFragmentManager.setFragmentResultListener(PESTICIDEFROMDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.pesticideFromDate?.setText(bundle.getString(PESTICIDEDATEKEY))
             isStartDateValid = true
             if(isEndDateValid && orchardId > 0L) {
-                startDate = DateConverter().toOffsetDate(bundle.getString(pesticideDateKey))
+                startDate = DateConverter().toOffsetDate(bundle.getString(PESTICIDEDATEKEY))
                 getPesticideApplicationWithPesticides()
             }
         }
-        childFragmentManager.setFragmentResultListener(pesticideToDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideToDate?.setText(bundle.getString(pesticideDateKey))
+        childFragmentManager.setFragmentResultListener(PESTICIDETODATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.pesticideToDate?.setText(bundle.getString(PESTICIDEDATEKEY))
             isEndDateValid = true
             if(isStartDateValid && orchardId > 0L) {
-                endDate = DateConverter().toOffsetDate(bundle.getString(pesticideDateKey))
+                endDate = DateConverter().toOffsetDate(bundle.getString(PESTICIDEDATEKEY))
                 getPesticideApplicationWithPesticides()
             }
         }
@@ -127,12 +125,12 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun datePicker() {
         binding?.pesticideFromDateCal?.setOnClickListener {
-            DatePickerFragment(pesticideFromDateRequestKey, pesticideDateKey)
+            DatePickerFragment(PESTICIDEFROMDATEREQUESTKEY, PESTICIDEDATEKEY)
                 .show(childFragmentManager, getString(R.string.from_date))
         }
 
         binding?.pesticideToDateCal?.setOnClickListener {
-            DatePickerFragment(pesticideToDateRequestKey, pesticideDateKey)
+            DatePickerFragment(PESTICIDETODATEREQUESTKEY, PESTICIDEDATEKEY)
                 .show(childFragmentManager, getString(R.string.to_date))
         }
     }
@@ -149,13 +147,13 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+        if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
             val key = this.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
             this.orchardId = key!!
             val ssDate = binding?.pesticideFromDate?.text.toString()
             val seDate = binding?.pesticideToDate?.text.toString()
             try {
-                if(!ssDate.isEmpty() && !seDate.isEmpty()) {
+                if(ssDate.isNotEmpty() && seDate.isNotEmpty()) {
                     startDate = DateConverter().toOffsetDate(ssDate)
                     endDate = DateConverter().toOffsetDate(seDate)
                 }
@@ -170,7 +168,7 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
         TODO("Not yet implemented")
     }
 
-    fun Context.isDarkThemeOn(): Boolean {
+    private fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
@@ -205,7 +203,7 @@ class PesticideReportFragment : Fragment(), AdapterView.OnItemSelectedListener {
         var outputStream: FileOutputStream? = null
         try {
             val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val report = File(path, pesticideReport)
+            val report = File(path, PESTICIDEREPORT)
             outputStream = FileOutputStream(report.path)
             // write the document content
             document.writeTo(outputStream)

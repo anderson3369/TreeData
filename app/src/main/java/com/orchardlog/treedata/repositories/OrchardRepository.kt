@@ -32,7 +32,6 @@ class OrchardRepository @Inject constructor(
         orchardDao.delete(orchard)
     }
 
-    fun getOrchards(farmId: Long) = orchardDao.getOrchards(farmId)
 
     fun getAllOrchards() = orchardDao.getAllrchards()
 

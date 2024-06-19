@@ -4,47 +4,48 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/textColor</item>
-        <item name="android:windowBackground">@drawable/agriculture_background</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:drawableLeft">@color/vectorDay</item>
-        <!--
-        <item name="android:editTextStyle">@style/AgricultureEditText</item>
-        -->
+        <item name="android:drawableStart">@color/vectorDay</item>
     </style>
 
     <style name="Theme.TreeData.ChatGPT.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/black</item>
     </style>
 
     <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="colorOnPrimary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/vectorNight</item>
+        <item name="colorOnPrimary">@color/vectorNight</item>
+       <!-- <item name="colorOnPrimary">@color/colorPrimary</item> -->
     </style>
 
-    <style name="OrchardListView" parent="Widget.AppCompat.ListView">
-        <item name="android:background">@color/colorBackground</item>
-        <item name="android:textSize">24sp</item>
+    <style name="DatePicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorAccent">@color/colorSecondary</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
     </style>
 
-    <style name="StandardButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorBackground</item>
+    <style name="AgEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@color/vectorNight</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingLeft">10dp</item>
     </style>
 
-    <style name="AgricultureEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@color/colorBackground</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:drawableLeft">@drawable/ic_baseline_forest_24</item>
-        <item name="android:drawablePadding">10dp</item>
+    <style name="AgButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/vectorNight</item>
     </style>
 
-    <style name="Theme.TreeData.ChatGPT.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.TreeData.ChatGPT.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.TreeData.ChatGPT.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar"/>
+    <!--<style name="Theme.TreeData.ChatGPT.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
 </resources>

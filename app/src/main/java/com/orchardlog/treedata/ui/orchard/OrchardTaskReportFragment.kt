@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.orchardlog.treedata.R
 import com.orchardlog.treedata.data.DateConverter
 import com.orchardlog.treedata.databinding.FragmentOrchardTaskReportBinding
@@ -49,7 +48,7 @@ class OrchardTaskReportFragment : Fragment(), AdapterView.OnItemSelectedListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         childFragmentManager.setFragmentResultListener(orchardActivityFromDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.orchardTaskFromDate?.setText(bundle.getString(
+                _, bundle -> binding?.orchardTaskFromDate?.setText(bundle.getString(
             orchardActivityDateKey
         ))
             isStartDateValid = true
@@ -59,7 +58,7 @@ class OrchardTaskReportFragment : Fragment(), AdapterView.OnItemSelectedListener
             }
         }
         childFragmentManager.setFragmentResultListener(orchardActivityToDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.orchardTaskToDate?.setText(bundle.getString(
+                _, bundle -> binding?.orchardTaskToDate?.setText(bundle.getString(
             orchardActivityDateKey
         ))
             isEndDateValid = true
@@ -78,7 +77,7 @@ class OrchardTaskReportFragment : Fragment(), AdapterView.OnItemSelectedListener
         val vw = binding?.root
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) { farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(
+            val adapter = ArrayAdapter(
                 requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList()
             )
@@ -121,13 +120,13 @@ class OrchardTaskReportFragment : Fragment(), AdapterView.OnItemSelectedListener
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+        if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
             val key = this.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
             this.orchardId = key!!
             val ssDate = binding?.orchardTaskFromDate?.text.toString()
             val seDate = binding?.orchardTaskToDate?.text.toString()
             try {
-                if(!ssDate.isEmpty() && !seDate.isEmpty()) {
+                if(ssDate.isNotEmpty() && seDate.isNotEmpty()) {
                     startDate = DateConverter().toOffsetDate(ssDate)
                     endDate = DateConverter().toOffsetDate(seDate)
                 }
@@ -142,7 +141,7 @@ class OrchardTaskReportFragment : Fragment(), AdapterView.OnItemSelectedListener
         TODO("Not yet implemented")
     }
 
-    fun Context.isDarkThemeOn(): Boolean {
+    private fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }

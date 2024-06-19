@@ -9,6 +9,6 @@ enum class FlowRateUnit(val unit: String) {
     }
 
     companion object {
-        fun from(search: String): FlowRateUnit = requireNotNull(values().find { it.unit == search }) { "No FlowRateUnit with value $search" }
+        fun from(search: String): FlowRateUnit = requireNotNull(entries.find { it.unit == search }) { "No FlowRateUnit with value $search" }
     }
 }

@@ -15,7 +15,7 @@ import com.orchardlog.treedata.data.DateConverter
 import com.orchardlog.treedata.data.Validator
 import com.orchardlog.treedata.databinding.FragmentOrchardTaskBinding
 import com.orchardlog.treedata.entities.OrchardActivity
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.utils.DatePickerFragment
 import com.orchardlog.treedata.utils.SortOrchardActivity
 import com.orchardlog.treedata.utils.TimePickerFragment
@@ -37,12 +37,12 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var orchardId: Long = 0L
 
     companion object {
-        const val taskStartDateRequestKey = "requestTaskStartDateKey"
-        const val taskStopDateRequestKey = "requestTaskStopDateKey"
-        const val taskDateKey = "taskDate"
-        const val taskStartTimeRequestKey = "requestTaskStartTimeKey"
-        const val taskStopTimeRequestKey = "requestTaskStopTimeKey"
-        const val taskTimeKey = "taskTime"
+        const val TASKSTARTDATEREQUESTKEY = "requestTaskStartDateKey"
+        const val TASKSTOPDATEREQUESTKEY = "requestTaskStopDateKey"
+        const val TASKDATEKEY = "taskDate"
+        const val TASKSTARTTIMEREQUESTKEY = "requestTaskStartTimeKey"
+        const val TASKSTOPTIMEREQUESTKEY = "requestTaskStopTimeKey"
+        const val TASKTIMEKEY = "taskTime"
     }
 
 
@@ -58,7 +58,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         orchardViewModel.getOrchardActivity().observe(viewLifecycleOwner) {
             activities ->
             this.activities = activities
-            val adapter = ArrayAdapter<OrchardActivity>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, activities)
             adapter.sort(SortOrchardActivity())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -70,24 +70,24 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.activityOrchard?.adapter = adapter
-            binding?.activityOrchard?.onItemSelectedListener = orchardSelector()
+            binding?.activityOrchard?.onItemSelectedListener = OrchardSelector()
         }
 
-        val activityAdapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+        val activityAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, activityArray!!)
         activityAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.activities?.adapter = activityAdapter
-        binding?.activities?.onItemSelectedListener = activitySelector()
+        binding?.activities?.onItemSelectedListener = ActivitySelector()
 
         binding?.saveActivity?.setOnClickListener(this)
 
         binding?.newActivity?.setOnClickListener {
             this.orchardActivity = null
-            binding?.notes?.setText("")
+            binding?.orchardNotes?.setText("")
             binding?.activityStartDate?.setText("")
             binding?.activityStartTime?.setText("")
             binding?.activityStopDate?.setText("")
@@ -105,56 +105,52 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
             view?.findNavController()?.navigate(action)
         }
 
-        binding?.activityStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.activityStartDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.activityStartDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.activityStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.activityStartTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.activityStartTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.activityStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.activityStopDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.activityStopDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.activityStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.activityStopTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.activityStopTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
         binding?.showActivityStartDate?.setOnClickListener {
-            DatePickerFragment(taskStartDateRequestKey, taskDateKey)
+            DatePickerFragment(TASKSTARTDATEREQUESTKEY, TASKDATEKEY)
                 .show(childFragmentManager, R.string.start_date.toString())
         }
         binding?.showActivityStopDate?.setOnClickListener {
-            DatePickerFragment(taskStopDateRequestKey, taskDateKey)
+            DatePickerFragment(TASKSTOPDATEREQUESTKEY, TASKDATEKEY)
                 .show(childFragmentManager, R.string.stop_date.toString())
         }
         binding?.showActivityStartTimeClock?.setOnClickListener {
-            TimePickerFragment(taskStartTimeRequestKey, taskTimeKey)
+            TimePickerFragment(TASKSTARTTIMEREQUESTKEY, TASKTIMEKEY)
                 .show(childFragmentManager, R.string.start_time.toString())
         }
         binding?.showActivityStopTimeClock?.setOnClickListener {
-            TimePickerFragment(taskStopTimeRequestKey, taskTimeKey)
+            TimePickerFragment(TASKSTOPTIMEREQUESTKEY, TASKTIMEKEY)
                 .show(childFragmentManager, R.string.stop_time.toString())
         }
         return vw
@@ -162,24 +158,24 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(taskStartDateRequestKey, requireActivity()) {
-            dateKey, bundle -> binding?.activityStartDate?.setText(bundle.getString(taskDateKey))
+        childFragmentManager.setFragmentResultListener(TASKSTARTDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.activityStartDate?.setText(bundle.getString(TASKDATEKEY))
         }
-        childFragmentManager.setFragmentResultListener(taskStopDateRequestKey, requireActivity()) {
-            datekey, bundle -> binding?.activityStopDate?.setText(bundle.getString(taskDateKey))
+        childFragmentManager.setFragmentResultListener(TASKSTOPDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.activityStopDate?.setText(bundle.getString(TASKDATEKEY))
         }
-        childFragmentManager.setFragmentResultListener(taskStartTimeRequestKey, requireActivity()) {
-            dateKey, bundle -> binding?.activityStartTime?.setText(bundle.getString(taskTimeKey))
+        childFragmentManager.setFragmentResultListener(TASKSTARTTIMEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.activityStartTime?.setText(bundle.getString(TASKTIMEKEY))
         }
-        childFragmentManager.setFragmentResultListener(taskStopTimeRequestKey, requireActivity()) {
-            dateKey, bundle -> binding?.activityStopTime?.setText(bundle.getString(taskTimeKey))
+        childFragmentManager.setFragmentResultListener(TASKSTOPTIMEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.activityStopTime?.setText(bundle.getString(TASKTIMEKEY))
         }
     }
 
-    inner class orchardSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+            if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
                 val key = this@OrchardTaskFragment.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
                 this@OrchardTaskFragment.orchardId = key!!
             }
@@ -190,7 +186,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         }
     }
 
-    inner class activitySelector: AdapterView.OnItemSelectedListener {
+    inner class ActivitySelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is String) {
@@ -212,7 +208,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
         if(obj is OrchardActivity) {
             this.orchardActivity = obj
             binding?.activities?.setSelection(activityArray!!.indexOf(obj.activity))
-            binding?.notes?.setText(obj.notes)
+            binding?.orchardNotes?.setText(obj.notes)
             parseLocalDateTime(true, obj.activityStart)
             parseLocalDateTime(false, obj.activityStop)
         }
@@ -272,7 +268,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 id = orchardActivity!!.id,
                 orchardId = this.orchardId,
                 activity = this.task!!,
-                notes = binding?.notes?.text.toString(),
+                notes = binding?.orchardNotes?.text.toString(),
                 activityStart = activityStart,
                 activityStop = activityStop
             )
@@ -287,7 +283,7 @@ class OrchardTaskFragment : Fragment(), AdapterView.OnItemSelectedListener,
             this.orchardActivity = OrchardActivity(
                 activity = this.task!!,
                 orchardId = this.orchardId,
-                notes = binding?.notes?.text.toString(),
+                notes = binding?.orchardNotes?.text.toString(),
                 activityStart = activityStart,
                 activityStop = activityStop
             )

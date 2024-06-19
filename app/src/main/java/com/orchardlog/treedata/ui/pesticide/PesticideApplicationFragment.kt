@@ -19,7 +19,7 @@ import com.orchardlog.treedata.entities.OrchardUnit
 import com.orchardlog.treedata.entities.Pesticide
 import com.orchardlog.treedata.entities.PesticideApplication
 import com.orchardlog.treedata.entities.WeightOrMeasureUnit
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import com.orchardlog.treedata.utils.DatePickerFragment
 import com.orchardlog.treedata.utils.SortPesticideApplications
@@ -71,7 +71,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
         pesticideViewModel.getPesticideApplications().observe(viewLifecycleOwner) {
             applications ->
-            val adapter = ArrayAdapter<PesticideApplication>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, applications)
             adapter.sort(SortPesticideApplications())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -82,46 +82,46 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             this.farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pesticideOrchard?.adapter = adapter
-            binding?.pesticideOrchard?.onItemSelectedListener = orchardSelector()
+            binding?.pesticideOrchard?.onItemSelectedListener = OrchardSelector()
         }
 
         pesticideViewModel.getPesticides().observe(viewLifecycleOwner) {
             pesticides ->
             this.pesticides = pesticides
-            val adapater = ArrayAdapter<Pesticide>(requireContext(), R.layout.farm_spinner_layout,
+            val adapater = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, pesticides)
             adapater.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pesticidesSpinner?.adapter = adapater
-            binding?.pesticidesSpinner?.onItemSelectedListener = pesticideSelector()
+            binding?.pesticidesSpinner?.onItemSelectedListener = PesticideSelector()
         }
 
-        val appliedAdapter = ArrayAdapter<WeightOrMeasureUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val appliedAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, wmUnitArray)
         appliedAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.pesticideAppliedUnit?.adapter = appliedAdapter
-        binding?.pesticideAppliedUnit?.onItemSelectedListener = appliedUnitSelector()
+        binding?.pesticideAppliedUnit?.onItemSelectedListener = AppliedUnitSelector()
 
-        val dilutionAdapter = ArrayAdapter<WeightOrMeasureUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val dilutionAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, wmUnitArray)
         dilutionAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.dilutionUnit?.adapter = dilutionAdapter
-        binding?.dilutionUnit?.onItemSelectedListener = dilutionUnitSelector()
+        binding?.dilutionUnit?.onItemSelectedListener = DilutionUnitSelector()
 
-        val orchardUnitAdapter = ArrayAdapter<OrchardUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val orchardUnitAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, areaUnitArray)
         orchardUnitAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.treatedAreaUnit?.adapter = orchardUnitAdapter
-        binding?.treatedAreaUnit?.onItemSelectedListener = orchardUnitSelector()
+        binding?.treatedAreaUnit?.onItemSelectedListener = OrchardUnitSelector()
 
-        val appMethodAdapter = ArrayAdapter<ApplicationMethod>(requireContext(), R.layout.farm_spinner_layout,
+        val appMethodAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, applicationMethodArray)
         appMethodAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.applicationMethod?.adapter = appMethodAdapter
-        binding?.applicationMethod?.onItemSelectedListener = applicationMethodSelector()
+        binding?.applicationMethod?.onItemSelectedListener = ApplicationMethodSelector()
 
         binding?.addPesticide?.setOnClickListener {
             val action = PesticideApplicationFragmentDirections.actionNavPesticideApplicationToNavPesticide()
@@ -190,60 +190,56 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
     }
 
     private fun validateDateTime() {
-        binding?.pesticideApplicationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideApplicationStartDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.pesticideApplicationStartDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.pesticideApplicationStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideApplicationStartTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.pesticideApplicationStartTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.pesticideApplicationStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideApplicationStopDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.pesticideApplicationStopDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
-        binding?.pesticideApplicationStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.pesticideApplicationStopTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.pesticideApplicationStopTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), "Invalid time format 00:00", Toast.LENGTH_LONG).show()
                 }
             }
-        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         childFragmentManager.setFragmentResultListener(pesticideStartDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideApplicationStartDate?.setText(bundle.getString(pesticideDateKey))
+                _, bundle -> binding?.pesticideApplicationStartDate?.setText(bundle.getString(pesticideDateKey))
         }
         childFragmentManager.setFragmentResultListener(pesticideStopDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideApplicationStopDate?.setText(bundle.getString(pesticideDateKey))
+                _, bundle -> binding?.pesticideApplicationStopDate?.setText(bundle.getString(pesticideDateKey))
         }
         childFragmentManager.setFragmentResultListener(pesticideStartTimeRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideApplicationStartTime?.setText(bundle.getString(pesticideTimeKey))
+                _, bundle -> binding?.pesticideApplicationStartTime?.setText(bundle.getString(pesticideTimeKey))
         }
         childFragmentManager.setFragmentResultListener(pesticideStopTimeRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.pesticideApplicationStopTime?.setText(bundle.getString(pesticideTimeKey))
+                _, bundle -> binding?.pesticideApplicationStopTime?.setText(bundle.getString(pesticideTimeKey))
         }
     }
 
-    inner class pesticideSelector: AdapterView.OnItemSelectedListener {
+    inner class PesticideSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is Pesticide) {
@@ -257,7 +253,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
     }
 
-    inner class applicationMethodSelector: AdapterView.OnItemSelectedListener {
+    inner class ApplicationMethodSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is ApplicationMethod) {
@@ -271,7 +267,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
     }
 
-    inner class orchardUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is OrchardUnit) {
@@ -285,7 +281,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
     }
 
-    inner class dilutionUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class DilutionUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is WeightOrMeasureUnit) {
@@ -299,7 +295,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
 
     }
 
-    inner class appliedUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class AppliedUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is WeightOrMeasureUnit) {
@@ -312,7 +308,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         }
     }
 
-    inner class orchardSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is String && !farmOrchardsMap?.isEmpty()!!) {
@@ -353,8 +349,7 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         try {
             date = DateConverter().toOffsetDateTime(dateString)!!
         } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(requireContext(), "please enter the proper date format", Toast.LENGTH_LONG).show()
+
             if(isStart) {
                 binding?.pesticideApplicationStartDate?.requestFocus()
             } else {
@@ -396,17 +391,17 @@ class PesticideApplicationFragment : Fragment(), AdapterView.OnItemSelectedListe
         }
         val sapplied = binding?.pesticideApplied?.text.toString()
         var applied = 0.0
-        if(!sapplied.isEmpty()) {
+        if(sapplied.isNotEmpty()) {
             applied = sapplied.toDouble()
         }
         val sdilution = binding?.dilution?.text.toString()
         var dilution = 0
-        if(!sdilution.isEmpty()) {
+        if(sdilution.isNotEmpty()) {
             dilution = sdilution.toInt()
         }
         val sareaTreated = binding?.areaTreated?.text.toString()
         var areaTreated = 0.0
-        if(!sareaTreated.isEmpty()) {
+        if(sareaTreated.isNotEmpty()) {
             areaTreated = sareaTreated.toDouble()
         }
         val applicationStart = buildLocalDateTime(true)

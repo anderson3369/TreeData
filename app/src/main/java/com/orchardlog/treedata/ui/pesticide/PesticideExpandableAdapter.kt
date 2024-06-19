@@ -20,24 +20,24 @@ class PesticideExpandableAdapter(
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        val pesticideAppWPesticide = pesticideApplicationWithPesticides.get(groupPosition)
+        val pesticideAppWPesticide = pesticideApplicationWithPesticides[groupPosition]
         return pesticideAppWPesticide.pesticides.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return pesticideApplicationWithPesticides.get(groupPosition)
+        return pesticideApplicationWithPesticides[groupPosition]
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return pesticideApplicationWithPesticides.get(groupPosition).pesticides.get(childPosition)
+        return pesticideApplicationWithPesticides[groupPosition].pesticides[childPosition]
     }
 
     override fun getGroupId(groupPosition: Int): Long {
-        return pesticideApplicationWithPesticides.get(groupPosition).pesticideApplication.id
+        return pesticideApplicationWithPesticides[groupPosition].pesticideApplication.id
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
-        return pesticideApplicationWithPesticides.get(groupPosition).pesticides.get(childPosition).id
+        return pesticideApplicationWithPesticides[groupPosition].pesticides[childPosition].id
     }
 
     override fun hasStableIds(): Boolean {
@@ -54,13 +54,13 @@ class PesticideExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.pesticide_group_view, parent, false)
             val pestAppView = view.findViewById<TextView>(R.id.pesticideApplicationView)
-            pestAppView.setText(pesticideApplicationWithPesticides.get(groupPosition)
-                .pesticideApplication.toString())
+            pestAppView.text = pesticideApplicationWithPesticides[groupPosition]
+                .pesticideApplication.toString()
             return view
         } else {
             val pestAppView = convertView.findViewById<TextView>(R.id.pesticideApplicationView)
-            pestAppView.setText(pesticideApplicationWithPesticides.get(groupPosition)
-                .pesticideApplication.toString())
+            pestAppView.text = pesticideApplicationWithPesticides[groupPosition]
+                .pesticideApplication.toString()
             return convertView
         }
     }
@@ -76,13 +76,13 @@ class PesticideExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.pesticide_child_view, parent, false)
             val pestNameView = view.findViewById<TextView>(R.id.pesticideNameView)
-            pestNameView.setText(pesticideApplicationWithPesticides.get(groupPosition).pesticides
-                .get(childPosition).toString())
+            pestNameView.text = pesticideApplicationWithPesticides[groupPosition].pesticides
+                .get(childPosition).toString()
             return view
         } else {
             val pestNameView = convertView.findViewById<TextView>(R.id.pesticideNameView)
-            pestNameView.setText(pesticideApplicationWithPesticides.get(groupPosition).pesticides
-                .get(childPosition).toString())
+            pestNameView.text = pesticideApplicationWithPesticides[groupPosition].pesticides
+                .get(childPosition).toString()
             return convertView
         }
     }

@@ -9,6 +9,6 @@ enum class IrrigationUnit(val unit: String) {
     }
 
     companion object {
-        fun from(search: String): IrrigationUnit =  requireNotNull(IrrigationUnit.values().find { it.unit == search }) { "No IrrigationUnit with value $search" }
+        fun from(search: String): IrrigationUnit =  requireNotNull(entries.find { it.unit == search }) { "No IrrigationUnit with value $search" }
     }
 }

@@ -12,6 +12,6 @@ enum class TreeRanking(val ranking: String) {
     }
 
     companion object {
-        fun from(search: String): TreeRanking =  requireNotNull(TreeRanking.values().find { it.ranking == search }) { "No Tree Ranking with value $search" }
+        fun from(search: String): TreeRanking =  requireNotNull(entries.find { it.ranking == search }) { "No Tree Ranking with value $search" }
     }
 }

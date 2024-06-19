@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.textHome.setText(getString(R.string.let_s_get_to_work))
+        binding.textHome.text = getString(R.string.let_s_get_to_work)
 
         farmerViewModel.get().observe(viewLifecycleOwner) {
             farmers ->

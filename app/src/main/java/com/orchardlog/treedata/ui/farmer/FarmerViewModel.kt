@@ -14,9 +14,9 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class FarmerViewModel @Inject constructor(val farmerRepository: FarmerRepository): ViewModel() {
+class FarmerViewModel @Inject constructor(private val farmerRepository: FarmerRepository): ViewModel() {
 
-    fun add(farmer:Farmer) = liveData<Long> {
+    fun add(farmer:Farmer) = liveData {
         try {
             val id = farmerRepository.createFarmer(farmer)
             emit(id)

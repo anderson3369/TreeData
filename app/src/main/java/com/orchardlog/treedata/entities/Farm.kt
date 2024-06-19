@@ -19,14 +19,14 @@ data class Farm(
     val siteId: String
 ): Parcelable {
 
-    protected constructor(parcel: Parcel) : this(
+    private constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readLong(),
         parcel.readString().toString(),
         parcel.readString().toString()
     )
 
-    override fun toString():String = name + "  -  " + siteId
+    override fun toString():String = "$name  -  $siteId"
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)

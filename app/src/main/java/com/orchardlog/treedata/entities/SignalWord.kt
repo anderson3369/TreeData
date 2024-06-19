@@ -10,6 +10,6 @@ enum class SignalWord(val value: String) {
     }
 
     companion object {
-        fun from(search: String): SignalWord =  requireNotNull(SignalWord.values().find { it.value == search }) { "No Signal Word with value $search" }
+        fun from(search: String): SignalWord =  requireNotNull(entries.find { it.value == search }) { "No Signal Word with value $search" }
     }
 }

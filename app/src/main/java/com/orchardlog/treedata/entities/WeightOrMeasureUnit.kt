@@ -15,7 +15,7 @@ enum class WeightOrMeasureUnit(val type: String) {
     }
 
     companion object {
-        fun from(search: String): WeightOrMeasureUnit =  requireNotNull(WeightOrMeasureUnit.values().find { it.type == search }) { "No WeightOrMeasureUnit with value $search" }
+        fun from(search: String): WeightOrMeasureUnit =  requireNotNull(entries.find { it.type == search }) { "No WeightOrMeasureUnit with value $search" }
     }
 }
 

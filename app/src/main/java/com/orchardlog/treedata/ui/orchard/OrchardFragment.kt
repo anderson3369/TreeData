@@ -35,13 +35,13 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     private val linearUnits = arrayOf(LinearUnit.FEET,LinearUnit.METERS, LinearUnit.INCHES)
     private var orchardList: MutableList<Orchard>? = null
 
-    val farmOrchardMap = hashMapOf<Long, MutableList<Orchard>>()
+    private val farmOrchardMap = hashMapOf<Long, MutableList<Orchard>>()
 
     private val orchardViewModel: OrchardViewModel by viewModels()
 
     companion object {
-        const val platedDateRequestKey = "plantedDateRequestKey"
-        const val plantedDateKey = "plantedDateKey"
+        const val PLANTEDDATEREQUESTKEY = "plantedDateRequestKey"
+        const val PLANTEDDATEKEY = "plantedDateKey"
     }
 
     override fun onCreateView(
@@ -54,7 +54,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         orchardViewModel.getFarmWithOrchards().observe(viewLifecycleOwner) {
             farmWithOrchards ->
             val farmWithOrchardsIterator = farmWithOrchards.iterator()
-            this.farms = mutableListOf<Farm>()
+            this.farms = mutableListOf()
 
             while (farmWithOrchardsIterator.hasNext()) {
                 val farmWithOrchard = farmWithOrchardsIterator.next()
@@ -62,11 +62,11 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                 farmOrchardMap[farmWithOrchard.farm.id] = farmWithOrchard.orchards
             }
             //Set a default value
-            if(!farmWithOrchards.isEmpty()) {
-                this.farmId = farmWithOrchards.get(0).farm.id
-                this.orchardList = farmWithOrchards.get(0).orchards
+            if(farmWithOrchards.isNotEmpty()) {
+                this.farmId = farmWithOrchards[0].farm.id
+                this.orchardList = farmWithOrchards[0].orchards
 
-                val farmAdapter = ArrayAdapter<Farm>(requireContext(), R.layout.farm_spinner_layout,
+                val farmAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                     R.id.textViewFarmSpinner, farms!!
                 )
                 farmAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -74,7 +74,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                 binding?.farms?.onItemSelectedListener = this
                 //binding?.farms?.setSelection(0)
 
-                val orchardAdapter = ArrayAdapter<Orchard>(requireContext(), R.layout.farm_spinner_layout,
+                val orchardAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                     R.id.textViewFarmSpinner, orchardList!!
                 )
                 orchardAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -83,17 +83,16 @@ class OrchardFragment : Fragment(), View.OnClickListener,
             }
         }
 
-        binding?.plantedDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View, hasFocus: Boolean) {
+        binding?.plantedDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.plantedDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), "Invalid date format mm-dd-yyyy", Toast.LENGTH_LONG).show()
                 }
             }
-        })
 
         binding?.showPlantedDate?.setOnClickListener {
-            DatePickerFragment(platedDateRequestKey, plantedDateKey).show(childFragmentManager, "Planted Date")
+            DatePickerFragment(PLANTEDDATEREQUESTKEY, PLANTEDDATEKEY).show(childFragmentManager, "Planted Date")
         }
         binding?.saveOrchard?.setOnClickListener(this)
 
@@ -118,16 +117,16 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         childFragmentManager.setFragmentResultListener("requestKey", requireActivity()) {
-            key, bundle -> this.farmId = bundle.getLong("farmId")
+                _, bundle -> this.farmId = bundle.getLong("farmId")
         }
-        childFragmentManager.setFragmentResultListener(platedDateRequestKey, requireActivity()) {
-            dateKey, bundle -> binding?.plantedDate?.setText(bundle.getString(plantedDateKey))
+        childFragmentManager.setFragmentResultListener(PLANTEDDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.plantedDate?.setText(bundle.getString(PLANTEDDATEKEY))
         }
     }
 
 
     private fun linearUnit(): ArrayAdapter<LinearUnit> {
-        val adapter = ArrayAdapter<LinearUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, linearUnits)
         adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         return adapter
@@ -136,16 +135,16 @@ class OrchardFragment : Fragment(), View.OnClickListener,
     private fun rowWidthUnit() {
         val adapter = linearUnit()
         binding?.rowWidthUnit?.adapter = adapter
-        binding?.rowWidthUnit?.onItemSelectedListener = cropRowWidthSelector()
+        binding?.rowWidthUnit?.onItemSelectedListener = CropRowWidthSelector()
     }
 
     private fun distanceBetweenUnit() {
         val adapter = linearUnit()
         binding?.distanceBetweenUnit?.adapter = adapter
-        binding?.distanceBetweenUnit?.onItemSelectedListener = distanceBetweenSelector()
+        binding?.distanceBetweenUnit?.onItemSelectedListener = DistanceBetweenSelector()
     }
 
-    inner class cropRowWidthSelector: OnItemSelectedListener {
+    inner class CropRowWidthSelector: OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val unit = parent?.adapter?.getItem(position)
             if(unit is LinearUnit) {
@@ -158,7 +157,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         }
     }
 
-    inner class distanceBetweenSelector: OnItemSelectedListener {
+    inner class DistanceBetweenSelector: OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val unit = parent?.adapter?.getItem(position)
             if(unit is LinearUnit) {
@@ -249,8 +248,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
                     clay = clay,
                     organicMatter = om
                 )
-            orchardViewModel.add(orchard!!).observe(this) {
-                    id ->
+            orchardViewModel.add(orchard!!).observe(this) { _ ->
                 Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
             }
         }
@@ -266,7 +264,7 @@ class OrchardFragment : Fragment(), View.OnClickListener,
         if(obj != null) {
             if(obj is Farm) {
                 this.farmId = obj.id
-                orchardList = farmOrchardMap.get(obj.id)
+                orchardList = farmOrchardMap[obj.id]
             } else if(obj is Orchard) {
                 this.orchard = obj
                 binding?.crop?.setText(orchard?.crop)

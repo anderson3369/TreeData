@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.irrigation.SoilMoistureFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+    tools:context=".ui.irrigation.SoilMoistureFragment"
+    android:orientation="vertical"
+    android:padding="16dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select a Previous Reading"/>
+            android:text="@string/select_a_previous_reading"/>
         <Spinner
             android:id="@+id/soilMoisture"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Select an Orchard"/>
+            android:text="@string/select_an_orchard"/>
         <Spinner
             android:id="@+id/orchardSoilMoisture"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Date"/>
+                android:text="@string/date"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,27 +51,35 @@
                     android:id="@+id/soilMoistureDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="mm-dd-yyyy"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    style="@style/AgEditText"
+                    android:hint="@string/mm_dd_yyyy"
+                    android:importantForAutofill="no"
                     android:inputType="date"/>
-                <Button
+                <ImageButton
                     android:id="@+id/soilMoistureDateCal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:contentDescription="@string/select_a_date"
+                    android:text="@string/date"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                    android:src="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:text="Time"/>
+                android:text="@string/time"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,62 +88,86 @@
                     android:id="@+id/soilMoistureTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="00:00"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    style="@style/AgEditText"
+                    android:hint="@string/_06_00"
+                    android:importantForAutofill="no"
                     android:inputType="time"/>
-                <Button
+                <ImageButton
                     android:id="@+id/soilMoistureTimeClock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Time"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:contentDescription="@string/select_a_time"
+                    android:text="@string/time"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                    android:src="@drawable/ic_baseline_access_time_24"/>
             </LinearLayout>
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Enter the Centibar Reading"/>
+            android:text="@string/enter_the_centibar_reading"/>
         <EditText
             android:id="@+id/centibar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="0"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:hint="@string/_00"
+            style="@style/AgEditText"
+            android:importantForAutofill="no"
             android:inputType="number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="Percent Soil Moisture"/>
+            android:text="@string/percent_soil_moisture"/>
         <EditText
             android:id="@+id/percentSoilMoisture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="0"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:hint="@string/_00"
+            style="@style/AgEditText"
+            android:importantForAutofill="no"
             android:inputType="number"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <Button
+                style="@style/AgButton"
                 android:id="@+id/saveSoilMoisture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/save_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/newSoilMoisture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/new_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/deleteSoilMoisture"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
                 android:text="@string/delete_button_text"/>
         </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

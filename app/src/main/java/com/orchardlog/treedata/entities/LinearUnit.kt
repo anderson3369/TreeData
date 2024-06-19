@@ -10,6 +10,6 @@ enum class LinearUnit(val unit: String) {
     }
 
     companion object {
-        fun from(search: String): LinearUnit = requireNotNull(LinearUnit.values().find { it.unit == search }) { "No LinearUnit with value $search" }
+        fun from(search: String): LinearUnit = requireNotNull(entries.find { it.unit == search }) { "No LinearUnit with value $search" }
     }
 }

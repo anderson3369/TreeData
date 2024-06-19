@@ -10,7 +10,7 @@ import com.orchardlog.treedata.entities.Orchard
 import com.orchardlog.treedata.entities.OrchardActivity
 import com.orchardlog.treedata.entities.OrchardWithOrchardActivity
 import com.orchardlog.treedata.repositories.OrchardRepository
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class OrchardViewModel @Inject constructor(
     private val orchardRepository: OrchardRepository): ViewModel() {
 
-    fun add(orchard: Orchard) = liveData<Long> {
+    fun add(orchard: Orchard) = liveData {
         try {
             val id = orchardRepository.createOrchard(orchard)
             emit(id)
@@ -31,7 +31,7 @@ class OrchardViewModel @Inject constructor(
         }
     }
 
-    fun addOrchardActivity(orchardActivity: OrchardActivity) = liveData<Long> {
+    fun addOrchardActivity(orchardActivity: OrchardActivity) = liveData {
         try {
             val id = orchardRepository.createOrchardActivity(orchardActivity)
             emit(id)

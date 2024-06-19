@@ -11,7 +11,7 @@ enum class OrchardUnit(val unit: String) {
 
     companion object {
         fun from(search: String): OrchardUnit = requireNotNull(
-            OrchardUnit.values().find { it.unit == search }) { "No OrchardUnit with vale $search" }
+            entries.find { it.unit == search }) { "No OrchardUnit with vale $search" }
     }
 
 }

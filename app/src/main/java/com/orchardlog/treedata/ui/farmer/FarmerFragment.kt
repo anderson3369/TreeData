@@ -31,8 +31,8 @@ class FarmerFragment : Fragment(), View.OnClickListener {
 
         farmerViewModel.get().observe(viewLifecycleOwner) {
             farmers ->
-            if(farmers != null && !farmers.isEmpty()) {
-                farmer = farmers.get(0)
+            if(farmers != null && farmers.isNotEmpty()) {
+                farmer = farmers[0]
                 binding.name.setText(farmer!!.name)
                 binding.address.setText(farmer!!.address)
                 binding.city.setText(farmer!!.city)
@@ -69,7 +69,7 @@ class FarmerFragment : Fragment(), View.OnClickListener {
                 phone = binding.phone.text.toString(),
                 email = binding.email.text.toString()
             )
-            farmerViewModel.add(farmer!!).observe(this) { farmerId ->
+            farmerViewModel.add(farmer!!).observe(this) { _ ->
                 Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
             }
         }

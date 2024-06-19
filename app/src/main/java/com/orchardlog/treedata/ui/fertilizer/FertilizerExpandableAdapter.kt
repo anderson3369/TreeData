@@ -20,24 +20,24 @@ class FertilizerExpandableAdapter(
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        val pesticideAppWPesticide = fertilizerApplicationWithFertilizers.get(groupPosition)
+        val pesticideAppWPesticide = fertilizerApplicationWithFertilizers[groupPosition]
         return pesticideAppWPesticide.fertilizers.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return fertilizerApplicationWithFertilizers.get(groupPosition)
+        return fertilizerApplicationWithFertilizers[groupPosition]
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers.get(childPosition)
+        return fertilizerApplicationWithFertilizers[groupPosition].fertilizers[childPosition]
     }
 
     override fun getGroupId(groupPosition: Int): Long {
-        return fertilizerApplicationWithFertilizers.get(groupPosition).fertilizerApplication.id
+        return fertilizerApplicationWithFertilizers[groupPosition].fertilizerApplication.id
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
-        return fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers.get(childPosition).id
+        return fertilizerApplicationWithFertilizers[groupPosition].fertilizers[childPosition].id
     }
 
     override fun hasStableIds(): Boolean {
@@ -54,13 +54,13 @@ class FertilizerExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.fertilizer_group_view, parent, false)
             val fertAppView = view.findViewById<TextView>(R.id.fertilizerApplicationView)
-            fertAppView.setText(fertilizerApplicationWithFertilizers.get(groupPosition)
-                .fertilizerApplication.toString())
+            fertAppView.text = fertilizerApplicationWithFertilizers.get(groupPosition)
+                .fertilizerApplication.toString()
             return view
         } else {
             val fertAppView = convertView.findViewById<TextView>(R.id.fertilizerApplicationView)
-            fertAppView.setText(fertilizerApplicationWithFertilizers.get(groupPosition)
-                .fertilizerApplication.toString())
+            fertAppView.text = fertilizerApplicationWithFertilizers.get(groupPosition)
+                .fertilizerApplication.toString()
             return convertView
         }
     }
@@ -76,13 +76,13 @@ class FertilizerExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.fertilizer_child_view, parent, false)
             val fertNameView = view.findViewById<TextView>(R.id.fertilizerNameView)
-            fertNameView.setText(fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers
-                .get(childPosition).toString())
+            fertNameView.text = fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers
+                .get(childPosition).toString()
             return view
         } else {
             val pestNameView = convertView.findViewById<TextView>(R.id.fertilizerNameView)
-            pestNameView.setText(fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers
-                .get(childPosition).toString())
+            pestNameView.text = fertilizerApplicationWithFertilizers.get(groupPosition).fertilizers
+                .get(childPosition).toString()
             return convertView
         }
     }

@@ -107,7 +107,7 @@ abstract class OrchardDatabase : RoomDatabase() {
             }
         }
 
-        fun buildDatabase(context: Context): OrchardDatabase {
+        private fun buildDatabase(context: Context): OrchardDatabase {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
                 //.fallbackToDestructiveMigration()
                 .build()

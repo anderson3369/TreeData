@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.pesticide.PesticideApplicationFragment">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+    tools:context=".ui.pesticide.PesticideApplicationFragment"
+    android:padding="16dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,28 +27,37 @@
                     <Spinner
                         android:id="@+id/pesticideApplications"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"/>
                 </LinearLayout>
-                <Button
+                <ImageButton
                     android:id="@+id/pesticideReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:contentDescription="@string/generate_a_pesticide_report"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/baseline_summarize_24"/>
+                    android:src="@drawable/baseline_summarize_24"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_an_orchard"/>
             <Spinner
                 android:id="@+id/pesticideOrchard"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -66,18 +72,24 @@
                     <Spinner
                         android:id="@+id/pesticidesSpinner"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <Button
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"/>
+                    <ImageButton
                         android:id="@+id/addPesticide"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:contentDescription="@string/add_a_pesticide"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                        android:src="@drawable/ic_baseline_add_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,20 +105,28 @@
                         android:id="@+id/pesticideApplicationStartDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/showPesticideApplicationStartDate"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,19 +142,27 @@
                         android:id="@+id/pesticideApplicationStartTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="00:00"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
+                        android:hint="@string/_06_00"
+                        android:importantForAutofill="no"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/pesticideApplicationStartTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -150,19 +178,27 @@
                         android:id="@+id/pesticideApplicationStopDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/stop_date"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
                 </LinearLayout>
-                <Button
+                <ImageButton
                     android:id="@+id/showPesticideApplicationStopDate"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/select_a_stop_date"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                    android:src="@drawable/ic_baseline_calendar_month_24"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,49 +214,66 @@
                         android:id="@+id/pesticideApplicationStopTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/_00_00"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:hint="@string/_12_00"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/pesticideApplicationStopTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_stop_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/amount_applied"/>
             <EditText
                 android:id="@+id/pesticideApplied"
+                android:minHeight="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/AgEditText"
                 android:hint="@string/_000_00"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_a_unit"/>
             <Spinner
                 android:id="@+id/pesticideAppliedUnit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/dilution"/>
@@ -228,36 +281,51 @@
                 android:id="@+id/dilution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="00"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:hint="@string/_100"
+                style="@style/AgEditText"
+                android:importantForAutofill="no"
                 android:inputType="number"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_a_unit"/>
             <Spinner
                 android:id="@+id/dilutionUnit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/enter_the_area_treated"/>
             <EditText
                 android:id="@+id/areaTreated"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:hint="@string/_00_0"
+                style="@style/AgEditText"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_a_unit"/>
@@ -268,10 +336,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_an_application_method"/>
@@ -282,25 +352,32 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/savePesticideApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/save_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/newPesticideApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/new_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/deletePesticideApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/delete_button_text"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+</ScrollView>

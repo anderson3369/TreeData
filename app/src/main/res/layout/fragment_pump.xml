@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.irrigation.PumpFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:orientation="vertical">
+    tools:context=".ui.irrigation.PumpFragment"
+    android:padding="16dp"
+    android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,10 +16,13 @@
         <Spinner
             android:id="@+id/pumps"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/pump_type"/>
@@ -30,11 +30,16 @@
             android:id="@+id/pumpType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            style="@style/AgEditText"
             android:hint="@string/submersible_turbine_gate_no_pump"
+            android:importantForAutofill="no"
             android:inputType="text"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/pump_horsepower" />
@@ -42,11 +47,16 @@
             android:id="@+id/horsepower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            style="@style/AgEditText"
             android:hint="@string/enter_the_pump_s_horsepower"
+            android:importantForAutofill="no"
             android:inputType="numberDecimal" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/pump_phase"/>
@@ -54,15 +64,21 @@
             android:id="@+id/phase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/_3_2_1"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            style="@style/AgEditText"
+            android:hint="@string/_3_1"
+            android:autofillHints="3"
             android:inputType="number"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/pump_flow_rate"/>
@@ -70,39 +86,53 @@
             android:id="@+id/pumpFlowRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            style="@style/AgEditText"
             android:hint="@string/enter_the_pump_s_flow_rate"
+            android:importantForAutofill="no"
             android:inputType="number"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/select_a_unit"/>
         <Spinner
             android:id="@+id/pumpFlowRateUnit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <Button
+                style="@style/AgButton"
                 android:id="@+id/savePump"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/save_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/newPump"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="@string/new_button_text"/>
             <Button
+                style="@style/AgButton"
                 android:id="@+id/deletePump"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
                 android:text="@string/delete_button_text"/>
         </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</LinearLayout>

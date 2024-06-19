@@ -33,7 +33,7 @@ class VarietyFragment : Fragment(), AdapterView.OnItemSelectedListener {
         treeViewModel.getAllVarieties().observe(viewLifecycleOwner) {
             varieties ->
             if(varieties != null) {
-                val adapter = ArrayAdapter<Variety>(requireContext(),
+                val adapter = ArrayAdapter(requireContext(),
                     R.layout.farm_spinner_layout, R.id.textViewFarmSpinner, varieties)
                 adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
                 binding?.varieties?.adapter = adapter
@@ -61,8 +61,7 @@ class VarietyFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     name = binding?.varietyName?.text.toString(),
                     cultivar = binding?.varietyCultivar?.text.toString()
                 )
-                treeViewModel.add(variety!!).observe(viewLifecycleOwner) {
-                    id ->
+                treeViewModel.add(variety!!).observe(viewLifecycleOwner) { _ ->
                     Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
                 }
             }

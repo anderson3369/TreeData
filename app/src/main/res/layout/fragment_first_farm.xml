@@ -1,147 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/relativeLayout2"
-    style="@style/AgricultureEditText"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/select_a_farm"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/farmSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/site_id"
+            android:minWidth="48dp"
+            android:minHeight="48dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/farm_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/farmName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_the_name_of_the_farm"
+            android:importantForAutofill="no"
+            style="@style/AgEditText"
+            android:inputType="text"
+            android:minWidth="48dp"
+            android:minHeight="48dp" />
 
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/select_a_farm"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/farmSpinner"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/site_id"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <Spinner
-        android:id="@+id/farmSpinner"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:contentDescription="@string/site_id"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        <EditText
+            android:id="@+id/siteId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="1A"
+            android:hint="@string/enter_the_site_id"
+            android:inputType="text"
+            style="@style/AgEditText"
+            android:minWidth="48dp"
+            android:minHeight="48dp" />
 
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/farm_name"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/farmName"
-        app:layout_constraintTop_toBottomOf="@+id/farmSpinner" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+            <Button
+                android:id="@+id/saveFarm"
+                style="@style/AgButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/save_button_text"/>
 
-    <EditText
-        android:id="@+id/farmName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:hint="@string/enter_the_name_of_the_farm"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+            <Button
+                android:id="@+id/newFarm"
+                style="@style/AgButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/new_button_text" />
 
+            <Button
+                android:id="@+id/deleteFarm"
+                style="@style/AgButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/delete_button_text" />
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/site_id"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/siteId"
-        app:layout_constraintTop_toBottomOf="@+id/farmName" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp">
+            <ImageButton
+                android:id="@+id/previousFarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="15dp"
+                android:minWidth="64dp"
+                android:minHeight="64dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/go_back"
+                android:src="@drawable/baseline_arrow_back_48" />
 
-    <EditText
-        android:id="@+id/siteId"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:hint="Enter the site id"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-
-    <Button
-        android:id="@+id/saveFarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/save_button_text"
-        app:layout_constraintBaseline_toBaselineOf="@+id/newFarm"
-        app:layout_constraintEnd_toStartOf="@+id/newFarm"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/newFarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/new_button_text"
-        app:layout_constraintBottom_toTopOf="@+id/nextFarm"
-        app:layout_constraintEnd_toStartOf="@+id/deleteFarm"
-        app:layout_constraintStart_toEndOf="@+id/saveFarm" />
-
-    <Button
-        android:id="@+id/deleteFarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_button_text"
-        app:layout_constraintBaseline_toBaselineOf="@+id/newFarm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/newFarm" />
-
-
-    <Button
-        android:id="@+id/previousFarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginTop="306dp"
-        android:layout_marginBottom="306dp"
-        android:background="@android:color/transparent"
-        android:drawableBottom="@drawable/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/nextFarm"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/farmSpinner" />
-
-    <Button
-        android:id="@+id/nextFarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:drawableBottom="@drawable/next"
-        app:layout_constraintBaseline_toBaselineOf="@+id/previousFarm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/previousFarm" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/nextFarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="30dp"
+                android:minHeight="64dp"
+                android:minWidth="64dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/go_forward"
+                android:src="@drawable/baseline_arrow_forward_48"/>
+        </LinearLayout>
+    </LinearLayout>

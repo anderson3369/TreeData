@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:padding="16dp">
+    android:layout_centerInParent="true"
+    android:padding="16dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -25,11 +21,14 @@
             <Spinner
                 android:id="@+id/farms"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:text="@string/select_an_existing_orchard"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -37,7 +36,9 @@
             <Spinner
                 android:id="@+id/orchardSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -47,6 +48,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/crop"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -55,46 +57,56 @@
                     android:id="@+id/crop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    style="@style/AgEditText"
                     android:hint="@string/enter_a_crop"
+                    android:importantForAutofill="no"
                     android:inputType="text" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/planted_date"
                         android:textSize="18sp"
                         android:textStyle="bold" />
-
                     <EditText
                         android:id="@+id/plantedDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date" />
                 </LinearLayout>
 
-                <Button
+                <ImageButton
                     android:id="@+id/showPlantedDate"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/select_a_date_the_orchard_was_planted"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_calendar_month_24" />
+                    android:src="@drawable/ic_baseline_calendar_month_24" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -113,7 +125,11 @@
                         android:id="@+id/rowWidth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/_00_0"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:hint="@string/_24_0"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
 
@@ -132,13 +148,16 @@
                     <Spinner
                         android:id="@+id/rowWidthUnit"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -157,7 +176,11 @@
                         android:id="@+id/distanceBetweenTrees"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
                         android:hint="@string/_00_0"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
 
@@ -176,13 +199,16 @@
                     <Spinner
                         android:id="@+id/distanceBetweenUnit"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -190,7 +216,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/percent_sand_silt_and_clay"
                     android:textSize="18sp"
-                    android:textStyle="bold" />/
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -201,23 +227,35 @@
                         android:id="@+id/sand"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        android:layout_marginEnd="20dp"
+                        style="@style/AgEditText"
                         android:hint="@string/sand_0_0"
+                        android:importantForAutofill="no"
                         android:inputType="numberDecimal" />
 
                     <EditText
                         android:id="@+id/silt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        style="@style/AgEditText"
+                        android:layout_marginEnd="20dp"
                         android:hint="@string/silt_0_0"
+                        android:importantForAutofill="no"
                         android:inputType="numberDecimal" />
 
                     <EditText
                         android:id="@+id/clay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/clay_0_0"
+                        android:importantForAutofill="no"
                         android:inputType="numberDecimal" />
                 </LinearLayout>
             </LinearLayout>
@@ -225,6 +263,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -232,45 +271,61 @@
                     android:layout_height="wrap_content"
                     android:text="@string/percent_organic_matter"
                     android:textSize="18sp"
-                    android:textStyle="bold" />/
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/organicMatter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    style="@style/AgEditText"
                     android:hint="@string/percent_organic_matter_ex_5_0"
+                    android:importantForAutofill="no"
                     android:inputType="numberDecimal" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/saveOrchard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/save_button_text" />
 
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/newOrchard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/new_button_text" />
 
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/deleteOrchard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/delete_button_text" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+</ScrollView>

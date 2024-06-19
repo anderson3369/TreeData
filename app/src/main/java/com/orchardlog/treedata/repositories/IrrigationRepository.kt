@@ -28,7 +28,6 @@ class IrrigationRepository @Inject constructor(private val irrigationDao: Irriga
         irrigationDao.delete(irrigation)
     }
 
-    fun getIrrigations() = irrigationDao.getIrrigations()
 
     suspend fun createIrrigationSystem(irrigationSystem: IrrigationSystem): Long {
         return irrigationSystemDao.insert(irrigationSystem)
@@ -63,7 +62,6 @@ class IrrigationRepository @Inject constructor(private val irrigationDao: Irriga
 
     fun getPumpWithIrrigationSystem(orchardId: Long) = pumpWithIrrigationSystemDao.getPumpWithIrrigationSystem(orchardId)
 
-    fun getOrchardAndIrrigationSystem() = orchardAndIrrigationSystemDao.getOrchardAndIrrigationSystem()
 
     fun getIrrigationsBetween(firstYear: LocalDate, endYear: LocalDate) = irrigationDao.getIrrigations(firstYear, endYear)
 

@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
 class DateConverter {
-    val df = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm")
-    val daet = DateTimeFormatter.ofPattern("MM-dd-yyyy")
-    val dft = DateTimeFormatter.ofPattern("HH:mm")
+    private val df: DateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm")
+    private val daet: DateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
+    private val dft: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
     @TypeConverter
     fun toOffsetDateTime(date: String?): LocalDateTime? {

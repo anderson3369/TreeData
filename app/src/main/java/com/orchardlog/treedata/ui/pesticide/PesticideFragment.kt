@@ -14,7 +14,7 @@ import com.orchardlog.treedata.databinding.FragmentPesticideBinding
 import com.orchardlog.treedata.entities.Pesticide
 import com.orchardlog.treedata.entities.REIUnit
 import com.orchardlog.treedata.entities.SignalWord
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +27,7 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var pesticide: Pesticide? = null
     private var signalWord: SignalWord? = null
     private var reiUnit: REIUnit? = null
-    val signalWordArray = arrayOf(SignalWord.CAUTION, SignalWord.WARNING, SignalWord.DANGER)
+    private val signalWordArray = arrayOf(SignalWord.CAUTION, SignalWord.WARNING, SignalWord.DANGER)
 
 
     override fun onCreateView(
@@ -38,25 +38,25 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
         val vw = binding?.root
         pesticideViewModel.getPesticides().observe(viewLifecycleOwner) {
             pesticides ->
-            val adapter = ArrayAdapter<Pesticide>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, pesticides)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pesticides?.adapter = adapter
             binding?.pesticides?.onItemSelectedListener = this
         }
 
-        val swAdapter = ArrayAdapter<SignalWord>(requireContext(), R.layout.farm_spinner_layout,
+        val swAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, signalWordArray)
         swAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.signalWord?.adapter = swAdapter
-        binding?.signalWord?.onItemSelectedListener = signalWordSelector()
+        binding?.signalWord?.onItemSelectedListener = SignalWordSelector()
 
         val reiArray = arrayOf(REIUnit.HOUR, REIUnit.DAY)
-        val reiAdapter = ArrayAdapter<REIUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val reiAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, reiArray)
         reiAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.reiUnit?.adapter = reiAdapter
-        binding?.reiUnit?.onItemSelectedListener = reiUnitSelector()
+        binding?.reiUnit?.onItemSelectedListener = ReiUnitSelector()
 
         binding?.savePesticide?.setOnClickListener(this)
 
@@ -73,7 +73,7 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
         return vw
     }
 
-    inner class reiUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class ReiUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is REIUnit) {
@@ -87,7 +87,7 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     }
 
-    inner class signalWordSelector: AdapterView.OnItemSelectedListener {
+    inner class SignalWordSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is SignalWord) {
@@ -118,7 +118,7 @@ class PesticideFragment : Fragment(), AdapterView.OnItemSelectedListener,
     override fun onClick(v: View?) {
         val srei = binding?.rei?.text.toString()
         var rei = 0
-        if(!srei.isEmpty()) {
+        if(srei.isNotEmpty()) {
             rei = srei.toInt()
         }
         if(this.pesticide != null && pesticide?.id!! > 0) {

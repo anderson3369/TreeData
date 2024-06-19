@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.irrigation.IrrigationFragment">
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".ui.irrigation.IrrigationFragment"
         android:layout_centerInParent="true"
         android:padding="16dp">
         <LinearLayout
@@ -31,19 +28,25 @@
                     <Spinner
                         android:id="@+id/irrigations"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"/>
                 </LinearLayout>
-                <Button
+                <ImageButton
                     android:id="@+id/irrigationReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:contentDescription="@string/generate_an_irrigation_report"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/baseline_summarize_24"/>
+                    android:src="@drawable/baseline_summarize_24"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_an_irrigation_system"/>
@@ -54,13 +57,18 @@
                 <Spinner
                     android:id="@+id/irrigationSystemWithIrrigation"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Button
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"/>
+                <ImageButton
                     android:id="@+id/addIrrigationSystem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:contentDescription="@string/add_an_irrigation_system"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                    android:src="@drawable/ic_baseline_add_24"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,6 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:text="@string/start_date"/>
@@ -80,14 +89,21 @@
                         android:id="@+id/irrigationStartDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:hint="@string/mm_dd_yyyy"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/irrigationStartDateCal"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -97,9 +113,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Start Time"/>
+                    android:text="@string/start_time"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,14 +125,21 @@
                         android:id="@+id/irrigationStartTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="00:00"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
+                        android:hint="@string/_06_00"
+                        android:importantForAutofill="no"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/irrigationStartTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -125,9 +149,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Stop Date"/>
+                    android:text="@string/stop_date"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -136,14 +161,21 @@
                         android:id="@+id/irrigationStopDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="mm-dd-yyyy"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
+                        android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/irrigationStopDateCal"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_stop_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -153,9 +185,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="Stop Time"/>
+                    android:text="@string/stop_time"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,42 +197,56 @@
                         android:id="@+id/irrigationStopTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="00:00"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
+                        android:hint="@string/_12_00"
+                        android:importantForAutofill="no"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/irrigationStopTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_stop_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/saveIrrigation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/save_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/newIrrigation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/new_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/deleteIrrigation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/delete_button_text"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>

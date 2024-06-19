@@ -7,7 +7,7 @@ import org.osmdroid.util.GeoPoint
 class GeoPointConverter {
 
     @TypeConverter
-    fun toGeoPoint(latitude: Double?, longitude: Double?): IGeoPoint? {
+    fun toGeoPoint(latitude: Double?, longitude: Double?): IGeoPoint {
         return GeoPoint(latitude!!, longitude!!)
     }
 

@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.orchard.OrchardTaskReportFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
         <Button
             android:id="@+id/taskOrchardReportBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/AgButton"
             android:textSize="20sp"
             android:text="@string/orchard_activities_report"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:text="@string/select_an_orchard"/>
         <Spinner
             android:id="@+id/selectOrchardForReport"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -47,14 +50,21 @@
                         android:id="@+id/orchardTaskFromDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/orchardTaskFromDateCal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -75,20 +85,27 @@
                         android:id="@+id/orchardTaskToDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/orchardTaskToDateCal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        android:contentDescription="@string/select_an_end_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <ExpandableListView
             android:id="@+id/orchardActivityListView"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
-</RelativeLayout>

@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
+    //private var isPaused = false
 
     companion object {
         const val TAG = "MainActivity"
@@ -77,26 +78,13 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun onPause() {
         super.onPause()
         Log.i(TAG, "paused...")
+        //isPaused = true
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
+
 
 
 

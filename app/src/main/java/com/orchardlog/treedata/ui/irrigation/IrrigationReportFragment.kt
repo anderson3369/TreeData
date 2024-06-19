@@ -42,18 +42,18 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
     private var farmOrchardsMap: Map<Long, String>? = null
     private val calStart = Calendar.getInstance()
     private val yearStart = calStart.get(Calendar.YEAR)
-    private var startDate = LocalDate.of(yearStart, 1, 1)
-    private var endDate = LocalDate.of(yearStart, 12, 31)
+    private var startDate: LocalDate = LocalDate.of(yearStart, 1, 1)
+    private var endDate: LocalDate = LocalDate.of(yearStart, 12, 31)
     private var totalHours: Long = 0L
     private var isStartDateValid = false
     private var isEndDateValid = false
     //private var window: PopupWindow? = null
 
     companion object {
-        const val irrigationReport = "IrrigationReport.pdf"
-        const val irrigationDateKey = "irrigationDate"
-        const val irrigationFromDateRequestKey = "requestIrrigationFromDateeKey"
-        const val irrigationToDateRequestKey = "requestIrrigationToDateKey"
+        const val IRRIGATIONREPORT = "IrrigationReport.pdf"
+        const val IRRIGATIONDATEKEY = "irrigationDate"
+        const val IRRIGATIONFROMDATEREQUESTKEY = "requestIrrigationFromDateKey"
+        const val IRRIGATIONTODATEREQUESTKEY = "requestIrrigationToDateKey"
     }
 
     override fun onCreateView(
@@ -66,15 +66,15 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
                 farmWithOrchards ->
             farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.irrigationOrchardSpinner?.adapter = adapter
             binding?.irrigationOrchardSpinner?.onItemSelectedListener = this
         }
 
-        binding?.irrigationFromDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.irrigationFromDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.irrigationFromDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_date_format_mm_dd_yyyy),
@@ -82,16 +82,15 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
                 } else {
                     isStartDateValid = true
                     if(isEndDateValid && orchardId > 0L) {
-                        startDate = DateConverter().toOffsetDate(date)
+                        startDate = DateConverter().toOffsetDate(date)!!
                         getIrrigationTotalHours()
                         getIrrigationCumulativeFlorRate()
                     }
                 }
             }
-        })
 
-        binding?.irrigationToDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.irrigationToDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.irrigationToDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_date_format_mm_dd_yyyy),
@@ -99,13 +98,12 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
                 } else {
                     isEndDateValid = true
                     if(isStartDateValid && orchardId > 0L) {
-                        endDate = DateConverter().toOffsetDate(date)
+                        endDate = DateConverter().toOffsetDate(date)!!
                         getIrrigationTotalHours()
                         getIrrigationCumulativeFlorRate()
                     }
                 }
             }
-        })
 
         datePicker()
 
@@ -116,13 +114,12 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
     }
 
     private fun getIrrigationTotalHours() {
-        if(startDate != null && endDate != null) {
-            irrigationViewModel.getIrrigationsTotalHours(orchardId, startDate, endDate).observe(viewLifecycleOwner) {
+        irrigationViewModel.getIrrigationsTotalHours(orchardId, startDate, endDate).observe(viewLifecycleOwner) {
                     totalHours ->
-                this.totalHours = totalHours
-                binding?.totalIrrigationHours?.setText(totalHours.toString())
-            }
+            this.totalHours = totalHours
+            binding?.totalIrrigationHours?.text = totalHours.toString()
         }
+
     }
 
     private fun getIrrigationCumulativeFlorRate() {
@@ -130,51 +127,51 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
                 pumpWithIrrigationSystem ->
             val flowRate = pumpWithIrrigationSystem.pump.flowRate
             val flowUnit = pumpWithIrrigationSystem.pump.flowRateUnit
-            if(flowUnit.equals(FlowRateUnit.GALLONSPERMINUTE)) {
+            if(flowUnit == FlowRateUnit.GALLONSPERMINUTE) {
                 val gallonsPumped = flowRate*60*totalHours
-                binding?.totalIrrigationGallons?.setText(gallonsPumped.toString())
+                binding?.totalIrrigationGallons?.text = gallonsPumped.toString()
             } else {
                 val gallonsPumped = flowRate*totalHours
-                binding?.totalIrrigationGallons?.setText(gallonsPumped.toString())
+                binding?.totalIrrigationGallons?.text = gallonsPumped.toString()
             }
         }
     }
 
     private fun datePicker() {
         binding?.irrigationFromDateCal?.setOnClickListener {
-            DatePickerFragment(irrigationFromDateRequestKey, irrigationDateKey)
+            DatePickerFragment(IRRIGATIONFROMDATEREQUESTKEY, IRRIGATIONDATEKEY)
                 .show(childFragmentManager, getString(R.string.from_date))
         }
 
         binding?.irrigationToDateCal?.setOnClickListener {
-            DatePickerFragment(irrigationToDateRequestKey, irrigationDateKey)
+            DatePickerFragment(IRRIGATIONTODATEREQUESTKEY, IRRIGATIONDATEKEY)
                 .show(childFragmentManager, getString(R.string.to_date))
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(irrigationFromDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.irrigationFromDate?.setText(bundle.getString(irrigationDateKey))
+        childFragmentManager.setFragmentResultListener(IRRIGATIONFROMDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.irrigationFromDate?.setText(bundle.getString(IRRIGATIONDATEKEY))
             isStartDateValid = true
             if(isEndDateValid && orchardId > 0L) {
-                startDate = DateConverter().toOffsetDate(bundle.getString(irrigationDateKey))
+                startDate = DateConverter().toOffsetDate(bundle.getString(IRRIGATIONDATEKEY))!!
                 getIrrigationTotalHours()
                 getIrrigationCumulativeFlorRate()
             }
         }
-        childFragmentManager.setFragmentResultListener(irrigationToDateRequestKey, requireActivity()) {
-            dateKey, bundle -> binding?.irrigationToDate?.setText(bundle.getString(irrigationDateKey))
+        childFragmentManager.setFragmentResultListener(IRRIGATIONTODATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.irrigationToDate?.setText(bundle.getString(IRRIGATIONDATEKEY))
             isEndDateValid = true
             if(isStartDateValid && orchardId > 0L) {
-                endDate = DateConverter().toOffsetDate(bundle.getString(irrigationDateKey))
+                endDate = DateConverter().toOffsetDate(bundle.getString(IRRIGATIONDATEKEY))!!
                 getIrrigationTotalHours()
                 getIrrigationCumulativeFlorRate()
             }
         }
     }
 
-    fun Context.isDarkThemeOn(): Boolean {
+    private fun Context.isDarkThemeOn(): Boolean {
         return resources.configuration.uiMode and
                 Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
@@ -219,7 +216,7 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
         var outputStream: FileOutputStream? = null
         try {
             val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            val report = File(path, irrigationReport)
+            val report = File(path, IRRIGATIONREPORT)
             outputStream = FileOutputStream(report.path)
             // write the document content
             document.writeTo(outputStream)
@@ -235,15 +232,15 @@ class IrrigationReportFragment : Fragment(), AdapterView.OnItemSelectedListener 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+        if((obj is String) && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
             val key = this.farmOrchardsMap?.filter { it.value == obj }?.keys?.first()
             this.orchardId = key!!
             val ssDate = binding?.irrigationFromDate?.text.toString()
             val seDate = binding?.irrigationToDate?.text.toString()
             try {
-                if(!ssDate.isEmpty() && !seDate.isEmpty()) {
-                    startDate = DateConverter().toOffsetDate(ssDate)
-                    endDate = DateConverter().toOffsetDate(seDate)
+                if(ssDate.isNotEmpty() && seDate.isNotEmpty()) {
+                    startDate = DateConverter().toOffsetDate(ssDate)!!
+                    endDate = DateConverter().toOffsetDate(seDate)!!
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

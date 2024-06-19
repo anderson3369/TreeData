@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FarmViewModel @Inject constructor(val farmRepository: FarmRepository) : ViewModel() {
+class FarmViewModel @Inject constructor(private val farmRepository: FarmRepository) : ViewModel() {
 
     fun getFarmerId():LiveData<Long> {
         return farmRepository.getFarmerId().asLiveData()
     }
 
-    fun add(farm:Farm) = liveData<Long> {
+    fun add(farm:Farm) = liveData {
         try {
             val id = farmRepository.createFarm(farm)
             emit(id)

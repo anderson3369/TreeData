@@ -9,6 +9,6 @@ enum class RootstockType(val type: String) {
     }
 
     companion object {
-        fun from(search: String): RootstockType = requireNotNull(values().find { it.type == search }) { "No RootstockType with value $search" }
+        fun from(search: String): RootstockType = requireNotNull(entries.find { it.type == search }) { "No RootstockType with value $search" }
     }
 }

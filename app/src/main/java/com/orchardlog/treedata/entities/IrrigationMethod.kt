@@ -11,6 +11,6 @@ enum class IrrigationMethod(val method: String) {
     }
 
     companion object {
-        fun from(search: String): IrrigationMethod =  requireNotNull(values().find { it.method == search }) { "No IrrigationMethod with value $search" }
+        fun from(search: String): IrrigationMethod =  requireNotNull(entries.find { it.method == search }) { "No IrrigationMethod with value $search" }
     }
 }

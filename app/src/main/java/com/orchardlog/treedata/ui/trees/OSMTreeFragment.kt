@@ -59,7 +59,7 @@ class OSMTreeFragment : Fragment(), LocationListener {
     private var location: Location? = null
     private var trees: MutableList<Tree>? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private val wms = "https://basemap.nationalmap.gov:443/arcgis/services/USGSImageryOnly/MapServer/WmsServer?version=1.3.0&request=GetCapabilities&service=WMS"
+    //private val wms = "https://basemap.nationalmap.gov:443/arcgis/services/USGSImageryOnly/MapServer/WmsServer?version=1.3.0&request=GetCapabilities&service=WMS"
 
     companion object {
         fun newInstance() = OSMTreeFragment()
@@ -95,7 +95,7 @@ class OSMTreeFragment : Fragment(), LocationListener {
         treeViewModel.getAllTrees().observe(viewLifecycleOwner) {
             trees ->
             this.trees = trees
-            if(!trees.isEmpty()) {
+            if(trees.isNotEmpty()) {
                 val treeIter = trees.iterator()
                 while(treeIter.hasNext()) {
                     val tree = treeIter.next()
@@ -106,13 +106,13 @@ class OSMTreeFragment : Fragment(), LocationListener {
                     marker.title = tree.id.toString()
                     var variety = ""
                     if(varieties != null  && !varieties?.isEmpty()!!) {
-                        variety = varieties!!.get(tree.varietyId)!!
+                        variety = varieties!![tree.varietyId]!!
                     }
                     var rootstock = ""
                     if(rootstocks != null && !rootstocks?.isEmpty()!!) {
-                        rootstock = rootstocks!!.get(tree.rootstockId)!!
+                        rootstock = rootstocks!![tree.rootstockId]!!
                     }
-                    marker.snippet = variety + " on " + rootstock
+                    marker.snippet = "$variety on $rootstock"
                     marker.subDescription = "Planted on " + DateConverter().fromOffsetDate(tree.plantedDate)
 
                     marker.setOnMarkerClickListener(Marker.OnMarkerClickListener {
@@ -135,7 +135,7 @@ class OSMTreeFragment : Fragment(), LocationListener {
         Configuration.getInstance().userAgentValue = BuildConfig.LIBRARY_PACKAGE_NAME
 
         initLocation()
-        parseWMS(wms)
+        parseWMS()
 
         binding?.map?.controller?.setZoom(18.5)
         //binding?.map?.zoomController?.setVisibility(CustomZoomButtonsController.Visibility.NEVER)
@@ -243,7 +243,8 @@ class OSMTreeFragment : Fragment(), LocationListener {
     }
 
 
-    fun parseWMS(url: String) {
+    private fun parseWMS() {
+        val url = "https://basemap.nationalmap.gov:443/arcgis/services/USGSImageryOnly/MapServer/WmsServer?version=1.3.0&request=GetCapabilities&service=WMS"
         thread(start = true) {
             try {
                 var conn: HttpURLConnection? = null
@@ -266,12 +267,8 @@ class OSMTreeFragment : Fragment(), LocationListener {
                     inputStream?.close()
                     conn?.disconnect()
                 } finally {
-                    if(inputStream != null) {
-                        inputStream.close()
-                    }
-                    if(conn != null) {
-                        conn.disconnect()
-                    }
+                    inputStream?.close()
+                    conn?.disconnect()
                 }
             } catch(e: Exception) {
                 e.printStackTrace()

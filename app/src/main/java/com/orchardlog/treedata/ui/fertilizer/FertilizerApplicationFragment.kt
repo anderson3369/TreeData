@@ -18,7 +18,7 @@ import com.orchardlog.treedata.entities.Fertilizer
 import com.orchardlog.treedata.entities.FertilizerApplication
 import com.orchardlog.treedata.entities.OrchardUnit
 import com.orchardlog.treedata.entities.WeightOrMeasureUnit
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import com.orchardlog.treedata.utils.DatePickerFragment
 import com.orchardlog.treedata.utils.SortFertilizerApplications
@@ -49,12 +49,12 @@ class FertilizerApplicationFragment : Fragment(),
     private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
 
     companion object {
-        const val fertilizerStartDateRequestKey = "requestFertilizerStartDateKey"
-        const val fertilizerStopDateRequestKey = "requestFertilizerStopDateKey"
-        const val fertilizerDateKey = "fertilizerDate"
-        const val fertilizerStartTimeRequestKey = "requestFertilizerStartTimeKey"
-        const val fertilizerStopTimeRequestKey = "requestFertilizerStopTimeKey"
-        const val fertilizerTimeKey = "fertilizerTime"
+        const val FERTILIZERSTARTDATEREQUESTKEY = "requestFertilizerStartDateKey"
+        const val FERTILIZERSTOPDATEREQUESTKEY = "requestFertilizerStopDateKey"
+        const val FERTILIZERDATEKEY = "fertilizerDate"
+        const val FERTILIZERSTARTTIMEREQUESTKEY = "requestFertilizerStartTimeKey"
+        const val FERTILIZERSTOPTIMEREQUESTKEY = "requestFertilizerStopTimeKey"
+        const val FERTILIZERTIMEKEY = "fertilizerTime"
     }
 
     override fun onCreateView(
@@ -66,7 +66,7 @@ class FertilizerApplicationFragment : Fragment(),
 
         fertilizerViewModel.getFertilizerApplications().observe(viewLifecycleOwner) {
             fertilizerApplications ->
-            val adapter = ArrayAdapter<FertilizerApplication>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, fertilizerApplications)
             adapter.sort(SortFertilizerApplications())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
@@ -77,33 +77,33 @@ class FertilizerApplicationFragment : Fragment(),
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
             farmWithOrchards ->
             this.farmOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.fertilizerOrchard?.adapter = adapter
-            binding?.fertilizerOrchard?.onItemSelectedListener = orchardSelector()
+            binding?.fertilizerOrchard?.onItemSelectedListener = OrchardSelector()
         }
 
-        val wmUnitAdapter = ArrayAdapter<WeightOrMeasureUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val wmUnitAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, wmUnitArray)
         wmUnitAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.fertilizerAppliedUnit?.adapter = wmUnitAdapter
-        binding?.fertilizerAppliedUnit?.onItemSelectedListener = wmUnitSelector()
+        binding?.fertilizerAppliedUnit?.onItemSelectedListener = WmUnitSelector()
 
-        val orchardUnitAdapter = ArrayAdapter<OrchardUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val orchardUnitAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, areaUnitArray)
         orchardUnitAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.fertilizerAreaTreatedUnit?.adapter = orchardUnitAdapter
-        binding?.fertilizerAreaTreatedUnit?.onItemSelectedListener = orchardUnitSelector()
+        binding?.fertilizerAreaTreatedUnit?.onItemSelectedListener = OrchardUnitSelector()
 
         fertilizerViewModel.getFertilizers().observe(viewLifecycleOwner) {
             fertilizers ->
             this.fertilizers = fertilizers
-            val adapter = ArrayAdapter<Fertilizer>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, fertilizers)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.fertilizers?.adapter = adapter
-            binding?.fertilizers?.onItemSelectedListener = fertilizerSelector()
+            binding?.fertilizers?.onItemSelectedListener = FertilizerSelector()
         }
 
         binding?.fertilizerReport?.setOnClickListener {
@@ -116,8 +116,8 @@ class FertilizerApplicationFragment : Fragment(),
             view?.findNavController()?.navigate(action)
         }
 
-        binding?.fertilizerApplicationStartDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerApplicationStartDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.fertilizerApplicationStartDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_date_format_mm_dd_yyyy),
@@ -125,10 +125,9 @@ class FertilizerApplicationFragment : Fragment(),
                     binding?.fertilizerApplicationStartDate?.requestFocus()
                 }
             }
-        })
 
-        binding?.fertilizerApplicationStartTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerApplicationStartTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.fertilizerApplicationStartTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_time_format_00_00),
@@ -136,27 +135,24 @@ class FertilizerApplicationFragment : Fragment(),
                     binding?.fertilizerApplicationStartTime?.requestFocus()
                 }
             }
-        })
 
-        binding?.fertilizerApplicationStopDate?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerApplicationStopDate?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val date = binding?.fertilizerApplicationStopDate?.text.toString()
                 if(!Validator.validateDate(date)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_date_format_mm_dd_yyyy),
                         Toast.LENGTH_SHORT).show()
                 }
             }
-        })
 
-        binding?.fertilizerApplicationStopTime?.setOnFocusChangeListener(object: View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        binding?.fertilizerApplicationStopTime?.onFocusChangeListener =
+            View.OnFocusChangeListener { _, _ ->
                 val time = binding?.fertilizerApplicationStopTime?.text.toString()
                 if(!Validator.validateTime(time)) {
                     Toast.makeText(requireContext(), getString(R.string.invalid_time_format_00_00),
                         Toast.LENGTH_SHORT).show()
                 }
             }
-        })
 
         binding?.saveFertilizerApplication?.setOnClickListener(this)
 
@@ -170,29 +166,29 @@ class FertilizerApplicationFragment : Fragment(),
             binding?.fertilizerAreaTreated?.setText("")
         }
 
-        binding?.deleteFertilzerApplication?.setOnClickListener {
+        binding?.deleteFertilizerApplication?.setOnClickListener {
             if(this.fertilizerApplication != null) {
                 fertilizerViewModel.deleteFertilizerApplication(fertilizerApplication!!)
             }
         }
 
         binding?.showFertilizerApplicationStartDate?.setOnClickListener {
-            DatePickerFragment(fertilizerStartDateRequestKey, fertilizerDateKey)
+            DatePickerFragment(FERTILIZERSTARTDATEREQUESTKEY, FERTILIZERDATEKEY)
                 .show(childFragmentManager, "Start Date")
         }
 
         binding?.showFertilizerApplicationStopDate?.setOnClickListener {
-            DatePickerFragment(fertilizerStopDateRequestKey, fertilizerDateKey)
+            DatePickerFragment(FERTILIZERSTOPDATEREQUESTKEY, FERTILIZERDATEKEY)
                 .show(childFragmentManager, "Stop Date")
         }
 
         binding?.fertilizerApplicationStartTimeClock?.setOnClickListener {
-            TimePickerFragment(fertilizerStartTimeRequestKey, fertilizerTimeKey)
+            TimePickerFragment(FERTILIZERSTARTTIMEREQUESTKEY, FERTILIZERTIMEKEY)
                 .show(childFragmentManager, "Start Time")
         }
 
         binding?.fertilizerApplicationStopTimeClock?.setOnClickListener {
-            TimePickerFragment(fertilizerStopTimeRequestKey, fertilizerTimeKey)
+            TimePickerFragment(FERTILIZERSTOPTIMEREQUESTKEY, FERTILIZERTIMEKEY)
                 .show(childFragmentManager, "Stop Time")
         }
 
@@ -201,21 +197,21 @@ class FertilizerApplicationFragment : Fragment(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(fertilizerStartDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStartDate?.setText(bundle.getString(fertilizerDateKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERSTARTDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerApplicationStartDate?.setText(bundle.getString(FERTILIZERDATEKEY))
         }
-        childFragmentManager.setFragmentResultListener(fertilizerStopDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStopDate?.setText(bundle.getString(fertilizerDateKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERSTOPDATEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerApplicationStopDate?.setText(bundle.getString(FERTILIZERDATEKEY))
         }
-        childFragmentManager.setFragmentResultListener(fertilizerStartTimeRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStartTime?.setText(bundle.getString(fertilizerTimeKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERSTARTTIMEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerApplicationStartTime?.setText(bundle.getString(FERTILIZERTIMEKEY))
         }
-        childFragmentManager.setFragmentResultListener(fertilizerStopTimeRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.fertilizerApplicationStopTime?.setText(bundle.getString(fertilizerTimeKey))
+        childFragmentManager.setFragmentResultListener(FERTILIZERSTOPTIMEREQUESTKEY, requireActivity()) {
+                _, bundle -> binding?.fertilizerApplicationStopTime?.setText(bundle.getString(FERTILIZERTIMEKEY))
         }
     }
 
-    inner class orchardUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is OrchardUnit) {
@@ -228,7 +224,7 @@ class FertilizerApplicationFragment : Fragment(),
         }
     }
 
-    inner class wmUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class WmUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is WeightOrMeasureUnit) {
@@ -242,10 +238,10 @@ class FertilizerApplicationFragment : Fragment(),
 
     }
 
-    inner class orchardSelector: AdapterView.OnItemSelectedListener {
+    inner class OrchardSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
-            if(obj is String && !obj.isEmpty() && !farmOrchardsMap?.isEmpty()!!) {
+            if(obj is String && obj.isNotEmpty() && !farmOrchardsMap?.isEmpty()!!) {
                 this@FertilizerApplicationFragment.orchardId = farmOrchardsMap?.filter { it.value == obj }?.keys!!.first()
             }
         }
@@ -255,7 +251,7 @@ class FertilizerApplicationFragment : Fragment(),
         }
     }
 
-    inner class fertilizerSelector: AdapterView.OnItemSelectedListener{
+    inner class FertilizerSelector: AdapterView.OnItemSelectedListener{
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if (obj is Fertilizer) {
@@ -273,10 +269,10 @@ class FertilizerApplicationFragment : Fragment(),
         val obj = parent?.adapter?.getItem(position)
         if(obj is FertilizerApplication) {
             this.fertilizerApplication = obj
-            if(farmOrchardsMap != null && !farmOrchardsMap!!.isEmpty()) {
+            if(farmOrchardsMap != null && farmOrchardsMap!!.isNotEmpty()) {
                 binding?.fertilizerOrchard?.setSelection(farmOrchardsMap?.values!!.indexOf(farmOrchardsMap?.get(obj.orchardId)))
             }
-            if(fertilizers != null && !fertilizers!!.isEmpty()) {
+            if(fertilizers != null && fertilizers!!.isNotEmpty()) {
                 val fert: Fertilizer = this.fertilizers?.filter { it.id == obj.fertilizerId }!!.first()
                 val index: Int = this.fertilizers?.indexOf(fert)!!
                 binding?.fertilizers?.setSelection(index)
@@ -340,12 +336,12 @@ class FertilizerApplicationFragment : Fragment(),
         }
         var applied = 0.0
         val sapplied = binding?.applied?.text.toString()
-        if(!sapplied.isEmpty()) {
+        if(sapplied.isNotEmpty()) {
             applied = sapplied.toDouble()
         }
         var areaTreated = 0.0
         val sareaTreated = binding?.fertilizerAreaTreated?.text.toString()
-        if(!sareaTreated.isEmpty()) {
+        if(sareaTreated.isNotEmpty()) {
             areaTreated = sareaTreated.toDouble()
         }
         val applicationStart = buildLocalDateTime(true)

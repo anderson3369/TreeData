@@ -45,7 +45,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var _binding: FragmentTreeBinding? = null
     private val binding get() = _binding
     private var orchardId: Long = 0L
-    internal var location: Location? = null
+    private var location: Location? = null
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var tree: Tree? = null
@@ -58,8 +58,8 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
     private var treeRankingDescriptionArray: Array<String>? = null
 
     companion object {
-        const val plantedDateRequestKey = "plantedDateRequestKey"
-        const val plantedDateKey = "plantedDateKey"
+        const val PLANTEDDATEREQUESTKEY = "plantedDateRequestKey"
+        const val PLANTEDDATEKEY = "plantedDateKey"
         const val TAG = "TreeFragment"
     }
 
@@ -78,7 +78,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         orchardViewModel.getFarmWithOrchardsMap().observe(viewLifecycleOwner) {
             farmWithOrchards ->
             this.farmWithOrchardsMap = farmWithOrchards
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, farmWithOrchards.values.toList())
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.farmWithOrchardsSpinner?.adapter = adapter
@@ -91,31 +91,31 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
         treeViewModel.getAllRootstocks().observe(viewLifecycleOwner) {
             rootstocks ->
-            val adapter = ArrayAdapter<Rootstock>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, rootstocks)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.rootstockSpinner?.adapter = adapter
-            binding?.rootstockSpinner?.onItemSelectedListener = rootstockSelector()
+            binding?.rootstockSpinner?.onItemSelectedListener = RootstockSelector()
         }
 
         treeViewModel.getAllVarieties().observe(viewLifecycleOwner) {
             varieties ->
-            val adapter = ArrayAdapter<Variety>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, varieties)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.varietySpinner?.adapter = adapter
-            binding?.varietySpinner?.onItemSelectedListener = varietySelector()
+            binding?.varietySpinner?.onItemSelectedListener = VarietySelector()
         }
 
-        val treeRankingAdapter = ArrayAdapter<TreeRanking>(requireContext(), R.layout.farm_spinner_layout,
+        val treeRankingAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
         R.id.textViewFarmSpinner, treeRankingArray)
         treeRankingAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.treeRanking?.adapter = treeRankingAdapter
-        binding?.treeRanking?.onItemSelectedListener = treeRankingSelector()
+        binding?.treeRanking?.onItemSelectedListener = TreeRankingSelector()
 
         binding?.treeRankingInfo?.setOnClickListener {
             val window = ListPopupWindow(requireContext())
-            val adapter = ArrayAdapter<String>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, treeRankingDescriptionArray!!)
             window.anchorView = binding?.treeRankingInfo
             window.height = ListPopupWindow.WRAP_CONTENT
@@ -126,7 +126,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         }
 
         binding?.showTreePlantedDate?.setOnClickListener {
-            DatePickerFragment(plantedDateRequestKey, plantedDateKey).show(childFragmentManager,
+            DatePickerFragment(PLANTEDDATEREQUESTKEY, PLANTEDDATEKEY).show(childFragmentManager,
                 getString(R.string.planted_date))
         }
         binding?.saveTree?.setOnClickListener(this)
@@ -153,7 +153,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         return vw
     }
 
-    inner class treeRankingSelector: AdapterView.OnItemSelectedListener {
+    inner class TreeRankingSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is TreeRanking) {
@@ -167,7 +167,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     }
 
-    inner class rootstockSelector: AdapterView.OnItemSelectedListener {
+    inner class RootstockSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is Rootstock) {
@@ -180,7 +180,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
         }
     }
 
-    inner class varietySelector: AdapterView.OnItemSelectedListener {
+    inner class VarietySelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is Variety) {
@@ -210,7 +210,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     private fun markTree() {
         val locationManager:LocationManager = requireActivity().getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if(locationManager.hasProvider(LocationManager.GPS_PROVIDER) == true) {
+        if(locationManager.hasProvider(LocationManager.GPS_PROVIDER)) {
             val providerProperties: ProviderProperties = locationManager.getProviderProperties(LocationManager.GPS_PROVIDER)!!
             val locationRequest = LocationRequest.Builder(60000L).build()
 
@@ -263,11 +263,12 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        childFragmentManager.setFragmentResultListener(plantedDateRequestKey, requireActivity()) {
-                dateKey, bundle -> binding?.showTreePlantedDate?.setText(bundle.getString(plantedDateKey))
+        childFragmentManager.setFragmentResultListener(PLANTEDDATEREQUESTKEY, requireActivity()) {
+                _, bundle ->
+            binding?.treePlantedDate?.setText(bundle.getString(PLANTEDDATEKEY))
         }
         setFragmentResultListener(getString(R.string.treerequestkey)) {
-            treeKey, bundle ->
+                _, bundle ->
             treeViewModel.getTree(bundle.getLong(getString(R.string.treekey))).observe(viewLifecycleOwner) {
                 tree ->
                 this.tree = tree
@@ -278,9 +279,9 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val obj = parent?.adapter?.getItem(position)
-        if(obj is String && !obj.isEmpty() && !farmWithOrchardsMap?.isEmpty()!!) {
+        if((obj is String) && obj.isNotEmpty() && !farmWithOrchardsMap?.isEmpty()!!) {
             val keys = farmWithOrchardsMap?.filter { it.value == obj }?.keys
-            if(keys != null && !keys.isEmpty()) {
+            if(!keys.isNullOrEmpty()) {
                 this.orchardId = keys.first()
             }
         }
@@ -352,8 +353,7 @@ class TreeFragment : Fragment(), AdapterView.OnItemSelectedListener,
                 latitude = latitude,
                 longitude = longitude
             )
-            treeViewModel.add(tree!!).observe(this) {
-                    id ->
+            treeViewModel.add(tree!!).observe(this) { _ ->
                 Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
             }
         }

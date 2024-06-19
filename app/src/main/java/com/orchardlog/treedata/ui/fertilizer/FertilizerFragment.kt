@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import com.orchardlog.treedata.R
 import com.orchardlog.treedata.databinding.FragmentFertilizerBinding
 import com.orchardlog.treedata.entities.Fertilizer
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class FertilizerFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
         fertilzerViewModel.getFertilizers().observe(viewLifecycleOwner) {
             fertilizers ->
-            val adapter = ArrayAdapter<Fertilizer>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, fertilizers)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.fertilizerSpinner?.adapter = adapter
@@ -63,7 +63,7 @@ class FertilizerFragment : Fragment(), AdapterView.OnItemSelectedListener,
             binding?.organicMatter?.setText("")
         }
 
-        binding?.deleteFertilzer?.setOnClickListener {
+        binding?.deleteFertilizer?.setOnClickListener {
             fertilzerViewModel.deleteFertilizer(fertilizer!!)
         }
 
@@ -102,77 +102,77 @@ class FertilizerFragment : Fragment(), AdapterView.OnItemSelectedListener,
 
         var nitrogen = 0.0
         val snitrogen = binding?.nitrogen?.text.toString()
-        if(!snitrogen.isEmpty()) {
+        if(snitrogen.isNotEmpty()) {
             nitrogen = snitrogen.toDouble()
         }
         var phosphorous = 0.0
         val sphosphorous = binding?.phosphorous?.text.toString()
-        if(!sphosphorous.isEmpty()) {
+        if(sphosphorous.isNotEmpty()) {
             phosphorous = sphosphorous.toDouble()
         }
         var potassium = 0.0
         val spotassium = binding?.potassium?.text.toString()
-        if(!spotassium.isEmpty()) {
+        if(spotassium.isNotEmpty()) {
             potassium = spotassium.toDouble()
         }
         var sulfur = 0.0
         val ssulfur = binding?.sulfur?.text.toString()
-        if(!ssulfur.isEmpty()) {
+        if(ssulfur.isNotEmpty()) {
             sulfur = ssulfur.toDouble()
         }
         var calcium = 0.0
         val scalcium = binding?.calcium?.text.toString()
-        if(!scalcium.isEmpty()) {
+        if(scalcium.isNotEmpty()) {
             calcium = scalcium.toDouble()
         }
         var magnesium = 0.0
         val smagnesium = binding?.magnesium?.text.toString()
-        if(!smagnesium.isEmpty()) {
+        if(smagnesium.isNotEmpty()) {
             magnesium = smagnesium.toDouble()
         }
         var boron = 0.0
         val sboron = binding?.boron?.text.toString()
-        if(!sboron.isEmpty()) {
+        if(sboron.isNotEmpty()) {
             boron = sboron.toDouble()
         }
         var zinc = 0.0
         val szinc = binding?.zinc?.text.toString()
-        if(!szinc.isEmpty()) {
+        if(szinc.isNotEmpty()) {
             zinc = szinc.toDouble()
         }
         var iron = 0.0
         val siron = binding?.iron?.text.toString()
-        if(!siron.isEmpty()) {
+        if(siron.isNotEmpty()) {
             iron = siron.toDouble()
         }
         var manganese = 0.0
         val smanganese = binding?.manganese?.text.toString()
-        if(!smanganese.isEmpty()) {
+        if(smanganese.isNotEmpty()) {
             manganese = smanganese.toDouble()
         }
         var molybdenum = 0.0
         val smolybdenum = binding?.molybdenum?.text.toString()
-        if(!smolybdenum.isEmpty()) {
+        if(smolybdenum.isNotEmpty()) {
             molybdenum = smolybdenum.toDouble()
         }
         var chloride = 0.0
         val schloride = binding?.chloride?.text.toString()
-        if(!schloride.isEmpty()) {
+        if(schloride.isNotEmpty()) {
             chloride = schloride.toDouble()
         }
         var copper = 0.0
         val scopper = binding?.copper?.text.toString()
-        if(!scopper.isEmpty()) {
+        if(scopper.isNotEmpty()) {
             copper = scopper.toDouble()
         }
         var nickel = 0.0
         val snickel = binding?.nickel?.text.toString()
-        if(!snickel.isEmpty()) {
+        if(snickel.isNotEmpty()) {
             nickel = snickel.toDouble()
         }
         var organicMatter = 0.0
         val sorganicMatter = binding?.organicMatter?.text.toString()
-        if(!sorganicMatter.isEmpty()) {
+        if(sorganicMatter.isNotEmpty()) {
             organicMatter = sorganicMatter.toDouble()
         }
 

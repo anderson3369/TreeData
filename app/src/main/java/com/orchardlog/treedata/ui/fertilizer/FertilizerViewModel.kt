@@ -5,7 +5,7 @@ import com.orchardlog.treedata.entities.Fertilizer
 import com.orchardlog.treedata.entities.FertilizerApplication
 import com.orchardlog.treedata.entities.FertilizerApplicationWithFertilizers
 import com.orchardlog.treedata.repositories.FertilizerRepository
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FertilizerViewModel @Inject constructor(private val fertilizerRepository: FertilizerRepository) : ViewModel() {
 
-    fun addFertilizer(fertilizer: Fertilizer) = liveData<Long> {
+    fun addFertilizer(fertilizer: Fertilizer) = liveData {
         try {
             val id = fertilizerRepository.createFertilizer(fertilizer)
             emit(id)
@@ -42,7 +42,7 @@ class FertilizerViewModel @Inject constructor(private val fertilizerRepository: 
         return fertilizerRepository.getFertilizers().asLiveData()
     }
 
-    fun addFertilizerApplication(fertilizerApplication: FertilizerApplication) = liveData<Long> {
+    fun addFertilizerApplication(fertilizerApplication: FertilizerApplication) = liveData {
         try {
             val id = fertilizerRepository.createFertilizerApplication(fertilizerApplication)
             emit(id)

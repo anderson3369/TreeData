@@ -36,19 +36,19 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val vw = binding?.root
         treeViewModel.getAllRootstocks().observe(viewLifecycleOwner) {
             rootstocks ->
-            val adapter = ArrayAdapter<Rootstock>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, rootstocks)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.rootstock?.adapter = adapter
             binding?.rootstock?.onItemSelectedListener = this
         }
-        val rootstockAdapter = ArrayAdapter<String>(requireContext(),
+        val rootstockAdapter = ArrayAdapter(requireContext(),
             R.layout.farm_spinner_layout, R.id.textViewFarmSpinner,rootstocktypes
         )
         rootstockAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
 
         binding?.rootstockType?.adapter = rootstockAdapter
-        binding?.rootstockType?.onItemSelectedListener = rootStockTypeSelector()
+        binding?.rootstockType?.onItemSelectedListener = RootStockTypeSelector()
 
         saveOnClick()
         newOnClick()
@@ -57,7 +57,7 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
         return vw
     }
 
-    inner class rootStockTypeSelector(): AdapterView.OnItemSelectedListener {
+    inner class RootStockTypeSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is String) {
@@ -88,8 +88,7 @@ class RootstockFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     cultivar = binding?.rootstockCultivar?.text.toString(),
                     rootstockType = this.rootstockType!!
                 )
-                treeViewModel.add(rootstock!!).observe(viewLifecycleOwner) {
-                    id ->
+                treeViewModel.add(rootstock!!).observe(viewLifecycleOwner) { _ ->
                     Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
                 }
             }

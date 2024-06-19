@@ -9,6 +9,6 @@ enum class REIUnit(val value: String) {
     }
 
     companion object {
-        fun from(search: String): REIUnit =  requireNotNull(REIUnit.values().find { it.value == search }) { "No REI with value $search" }
+        fun from(search: String): REIUnit =  requireNotNull(entries.find { it.value == search }) { "No REI with value $search" }
     }
 }

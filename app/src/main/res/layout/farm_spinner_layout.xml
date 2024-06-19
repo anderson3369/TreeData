@@ -6,8 +6,11 @@
     android:orientation="vertical">
     <TextView
         android:id="@+id/textViewFarmSpinner"
+        android:hint="@string/add_a_record"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_weight="1.0"/>

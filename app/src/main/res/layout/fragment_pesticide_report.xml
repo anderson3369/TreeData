@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".ui.pesticide.PesticideReportFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
         <Spinner
             android:id="@+id/pesticideOrchardSpinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"/>
         <Button
             android:id="@+id/pesticideReportBtn"
+            style="@style/AgButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="Pesticide Report"/>
+            android:text="@string/pesticide_report"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -40,14 +42,21 @@
                         android:id="@+id/pesticideFromDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:hint="@string/mm_dd_yyyy"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/pesticideFromDateCal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -68,21 +77,27 @@
                         android:id="@+id/pesticideToDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/pesticideToDateCal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
         <ExpandableListView
             android:id="@+id/pesticideListView"
+            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
-
-</FrameLayout>

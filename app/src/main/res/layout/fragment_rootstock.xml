@@ -1,81 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.trees.RootstockFragment">
+    tools:context=".ui.trees.RootstockFragment"
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/select_a_rootstock"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/select_a_rootstock"/>
+            android:textStyle="bold" />
+
         <Spinner
             android:id="@+id/rootstock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/rootstock"/>
+            android:contentDescription="@string/rootstock"
+            android:minHeight="48dp"
+            android:minWidth="48dp"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="@string/name" />
+            android:layout_marginTop="16dp"
+            android:text="@string/name"
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/rootstockName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            style="@style/AgEditText"
             android:hint="@string/enter_the_name_of_the_rootstock"
-            android:inputType="text"/>
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/cultivar"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/cultivar"/>
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/rootstockCultivar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            style="@style/AgEditText"
             android:hint="@string/enter_the_cultivar_if_applicable"
-            android:inputType="text"/>
+            android:importantForAutofill="no"
+            android:inputType="text" />
+
         <Spinner
             android:id="@+id/rootstockType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/rootstock_type"/>
+            android:layout_marginTop="16dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:contentDescription="@string/rootstock_type" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/saveRootstock"
+                style="@style/AgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="@string/save_button_text"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/save_button_text" />
+
             <Button
                 android:id="@+id/newRootstock"
+                style="@style/AgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/new_button_text"/>
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/new_button_text" />
+
             <Button
                 android:id="@+id/deleteRootstock"
+                style="@style/AgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/delete_button_text"/>
-
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/delete_button_text" />
         </LinearLayout>
 
     </LinearLayout>
-
-
-</FrameLayout>

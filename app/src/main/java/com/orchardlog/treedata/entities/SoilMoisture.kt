@@ -15,4 +15,8 @@ data class SoilMoisture(
     val date: LocalDateTime,
     val centibar: Int,
     val percent: Int
-)
+) {
+    override fun toString(): String {
+        return DateConverter().fromOffsetDateTime(date)!!
+    }
+}

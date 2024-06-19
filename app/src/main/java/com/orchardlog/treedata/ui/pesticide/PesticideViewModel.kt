@@ -5,7 +5,7 @@ import com.orchardlog.treedata.entities.Pesticide
 import com.orchardlog.treedata.entities.PesticideApplication
 import com.orchardlog.treedata.entities.PesticideApplicationWithPesticides
 import com.orchardlog.treedata.repositories.PesticideRepository
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PesticideViewModel @Inject constructor(private val pesticideRepository: PesticideRepository) : ViewModel() {
 
-    fun addPesticide(pesticide: Pesticide) = liveData<Long> {
+    fun addPesticide(pesticide: Pesticide) = liveData {
         try {
             val id = pesticideRepository.createPesticide(pesticide)
             emit(id)
@@ -25,7 +25,7 @@ class PesticideViewModel @Inject constructor(private val pesticideRepository: Pe
         }
     }
 
-    fun addPesticideApplication(pesticideApplication: PesticideApplication) = liveData<Long> {
+    fun addPesticideApplication(pesticideApplication: PesticideApplication) = liveData {
         try {
             val id = pesticideRepository.createPesticideApplication(pesticideApplication)
             emit(id)

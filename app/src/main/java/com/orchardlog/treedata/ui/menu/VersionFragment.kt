@@ -18,18 +18,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class VersionFragment : Fragment() {
 
-    var _binding: FragmentVersionBinding? = null
-    val binding get() = _binding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var fbinding: FragmentVersionBinding? = null
+    val binding get() = fbinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentVersionBinding.inflate(inflater, container, false)
+        fbinding = FragmentVersionBinding.inflate(inflater, container, false)
         val vw = binding?.root
         binding?.checkUpdates?.setOnClickListener {
             val appUpdateManager = AppUpdateManagerFactory.create(requireContext())

@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.trees.TreeFragment">
-    <ScrollView
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fragmentOSMTreeLayout"
+        tools:context=".ui.trees.TreeFragment"
+        android:padding="16dp"
         android:layout_centerInParent="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             android:orientation="vertical">
             <Spinner
                 android:id="@+id/farmWithOrchardsSpinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -37,19 +38,27 @@
                         android:id="@+id/treePlantedDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        style="@style/AgEditText"
                         android:hint="@string/mm_dd_yyyy"
+                        android:importantForAutofill="no"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/showTreePlantedDate"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_planted_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,18 +74,24 @@
                         android:id="@+id/rootstockSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
                         android:contentDescription="@string/rootstock"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/addRootstock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:contentDescription="@string/add_a_rootstock"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                        android:src="@drawable/ic_baseline_add_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,34 +107,46 @@
                         android:id="@+id/varietySpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
                         android:contentDescription="@string/variety"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/addVariety"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:contentDescription="@string/add_a_variety"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                        android:src="@drawable/ic_baseline_add_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <Spinner
                     android:id="@+id/treeRanking"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <Button
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"/>
+                <ImageButton
                     android:id="@+id/treeRankingInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:contentDescription="@string/add_a_tree_ranking_description"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/baseline_info_24"/>
+                    android:src="@drawable/baseline_info_24"/>
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/notes"/>
@@ -127,36 +154,49 @@
                 android:id="@+id/treeNotes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
                 android:maxLines="6"
                 android:hint="@string/notes"
+                style="@style/AgEditText"
+                android:importantForAutofill="no"
                 android:inputType="text"/>
             <Button
                 android:id="@+id/markTree"
+                android:layout_marginTop="16dp"
+                style="@style/AgButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mark_a_tree"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/saveTree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/save_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/newTree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/new_button_text"/>
                 <Button
+                    style="@style/AgButton"
                     android:id="@+id/deleteTree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@string/delete_button_text"/>
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+</ScrollView>

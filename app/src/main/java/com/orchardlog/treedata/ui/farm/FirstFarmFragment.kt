@@ -90,8 +90,7 @@ class FirstFarmFragment : Fragment(),
                     name = binding.farmName.text.toString(),
                     siteId = binding.siteId.text.toString()
                 )
-                farmViewModel.add(farm).observe(viewLifecycleOwner) {
-                        id ->
+                farmViewModel.add(farm).observe(viewLifecycleOwner) { _ ->
                     setFragmentResult(REQUEST_KEY, bundleOf(FARM_ID to farm.id))
                     Toast.makeText(requireContext(), getString(R.string.saved), Toast.LENGTH_SHORT).show()
                 }

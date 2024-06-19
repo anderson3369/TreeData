@@ -12,7 +12,7 @@ import com.orchardlog.treedata.entities.IrrigationSystemWithIrrigation
 import com.orchardlog.treedata.entities.PumpsWithIrrigationSystem
 import com.orchardlog.treedata.entities.SoilMoisture
 import com.orchardlog.treedata.repositories.IrrigationRepository
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class IrrigationViewModel @Inject constructor(private val irrigationRepository: IrrigationRepository) : ViewModel() {
 
-    fun addIrrigation(irrigation: Irrigation) = liveData<Long> {
+    fun addIrrigation(irrigation: Irrigation) = liveData {
         try {
             val id = irrigationRepository.createIrrigation(irrigation)
             emit(id)
@@ -46,7 +46,7 @@ class IrrigationViewModel @Inject constructor(private val irrigationRepository: 
         }
     }
 
-    fun addSoilMoisture(soilMoisture: SoilMoisture) = liveData<Long> {
+    fun addSoilMoisture(soilMoisture: SoilMoisture) = liveData {
         try {
             val id = irrigationRepository.createSoilMoisture(soilMoisture)
             emit(id)
@@ -83,11 +83,11 @@ class IrrigationViewModel @Inject constructor(private val irrigationRepository: 
         val totalHours: LiveData<Long> = irrigations.map {
             irrigationSystemWithIrrigations ->
             var hours = 0L
-            if(!irrigationSystemWithIrrigations.irrigations.isEmpty()) {
+            if(irrigationSystemWithIrrigations.irrigations.isNotEmpty()) {
                 val list = irrigationSystemWithIrrigations.irrigations
                 for(irrigation in list) {
                     val duration = Duration.between(irrigation.startTime, irrigation.stopTime)
-                    hours = duration.toHours() + hours
+                    hours += duration.toHours()
                 }
             }
             hours
@@ -95,7 +95,7 @@ class IrrigationViewModel @Inject constructor(private val irrigationRepository: 
         return totalHours
     }
 
-    fun addIrrigationSystem(irrigationSystem: IrrigationSystem) = liveData<Long> {
+    fun addIrrigationSystem(irrigationSystem: IrrigationSystem) = liveData {
         try {
             val id = irrigationRepository.createIrrigationSystem(irrigationSystem)
             emit(id)
@@ -121,7 +121,7 @@ class IrrigationViewModel @Inject constructor(private val irrigationRepository: 
         return irrigationRepository.getIrrigationSystems().asLiveData()
     }
 
-    fun getIrrigationSystemWithIrrigations(orchardId: Long, startDate: LocalDate, endDate: LocalDate): LiveData<IrrigationSystemWithIrrigation> {
+    private fun getIrrigationSystemWithIrrigations(orchardId: Long, startDate: LocalDate, endDate: LocalDate): LiveData<IrrigationSystemWithIrrigation> {
         return irrigationRepository.getIrrigationSystemWithIrrigation(orchardId, startDate, endDate).asLiveData()
     }
 

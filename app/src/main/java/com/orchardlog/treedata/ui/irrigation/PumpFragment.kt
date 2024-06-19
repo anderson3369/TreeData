@@ -13,7 +13,7 @@ import com.orchardlog.treedata.R
 import com.orchardlog.treedata.databinding.FragmentPumpBinding
 import com.orchardlog.treedata.entities.FlowRateUnit
 import com.orchardlog.treedata.entities.Pump
-import com.orchardlog.treedata.ui.SAVE_FAILED
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,17 +41,17 @@ class PumpFragment : Fragment(),
         val vw = binding?.root
         pumpViewModel.getPumps().observe(viewLifecycleOwner) {
             pumps ->
-            val adapter = ArrayAdapter<Pump>(requireContext(), R.layout.farm_spinner_layout,
+            val adapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
                 R.id.textViewFarmSpinner, pumps)
             adapter.setDropDownViewResource(R.layout.farm_spinner_layout)
             binding?.pumps?.adapter = adapter
         }
         binding?.pumps?.onItemSelectedListener = this
-        val flowRateAdapter = ArrayAdapter<FlowRateUnit>(requireContext(), R.layout.farm_spinner_layout,
+        val flowRateAdapter = ArrayAdapter(requireContext(), R.layout.farm_spinner_layout,
             R.id.textViewFarmSpinner, flowRateUnits)
         flowRateAdapter.setDropDownViewResource(R.layout.farm_spinner_layout)
         binding?.pumpFlowRateUnit?.adapter = flowRateAdapter
-        binding?.pumpFlowRateUnit?.onItemSelectedListener = flowRateUnitSelector()
+        binding?.pumpFlowRateUnit?.onItemSelectedListener = FlowRateUnitSelector()
 
         //binding?.horsepower?.inputType = InputType.TYPE_NUMBER_FLAG_DECIMAL
         binding?.savePump?.setOnClickListener(this)
@@ -70,7 +70,7 @@ class PumpFragment : Fragment(),
         return vw
     }
 
-    inner class flowRateUnitSelector: AdapterView.OnItemSelectedListener {
+    inner class FlowRateUnitSelector: AdapterView.OnItemSelectedListener {
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             val obj = parent?.adapter?.getItem(position)
             if(obj is FlowRateUnit) {
@@ -104,17 +104,17 @@ class PumpFragment : Fragment(),
     override fun onClick(v: View?) {
         var hp = 0.0
         val shp = binding?.horsepower?.text.toString()
-        if(!shp.isEmpty()) {
+        if(shp.isNotEmpty()) {
             hp = shp.toDouble()
         }
         var phase = 0
         val sphase = binding?.phase?.text.toString()
-        if(!sphase.isEmpty()) {
+        if(sphase.isNotEmpty()) {
             phase = sphase.toInt()
         }
         var flowRate = 0.0
         val sflowRate = binding?.pumpFlowRate?.text.toString()
-        if(!sflowRate.isEmpty()) {
+        if(sflowRate.isNotEmpty()) {
             flowRate = sflowRate.toDouble()
         }
         if(pump != null && pump!!.id > 0L) {

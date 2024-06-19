@@ -20,24 +20,24 @@ class OrchardActivityExpandableAdapter(
     }
 
     override fun getChildrenCount(groupPosition: Int): Int {
-        val orchardWActivity = orchardWithOrchardActivity.get(groupPosition)
+        val orchardWActivity = orchardWithOrchardActivity[groupPosition]
         return orchardWActivity.orchardActivities.size
     }
 
     override fun getGroup(groupPosition: Int): Any {
-        return orchardWithOrchardActivity.get(groupPosition)
+        return orchardWithOrchardActivity[groupPosition]
     }
 
     override fun getChild(groupPosition: Int, childPosition: Int): Any {
-        return orchardWithOrchardActivity.get(groupPosition).orchardActivities.get(childPosition)
+        return orchardWithOrchardActivity[groupPosition].orchardActivities[childPosition]
     }
 
     override fun getGroupId(groupPosition: Int): Long {
-        return orchardWithOrchardActivity.get(groupPosition).orchard.id
+        return orchardWithOrchardActivity[groupPosition].orchard.id
     }
 
     override fun getChildId(groupPosition: Int, childPosition: Int): Long {
-        return orchardWithOrchardActivity.get(groupPosition).orchardActivities.get(childPosition).id
+        return orchardWithOrchardActivity[groupPosition].orchardActivities[childPosition].id
     }
 
     override fun hasStableIds(): Boolean {
@@ -54,13 +54,13 @@ class OrchardActivityExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.orchard_group_view, parent, false)
             val orchardView = view.findViewById<TextView>(R.id.orchardView)
-            orchardView.setText(orchardWithOrchardActivity.get(groupPosition)
-                .orchardActivities.toString())
+            orchardView.text = orchardWithOrchardActivity[groupPosition]
+                .orchardActivities.toString()
             return view
         } else {
             val orchardView = convertView.findViewById<TextView>(R.id.orchardView)
-            orchardView.setText(orchardWithOrchardActivity.get(groupPosition)
-                .orchard.toString())
+            orchardView.text = orchardWithOrchardActivity[groupPosition]
+                .orchard.toString()
             return convertView
         }
     }
@@ -76,13 +76,12 @@ class OrchardActivityExpandableAdapter(
             val view = LayoutInflater.from(this.context)
                 .inflate(R.layout.orchard_child_view, parent, false)
             val orchardView = view.findViewById<TextView>(R.id.orchardActivityView)
-            orchardView.setText(orchardWithOrchardActivity.get(groupPosition).orchardActivities
-                .get(childPosition).toString())
+            orchardView.text = orchardWithOrchardActivity[groupPosition].orchardActivities
+                .get(childPosition).toString()
             return view
         } else {
             val orchardView = convertView.findViewById<TextView>(R.id.orchardActivityView)
-            orchardView.setText(orchardWithOrchardActivity.get(groupPosition).orchardActivities
-                .get(childPosition).toString())
+            orchardView.text = orchardWithOrchardActivity.get(groupPosition).orchardActivities[childPosition].toString()
             return convertView
         }
     }

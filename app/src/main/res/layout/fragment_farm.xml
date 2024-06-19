@@ -1,99 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/farmConstraintLayout"
-    style="@style/AgricultureEditText"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/select_a_farm"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/farmSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    android:contentDescription="@string/site_id" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/farm_name"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/farmName"
+                    android:inputType="text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    style="@style/AgEditText"
+                    android:hint="@string/enter_the_name_of_the_farm"
+                    android:importantForAutofill="no"/>
 
 
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/select_a_farm"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/site_id"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/farmSpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/site_id"
-            app:layout_constraintStart_toStartOf="@+id/textView16"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                <EditText
+                    android:id="@+id/siteId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    style="@style/AgEditText"
+                    android:hint="@string/enter_the_site_id"
+                    android:autofillHints="1A"
+                    android:inputType="text" />
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/farm_name"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/farmSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/farmSpinner" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="16dp"
+                    android:orientation="horizontal">
+                        <Button
+                            style="@style/AgButton"
+                            android:id="@+id/saveFarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/save_button_text"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="8dp" />
 
-        <EditText
-            android:id="@+id/farmName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_the_name_of_the_farm"
-            android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+                        <Button
+                            style="@style/AgButton"
+                            android:id="@+id/newFarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/new_button_text"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp" />
 
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/site_id"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/farmName"
-            app:layout_constraintTop_toBottomOf="@+id/farmName" />
-
-        <EditText
-            android:id="@+id/siteId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/enter_the_site_id"
-            android:inputType="text"
-            app:layout_constraintStart_toStartOf="@+id/textView18"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
-
-
-        <Button
-            android:id="@+id/saveFarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_button_text"
-            android:layout_marginRight="16dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/newFarm"
-            app:layout_constraintStart_toStartOf="@+id/siteId" />
-
-        <Button
-            android:id="@+id/newFarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_button_text"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/siteId"
-            app:layout_constraintStart_toEndOf="@+id/siteId"
-            app:layout_constraintTop_toBottomOf="@+id/siteId" />
-
-        <Button
-            android:id="@+id/deleteFarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_button_text"
-            app:layout_constraintBaseline_toBaselineOf="@+id/newFarm"
-            app:layout_constraintStart_toEndOf="@+id/newFarm" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                        <Button
+                            style="@style/AgButton"
+                            android:id="@+id/deleteFarm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/delete_button_text" />
+                </LinearLayout>
+</LinearLayout>

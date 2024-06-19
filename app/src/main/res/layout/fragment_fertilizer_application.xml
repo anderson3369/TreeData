@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    style="@style/AgricultureEditText"
-    tools:context=".ui.fertilizer.FertilizerApplicationFragment">
     <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".ui.fertilizer.FertilizerApplicationFragment"
         android:layout_centerInParent="true"
         android:padding="16dp">
         <LinearLayout
@@ -15,7 +12,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <LinearLayout
@@ -23,7 +20,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -31,29 +28,39 @@
                     <Spinner
                         android:id="@+id/fertilizerApplications"
                         android:layout_width="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
                         android:layout_height="wrap_content"/>
                 </LinearLayout>
-                <Button
+
+                <ImageButton
                     android:id="@+id/fertilizerReport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    android:drawableLeft="@drawable/baseline_summarize_24"/>
+                    android:contentDescription="@string/generate_a_fertilizer_report"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    android:src="@drawable/baseline_summarize_24" />
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_an_orchard"/>
             <Spinner
                 android:id="@+id/fertilizerOrchard"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="72dp"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -68,18 +75,29 @@
                     <Spinner
                         android:id="@+id/fertilizers"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <Button
+                        android:layout_height="wrap_content"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"/>
+                    <ImageButton
                         android:id="@+id/addFertilizer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
+                        android:contentDescription="@string/add_a_fertilizer"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_add_24"/>
+                        android:src="@drawable/ic_baseline_add_24"/>
                 </LinearLayout>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,23 +111,31 @@
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/fertilizerApplicationStartDate"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/mm_dd_yyyy"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:clickable="true"
                         android:focusable="true"
                         android:inputType="date"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/showFertilizerApplicationStartDate"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_date"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:src="@drawable/ic_baseline_calendar_month_24"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,30 +149,40 @@
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/fertilizerApplicationStartTime"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/_00_00"
+                        style="@style/AgEditText"
+                        android:hint="@string/_06_00"
+                        android:importantForAutofill="no"
                         android:clickable="true"
                         android:focusable="true"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/fertilizerApplicationStartTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_start_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/stop_date"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:text="@string/stop_date"/>
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -156,21 +192,31 @@
                         android:id="@+id/fertilizerApplicationStopDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/mm_dd_yyyy"
                         android:clickable="true"
                         android:focusable="true"
-                        android:inputType="date"/>
-                    <Button
+                        android:hint="@string/mm_dd_yyyy"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
+                        android:inputType="date"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp" />
+
+                    <ImageButton
                         android:id="@+id/showFertilizerApplicationStopDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_calendar_month_24"/>
+                        android:contentDescription="@string/select_a_stop_date"
+                        android:minWidth="48dp"
+                        android:minHeight="48dp"
+                        android:src="@drawable/ic_baseline_calendar_month_24" />
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -184,53 +230,71 @@
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/fertilizerApplicationStopTime"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/_00_00"
+                        android:hint="@string/_18_00"
+                        style="@style/AgEditText"
+                        android:importantForAutofill="no"
                         android:clickable="true"
                         android:focusable="true"
                         android:inputType="time"/>
-                    <Button
+                    <ImageButton
                         android:id="@+id/fertilizerApplicationStopTimeClock"
+                        android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_stop_time"
                         android:background="@android:color/transparent"
-                        android:drawableLeft="@drawable/ic_baseline_access_time_24"/>
+                        android:src="@drawable/ic_baseline_access_time_24"/>
                 </LinearLayout>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/amount_applied"/>
             <EditText
                 android:id="@+id/applied"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/AgEditText"
                 android:hint="@string/enter_the_amount_applied"
+                android:importantForAutofill="no"
                 android:inputType="number"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_a_unit"/>
             <Spinner
                 android:id="@+id/fertilizerAppliedUnit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="16dp"
                 android:background="@android:color/darker_gray"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/area_treated"/>
@@ -238,41 +302,60 @@
                 android:id="@+id/fertilizerAreaTreated"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
                 android:hint="@string/enter_the_area_treated"
-
+                style="@style/AgEditText"
+                android:importantForAutofill="no"
                 android:inputType="numberDecimal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:text="@string/select_a_unit"/>
             <Spinner
                 android:id="@+id/fertilizerAreaTreatedUnit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
                 android:orientation="horizontal">
                 <Button
                     android:id="@+id/saveFertilizerApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    style="@style/AgButton"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/save_button_text"/>
                 <Button
                     android:id="@+id/newFertilizerApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:minWidth="48dp"
+                    android:minHeight="48dp"
+                    style="@style/AgButton"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/new_button_text"/>
                 <Button
-                    android:id="@+id/deleteFertilzerApplication"
+                    android:id="@+id/deleteFertilizerApplication"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="48dp"
+                    android:minWidth="48dp"
+                    style="@style/AgButton"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
                     android:text="@string/delete_button_text"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
