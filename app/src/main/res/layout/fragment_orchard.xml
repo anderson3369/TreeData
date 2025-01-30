@@ -10,18 +10,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_a_farm"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <Spinner
                 android:id="@+id/farms"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_a_farm"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
 
@@ -32,11 +31,11 @@
                 android:text="@string/select_an_existing_orchard"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
             <Spinner
                 android:id="@+id/orchardSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_an_orchard"
                 android:minWidth="48dp"
                 android:minHeight="48dp"/>
 
@@ -289,6 +288,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 

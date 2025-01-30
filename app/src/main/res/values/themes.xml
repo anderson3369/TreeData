@@ -14,12 +14,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/colorBackground</item>
         <item name="android:drawableStart">@color/vectorDay</item>
+        <item name="android:itemBackground">@color/colorPrimary</item>
     </style>
 
     <style name="Theme.TreeData.ChatGPT.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorOnPrimary">@color/black</item>
+
     </style>
 
     <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
@@ -33,10 +35,12 @@
         <item name="colorAccent">@color/colorSecondary</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="minWidth">100dp</item>
+        <item name="minHeight">100dp</item>
     </style>
 
     <style name="AgEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:background">@color/vectorNight</item>
+        <item name="android:background">@color/editTextBackground</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingLeft">10dp</item>
     </style>

@@ -200,4 +200,20 @@
     <string name="generate_an_irrigation_report">Generate an irrigation report</string>
     <string name="_18_00">18:00</string>
     <string name="_12_00">12:00</string>
+    <!-- Strings related to com.orchardlog.treedata.ui.login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="sign_in_to_google">Sign in to Google</string>
+    <string name="login">Login</string>
+    <string name="clientServerId">1030395167156-jqos1dckft6cq9rirq1jraqantvmqvc6.apps.googleusercontent.com</string>
+    <string name="no_network_connection">No network connection</string>
+    <string name="uknown_error">Unknown error</string>
+    <string name="logout">Logout</string>
+    <string name="initiate_backup">Initiate Backup</string>
 </resources>

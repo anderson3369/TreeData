@@ -16,6 +16,7 @@
                 android:id="@+id/farmWithOrchardsSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_an_orchard"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
 

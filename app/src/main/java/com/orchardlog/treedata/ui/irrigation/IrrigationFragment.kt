@@ -1,6 +1,7 @@
 package com.orchardlog.treedata.ui.irrigation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.orchardlog.treedata.entities.Irrigation
 import com.orchardlog.treedata.entities.IrrigationSystem
 import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.utils.DatePickerFragment
+import com.orchardlog.treedata.utils.RoomBackUp
 import com.orchardlog.treedata.utils.SortIrrigations
 import com.orchardlog.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +38,7 @@ class IrrigationFragment : Fragment(), AdapterView.OnItemSelectedListener, View.
     private var irrigationSystems: MutableList<IrrigationSystem>? = null
 
     companion object {
+        val TAG = "IrrigationFragment"
         const val IRRIGATIONSTARTDATEREQUESTKEY = "requestIrrigationStartDateKey"
         const val IRRIGATIONSTOPDATEREQUESTKEY = "requestIrrigationStopDateKey"
         const val IRRIGATIONDATEKEY = "irrigationDate"

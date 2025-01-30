@@ -1,6 +1,7 @@
 package com.orchardlog.treedata.ui.fertilizer
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.orchardlog.treedata.entities.WeightOrMeasureUnit
 import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import com.orchardlog.treedata.utils.DatePickerFragment
+import com.orchardlog.treedata.utils.RoomBackUp
 import com.orchardlog.treedata.utils.SortFertilizerApplications
 import com.orchardlog.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +32,6 @@ import java.time.LocalDateTime
 class FertilizerApplicationFragment : Fragment(),
     AdapterView.OnItemSelectedListener,
     View.OnClickListener {
-
     private val fertilizerViewModel: FertilizerViewModel by viewModels()
     private val orchardViewModel: OrchardViewModel by viewModels()
     private var _binding: FragmentFertilizerApplicationBinding? = null
@@ -49,6 +50,7 @@ class FertilizerApplicationFragment : Fragment(),
     private val areaUnitArray = arrayOf(OrchardUnit.ACRE, OrchardUnit.HECTARE)
 
     companion object {
+        val TAG = "FertilizerApplicationFragment"
         const val FERTILIZERSTARTDATEREQUESTKEY = "requestFertilizerStartDateKey"
         const val FERTILIZERSTOPDATEREQUESTKEY = "requestFertilizerStopDateKey"
         const val FERTILIZERDATEKEY = "fertilizerDate"
@@ -390,5 +392,6 @@ class FertilizerApplicationFragment : Fragment(),
             }
         }
     }
+
 
 }

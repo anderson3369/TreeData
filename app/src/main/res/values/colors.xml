@@ -7,6 +7,7 @@
     <color name="colorAccent">#A6B6A2</color>
     <color name="colorBackground">#DCDCC8</color>
     <color name="colorBackgroundDark">#000000</color>
+    <color name="editTextBackground">#ebebe0</color>
     <color name="textColor">#000000</color>
     <color name="textColorSecondary">#757474</color>
     <color name="black">#FF000000</color>

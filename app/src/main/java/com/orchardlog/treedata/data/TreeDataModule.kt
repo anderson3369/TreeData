@@ -1,13 +1,38 @@
 package com.orchardlog.treedata.data
 
 import android.content.Context
-import com.orchardlog.treedata.daos.*
+import com.orchardlog.treedata.daos.FarmDao
+import com.orchardlog.treedata.daos.FarmWithOrchardsDao
+import com.orchardlog.treedata.daos.FarmWithOrchardsWithOrchardActivitiesDao
+import com.orchardlog.treedata.daos.FarmerDao
+import com.orchardlog.treedata.daos.FarmerWithFarmDao
+import com.orchardlog.treedata.daos.FertilizerApplicationDao
+import com.orchardlog.treedata.daos.FertilizerApplicationWithFertilizersDao
+import com.orchardlog.treedata.daos.FertilizerDao
+import com.orchardlog.treedata.daos.IrrigationDao
+import com.orchardlog.treedata.daos.IrrigationSystemDao
+import com.orchardlog.treedata.daos.IrrigationSystemWithIrrigationsDao
+import com.orchardlog.treedata.daos.OrcahardAndIrrigationSystemDao
+import com.orchardlog.treedata.daos.OrchardActivityDao
+import com.orchardlog.treedata.daos.OrchardDao
+import com.orchardlog.treedata.daos.OrchardWithOrchardActivitiesDao
+import com.orchardlog.treedata.daos.OrchardWithTreesDao
+import com.orchardlog.treedata.daos.PesticideApplicationDao
+import com.orchardlog.treedata.daos.PesticideApplicationWithPesticidesDao
+import com.orchardlog.treedata.daos.PesticideDao
+import com.orchardlog.treedata.daos.PumpDao
+import com.orchardlog.treedata.daos.PumpWithIrrigationSystemDao
+import com.orchardlog.treedata.daos.RootstockDao
+import com.orchardlog.treedata.daos.SoilMoistureDao
+import com.orchardlog.treedata.daos.TreeDao
+import com.orchardlog.treedata.daos.VarietyDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -145,4 +170,6 @@ class TreeDataModule {
     fun providesFarmWithOrchardsWithOrchardActivities(orchardDatabase: OrchardDatabase): FarmWithOrchardsWithOrchardActivitiesDao {
         return orchardDatabase.farmWithOrchardsWithOrchardActivities()
     }
+
+
 }

@@ -28,6 +28,7 @@
                         android:id="@+id/pesticideApplications"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_pesticide_application"
                         android:minHeight="48dp"
                         android:minWidth="48dp"/>
                 </LinearLayout>
@@ -52,6 +53,7 @@
                 android:id="@+id/pesticideOrchard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_an_orchard"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
             <LinearLayout
@@ -73,6 +75,7 @@
                         android:id="@+id/pesticidesSpinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_pesticide"
                         android:minHeight="48dp"
                         android:minWidth="48dp"/>
                     <ImageButton
@@ -263,6 +266,7 @@
                 android:id="@+id/pesticideAppliedUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_a_unit"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
             <View
@@ -298,6 +302,7 @@
                 android:id="@+id/dilutionUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_a_unit"
                 android:minHeight="48dp"
                 android:minWidth="48dp"/>
             <View
@@ -332,7 +337,10 @@
             <Spinner
                 android:id="@+id/treatedAreaUnit"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:contentDescription="@string/select_a_unit"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -348,7 +356,10 @@
             <Spinner
                 android:id="@+id/applicationMethod"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
+                android:contentDescription="@string/select_an_application_method"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

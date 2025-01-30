@@ -10,6 +10,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs'
     id 'com.google.android.gms.oss-licenses-plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -21,10 +22,10 @@ android {
 
     defaultConfig {
         applicationId "com.orchardlog.treedata"
-        minSdk 33
+        minSdk 34
         targetSdk 34
-        versionCode 4
-        versionName "1.3"
+        versionCode 5
+        versionName "1.4"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -85,13 +86,17 @@ android {
 }
 
 dependencies {
-    //implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.20'
+    //Google Play
     implementation 'com.google.android.gms:play-services-location:21.3.0'
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.1.0'
+
+    implementation 'androidx.datastore:datastore-preferences:1.1.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+
     implementation "com.google.android.play:app-update:2.1.0"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.1'
@@ -99,6 +104,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
     implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
     implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.7.7'
+    implementation 'androidx.annotation:annotation:1.6.0'
+    //implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
     testImplementation 'junit:junit:4.13.2'
     implementation "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     //Room
@@ -137,16 +144,33 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$rootProject.viewModelComposeVersion"
     implementation "com.google.android.material:compose-theme-adapter:$rootProject.composeThemeAdapterVersion"
     implementation "io.coil-kt:coil-compose:$rootProject.coilVersion"
+
+    //OSM
     implementation "org.osmdroid:osmdroid-android:6.1.14"
     implementation "org.osmdroid:osmdroid-wms:6.1.14"
     implementation "org.osmdroid:osmdroid-geopackage:6.1.14"
-    debugImplementation "androidx.compose.ui:ui-tooling:1.6.7"
+
+    debugImplementation "androidx.compose.ui:ui-tooling:1.6.8"
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-    implementation 'com.google.api-client:google-api-client-android:1.26.0'
-    implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
-    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.1.0'
+    //implementation 'com.google.http-client:google-http-client-gson:1.26.0'
+    //implementation 'com.google.api-client:google-api-client-android:1.26.0'
+    //implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
+    //implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
+    //implementation "androidx.credentials:credentials:1.3.0-rc01"
+    //implementation 'androidx.credentials:credentials-play-services-auth:1.5.0-alpha04'
+
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.2.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-storage-ktx'
+    //implementation 'com.google.firebase:firebase-auth'
+    implementation('com.firebaseui:firebase-ui-auth:8.0.2') {
+        exclude group: 'com.google.android.gms', module: 'play-services-auth'
+    }
+    implementation("com.google.firebase:firebase-auth-ktx")
+    //implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
+    implementation 'androidx.browser:browser:1.8.0'
 }
 

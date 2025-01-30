@@ -28,6 +28,7 @@
                         android:id="@+id/orchardActivity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/select_a_saved_activity"
                         android:minWidth="48dp"
                         android:minHeight="48dp"/>
                 </LinearLayout>
@@ -52,6 +53,7 @@
                 android:id="@+id/activityOrchard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/select_an_orchard"
                 android:minWidth="48dp"
                 android:minHeight="48dp"/>
             <TextView
@@ -194,6 +196,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="100dp"
                 android:paddingTop="16dp"
                 android:orientation="vertical">
                 <TextView
@@ -205,10 +208,12 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:minHeight="100dp"
                     android:orientation="horizontal">
                     <EditText
                         android:id="@+id/activityStopTime"
                         android:minHeight="48dp"
+                        android:minWidth="48dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/_18_00"
@@ -230,6 +235,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="16dp"
+                android:minHeight="48dp"
+                android:minWidth="48dp"
                 android:orientation="horizontal">
                 <Button
                     style="@style/AgButton"

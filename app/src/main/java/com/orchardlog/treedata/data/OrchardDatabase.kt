@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.orchardlog.treedata.daos.DbUtilsDao
 import com.orchardlog.treedata.daos.FarmDao
 import com.orchardlog.treedata.daos.FarmWithOrchardsDao
 import com.orchardlog.treedata.daos.FarmWithOrchardsWithOrchardActivitiesDao
@@ -38,6 +39,7 @@ import com.orchardlog.treedata.entities.Fertilizer
 import com.orchardlog.treedata.entities.FertilizerApplication
 import com.orchardlog.treedata.entities.Irrigation
 import com.orchardlog.treedata.entities.IrrigationSystem
+import com.orchardlog.treedata.entities.LoggedInUser
 import com.orchardlog.treedata.entities.Orchard
 import com.orchardlog.treedata.entities.OrchardActivity
 import com.orchardlog.treedata.entities.Pesticide
@@ -94,6 +96,7 @@ abstract class OrchardDatabase : RoomDatabase() {
     abstract fun fertilizerApplicationWithFertilizersDao(): FertilizerApplicationWithFertilizersDao
     abstract fun orchardWithOrchardActivitiesDao(): OrchardWithOrchardActivitiesDao
     abstract fun farmWithOrchardsWithOrchardActivities(): FarmWithOrchardsWithOrchardActivitiesDao
+    abstract fun dbUtilsDao(): DbUtilsDao
 
     //@DeleteTable.Entries(DeleteTable(tableName = "Tree"))
     //class ODBAutoMigration: AutoMigrationSpec
@@ -111,6 +114,13 @@ abstract class OrchardDatabase : RoomDatabase() {
             return Room.databaseBuilder(context, OrchardDatabase::class.java, DATABASE_NAME)
                 //.fallbackToDestructiveMigration()
                 .build()
+        }
+
+        fun destroy() {
+            if(instance?.isOpen!!) {
+                instance?.close()
+            }
+            instance = null
         }
 
     }
