@@ -1,7 +1,6 @@
 package com.orchardlog.treedata.ui.orchard
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +18,6 @@ import com.orchardlog.treedata.entities.Farm
 import com.orchardlog.treedata.entities.LinearUnit
 import com.orchardlog.treedata.entities.Orchard
 import com.orchardlog.treedata.utils.DatePickerFragment
-import com.orchardlog.treedata.utils.RoomBackUp
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 

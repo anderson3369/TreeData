@@ -3,7 +3,6 @@ package com.orchardlog.treedata.utils
 import android.content.Context
 import android.util.Log
 import androidx.core.net.toUri
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.orchardlog.treedata.data.OrchardDatabase
@@ -149,7 +148,7 @@ class RoomBackUp {
                 } else {
                     listResult.items.forEach {
                         item ->
-                        val itemRef = path.child(item.name)
+                        //val itemRef = path.child(item.name)
                         val parseName = item.name.split(":")
                         val dateTime = parseName[1].split(".")
 
@@ -158,8 +157,6 @@ class RoomBackUp {
                             val paresFile = file.name.split(":")
                             val dateFile = paresFile[1].split(".")
                             if( dateFile[0].toLong() > dateTime[0].toLong()) {
-                                //val parseName = item.name.split(":")
-                                //val dateTime = parseName[1].split(".")
                                 val ext = dateFile[1]
                                 if(ext == "db") {
                                     localFileDb.renameTo(dbFile)

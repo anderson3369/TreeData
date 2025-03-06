@@ -1,7 +1,6 @@
 package com.orchardlog.treedata.ui.irrigation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,9 +16,8 @@ import com.orchardlog.treedata.data.Validator
 import com.orchardlog.treedata.databinding.FragmentIrrigationBinding
 import com.orchardlog.treedata.entities.Irrigation
 import com.orchardlog.treedata.entities.IrrigationSystem
-import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.utils.DatePickerFragment
-import com.orchardlog.treedata.utils.RoomBackUp
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.utils.SortIrrigations
 import com.orchardlog.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint

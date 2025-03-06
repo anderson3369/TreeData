@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.orchardlog.treedata.R
 import com.orchardlog.treedata.databinding.FragmentHomeBinding
@@ -42,6 +43,11 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val TAG = "HomeFragment"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(requireContext())
     }
 
     override fun onCreateView(
@@ -82,7 +88,9 @@ class HomeFragment : Fragment() {
         farmerViewModel.get().observe(viewLifecycleOwner) { farmers ->
             if (farmers.isEmpty()) {
                 //Might be first time
-
+                lifecycleScope.launch {
+                    userPreferencesViewModel.setFirstTime(true)
+                }
                 if(isLoggedIn) {
                     lifecycleScope.launch {
                         val isFirstTime = RoomBackUp.isFirstTime(uid)
@@ -101,7 +109,7 @@ class HomeFragment : Fragment() {
                                 try {
                                     lifecycleScope.launch {
                                         userPreferencesViewModel.setBackup(true)
-                                        if(!isLoggedIn || isLoggedIn == null) {
+                                        if(!isLoggedIn) {
                                             val action = HomeFragmentDirections.actionNavHomeToNavLogin()
                                             view?.findNavController()?.navigate(action)
                                         }

@@ -1,7 +1,6 @@
 package com.orchardlog.treedata.ui.fertilizer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,10 +18,9 @@ import com.orchardlog.treedata.entities.Fertilizer
 import com.orchardlog.treedata.entities.FertilizerApplication
 import com.orchardlog.treedata.entities.OrchardUnit
 import com.orchardlog.treedata.entities.WeightOrMeasureUnit
-import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.ui.orchard.OrchardViewModel
 import com.orchardlog.treedata.utils.DatePickerFragment
-import com.orchardlog.treedata.utils.RoomBackUp
+import com.orchardlog.treedata.utils.SAVE_FAILED
 import com.orchardlog.treedata.utils.SortFertilizerApplications
 import com.orchardlog.treedata.utils.TimePickerFragment
 import dagger.hilt.android.AndroidEntryPoint

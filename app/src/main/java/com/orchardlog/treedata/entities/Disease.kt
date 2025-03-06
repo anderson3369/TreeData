@@ -1,7 +1,7 @@
 package com.orchardlog.treedata.entities
 
-import androidx.room.*
-
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class Disease(

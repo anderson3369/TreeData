@@ -39,7 +39,6 @@ import com.orchardlog.treedata.entities.Fertilizer
 import com.orchardlog.treedata.entities.FertilizerApplication
 import com.orchardlog.treedata.entities.Irrigation
 import com.orchardlog.treedata.entities.IrrigationSystem
-import com.orchardlog.treedata.entities.LoggedInUser
 import com.orchardlog.treedata.entities.Orchard
 import com.orchardlog.treedata.entities.OrchardActivity
 import com.orchardlog.treedata.entities.Pesticide

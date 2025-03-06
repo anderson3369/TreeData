@@ -16,6 +16,7 @@ import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var navController: NavController? = null
     private var login = false
     private var logout = true
+    private var isLoggedIn = false
     private val userPreferencesViewModel: UserPreferencesViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
     private var backupDate: Long? = null
@@ -45,6 +47,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -68,7 +71,8 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         setupActionBarWithNavController(navController!!, appBarConfiguration)
         navView.setupWithNavController(navController!!)
 
-        auth = Firebase.auth
+
+        auth = FirebaseAuth.getInstance()
         auth.addAuthStateListener {
             invalidateOptionsMenu()
             if(it.currentUser == null || it.currentUser!!.isAnonymous) {
@@ -78,6 +82,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
                 login = false
                 logout = true
                 uid = it.currentUser!!.uid
+                isLoggedIn = true
             }
         }
 
@@ -128,14 +133,14 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onPause() {
         super.onPause()
-        if(backupDate != null) {
+        if(backupDate != null && isLoggedIn) {
             RoomBackUp.backupDatabase(this@MainActivity, backupDate!!,uid)
         }
     }
 
     override fun onStop() {
         super.onStop()
-        if(backupDate != null) {
+        if(backupDate != null && isLoggedIn) {
             RoomBackUp.backupDatabase(this@MainActivity, backupDate!!, uid)
         }
     }

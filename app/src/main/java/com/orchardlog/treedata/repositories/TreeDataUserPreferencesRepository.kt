@@ -17,8 +17,10 @@ import javax.inject.Singleton
 interface UserPreferencesRepository {
     val canBackup: Flow<Boolean>
     val backupDate: Flow<Long>
+    val isFirstTime: Flow<Boolean>
     suspend fun setBackup(isBackup: Boolean)
     suspend fun seBackupDate()
+    suspend fun setIsFirstTime(isFirstTime: Boolean)
 }
 
 @Singleton
@@ -27,31 +29,42 @@ class TreeDataUserPreferencesRepository @Inject constructor(
 ): UserPreferencesRepository {
     private val DATETIME = longPreferencesKey("datetime")
     private val BACKUP = booleanPreferencesKey("backup")
+    private val ISFIRSTTIME = booleanPreferencesKey("isFirstTime")
 
     companion object {
         const val TAG = "TreeDataUserPreferencesRepository"
     }
 
-        override val canBackup = dataStore.data?.catch { exception ->
+    override val canBackup = dataStore.data.catch { exception ->
             if (exception is IOException) {
                 Log.i(TAG, "Error reading preferences.", exception)
             } else {
                 throw exception
             }
-        }?.map { preferences ->
+    }.map { preferences ->
             preferences[BACKUP] ?: false
-        }!!
+    }
 
 
-        override val backupDate = dataStore.data?.catch { exception ->
+    override val backupDate = dataStore.data.catch { exception ->
             if (exception is IOException) {
                 Log.i(TAG, "Error reading preferences.", exception)
             } else {
                 throw exception
             }
-        }?.map { preferences ->
+    }.map { preferences ->
             preferences[DATETIME] ?: 0L
-        }!!
+    }
+
+    override val isFirstTime = dataStore.data.catch { exception ->
+        if (exception is IOException) {
+            Log.i(TAG, "Error reading preferences.", exception)
+        } else {
+            throw exception
+        }
+    }.map { preferences ->
+        preferences[ISFIRSTTIME] ?: true
+    }
 
 
     override suspend fun setBackup(isBackup: Boolean) {
@@ -64,6 +77,12 @@ class TreeDataUserPreferencesRepository @Inject constructor(
         dataStore.edit { settings ->
             val currentCounterValue = LocalDateTime.now().toEpochSecond(java.time.ZoneOffset.UTC)
             settings[DATETIME] = currentCounterValue
+        }
+    }
+
+    override suspend fun setIsFirstTime(isFirstTime: Boolean) {
+        dataStore.edit { settings ->
+            settings[ISFIRSTTIME] = isFirstTime
         }
     }
 

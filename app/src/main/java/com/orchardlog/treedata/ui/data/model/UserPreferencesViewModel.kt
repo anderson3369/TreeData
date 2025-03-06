@@ -20,11 +20,19 @@ class UserPreferencesViewModel @Inject constructor(
         return userPreferencesRepository.backupDate.asLiveData()
     }
 
+   fun getIsFirstTime(): LiveData<Boolean> {
+       return userPreferencesRepository.isFirstTime.asLiveData()
+   }
+
     suspend fun setBackup(isBackup: Boolean) {
         userPreferencesRepository.setBackup(isBackup)
     }
 
     suspend fun setBackupDate() {
         userPreferencesRepository.seBackupDate()
+    }
+
+    suspend fun setFirstTime(isFirstTime: Boolean) {
+        userPreferencesRepository.setIsFirstTime(isFirstTime)
     }
 }
