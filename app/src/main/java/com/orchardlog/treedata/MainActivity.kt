@@ -3,9 +3,7 @@ package com.orchardlog.treedata
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -15,14 +13,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.FirebaseApp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.orchardlog.treedata.databinding.ActivityMainBinding
-import com.orchardlog.treedata.ui.data.model.UserPreferencesViewModel
-import com.orchardlog.treedata.utils.RoomBackUp
+import com.orchardlog.treedata.shared.auth.AuthService
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,13 +26,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
-    private var login = false
-    private var logout = true
-    private var isLoggedIn = false
-    private val userPreferencesViewModel: UserPreferencesViewModel by viewModels()
-    private lateinit var auth: FirebaseAuth
-    private var backupDate: Long? = null
-    private var uid: String? = null
+    private lateinit var bottomNavView: com.google.android.material.bottomnavigation.BottomNavigationView
 
     companion object {
         const val TAG = "MainActivity"
@@ -52,46 +39,58 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarMain.toolbar)
-        binding.appBarMain.toolbar.showOverflowMenu()
-
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
+        bottomNavView = binding.appBarMain.bottomNavView
         navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_farmer, R.id.nav_farm, R.id.nav_orchard,
-                R.id.nav_irrigation,
-                R.id.nav_pesticideApplication, R.id.nav_fertilizerApplication,R.id.nav_map,
-                R.id.nav_orchardTask
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController!!, appBarConfiguration)
-        navView.setupWithNavController(navController!!)
+        
+        // No longer using setupActionBarWithNavController to achieve iOS parity with clean top.
+        // Titles and actions will be handled by the Compose fragments themselves.
+        
+        navController?.let {
+            bottomNavView.setupWithNavController(it)
+        }
 
-
-        auth = FirebaseAuth.getInstance()
-        auth.addAuthStateListener {
-            invalidateOptionsMenu()
-            if(it.currentUser == null || it.currentUser!!.isAnonymous) {
-                login = true
-                logout = false
+        bottomNavView.setOnItemSelectedListener { item ->
+            if (item.itemId == R.id.nav_more) {
+                showMoreMenu()
+                false
             } else {
-                login = false
-                logout = true
-                uid = it.currentUser!!.uid
-                isLoggedIn = true
+                navController?.let { item.onNavDestinationSelected(it) } ?: false
             }
         }
 
+
+        // Update login/logout menu visibility based on auth state
         lifecycleScope.launch {
-            userPreferencesViewModel.setBackupDate()
-            userPreferencesViewModel.getBackupDate().observe(this@MainActivity) {
-                backupDate = it
+            AuthService.authState.collect { _ ->
+                invalidateOptionsMenu()
             }
         }
+    }
+
+    private fun showMoreMenu() {
+        val view = bottomNavView.findViewById<android.view.View>(R.id.nav_more)
+        val popup = androidx.appcompat.widget.PopupMenu(this, view)
+        popup.menuInflater.inflate(R.menu.main, popup.menu)
+
+        // Update menu visibility based on current auth state
+        val isSignedIn = AuthService.isSignedIn
+        popup.menu.findItem(R.id.nav_login)?.isVisible = !isSignedIn
+        popup.menu.findItem(R.id.nav_logout)?.isVisible = isSignedIn
+
+        popup.setOnMenuItemClickListener { item ->
+            navController?.let {
+                if (item.itemId == R.id.quit) {
+                    finishAndRemoveTask()
+                    true
+                } else if (item.itemId == R.id.nav_logout) {
+                    lifecycleScope.launch { AuthService.signOut() }
+                    true
+                } else {
+                    item.onNavDestinationSelected(it)
+                }
+            } ?: false
+        }
+        popup.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,47 +101,40 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        invalidateOptionsMenu()
-        val loginItem = menu.findItem(R.id.nav_login)
-        loginItem.isVisible = login
-        val logoutItem = menu.findItem(R.id.nav_logout)
-        logoutItem.isVisible = logout
-
+        val isSignedIn = AuthService.isSignedIn
+        menu.findItem(R.id.nav_login)?.isVisible = !isSignedIn
+        menu.findItem(R.id.nav_logout)?.isVisible = isSignedIn
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.nav_farmer || item.itemId == R.id.nav_farm
-            || item.itemId == R.id.nav_orchard || item.itemId == R.id.nav_version
-            || item.itemId == R.id.nav_login) {
-            item.onNavDestinationSelected(navController!!)
-        } else if(item.itemId == R.id.quit) {
-            finishAndRemoveTask()
-        } else if(item.itemId == R.id.nav_logout) {
-            auth.signOut()
-        } else {
-            return super.onOptionsItemSelected(item)
-        }
+        navController?.let {
+            if(item.itemId == R.id.nav_farmer || item.itemId == R.id.nav_farm
+                || item.itemId == R.id.nav_orchard || item.itemId == R.id.nav_version
+                || item.itemId == R.id.nav_login) {
+                item.onNavDestinationSelected(it)
+            } else if(item.itemId == R.id.quit) {
+                finishAndRemoveTask()
+            } else if(item.itemId == R.id.nav_logout) {
+                lifecycleScope.launch { AuthService.signOut() }
+            } else {
+                return super.onOptionsItemSelected(item)
+            }
+        } ?: return super.onOptionsItemSelected(item)
         return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onPause() {
         super.onPause()
-        if(backupDate != null && isLoggedIn) {
-            RoomBackUp.backupDatabase(this@MainActivity, backupDate!!,uid)
-        }
     }
 
     override fun onStop() {
         super.onStop()
-        if(backupDate != null && isLoggedIn) {
-            RoomBackUp.backupDatabase(this@MainActivity, backupDate!!, uid)
-        }
     }
 
 

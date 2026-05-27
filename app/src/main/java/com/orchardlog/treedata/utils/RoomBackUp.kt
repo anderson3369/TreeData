@@ -2,25 +2,19 @@ package com.orchardlog.treedata.utils
 
 import android.content.Context
 import android.util.Log
-import androidx.core.net.toUri
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
-import com.orchardlog.treedata.data.OrchardDatabase
-import kotlinx.coroutines.tasks.await
-import java.io.File
 
 class RoomBackUp {
 
     companion object {
         private const val TAG = "RoomBackUp"
-        private val storageRef = Firebase.storage.reference
+        // private val storageRef = Firebase.storage.reference
         //private val uid = Firebase.auth.currentUser?.uid
         //private var path = storageRef.child("orchardLog/")
         private var isFirstTime = false
 
         fun backupDatabase(context: Context, dateTime: Long, uid: String?) {
-
-            val dbFile = File(context.getDatabasePath(DATABASE_NAME).path)
+            Log.i(TAG, "Backup disabled")
+            /* val dbFile = File(context.getDatabasePath(DATABASE_NAME).path)
             val dbFileW = File(context.getDatabasePath(DATABASE_NAME + "-wal").path)
             val backupFile = File(context.filesDir, "backup:$dateTime.db")
             val backupFileW = File(context.filesDir, "backup:$dateTime.db-wal")
@@ -55,11 +49,11 @@ class RoomBackUp {
                 }
             }
 
-            removeOldDatabase(uid)
+            removeOldDatabase(uid) */
         }
 
         private fun removeOldDatabase(uid: String?) {
-            val path = storageRef.child("orchardLog/" + uid.toString())
+            /* val path = storageRef.child("orchardLog/" + uid.toString())
             path.listAll().addOnSuccessListener { listResult ->
                 if(listResult.items.size < 2) {
                     return@addOnSuccessListener
@@ -80,11 +74,11 @@ class RoomBackUp {
                         }
                     }
                 }
-            }
+            } */
         }
 
         suspend fun isFirstTime(uid: String?): Boolean {
-            val path = storageRef.child("orchardLog/" + uid.toString())
+            /* val path = storageRef.child("orchardLog/" + uid.toString())
             val task = path.listAll().addOnSuccessListener {
                 listResult ->
                 if(listResult.items.size < 2) {
@@ -92,12 +86,13 @@ class RoomBackUp {
                     return@addOnSuccessListener
                 }
             }
-            task.await()
+            task.await() */
             return isFirstTime
         }
 
         fun restoreDatabase(context: Context, uid: String?): Boolean {
-            val path = storageRef.child("orchardLog/" + uid.toString())
+            Log.i(TAG, "Restore disabled")
+            /* val path = storageRef.child("orchardLog/" + uid.toString())
             OrchardDatabase.destroy()
             var isSuccessful = false
 
@@ -190,8 +185,8 @@ class RoomBackUp {
                 failure ->
                 Log.e(TAG, failure.toString())
             }
-            OrchardDatabase.getInstance(context)
-            return isSuccessful
+            OrchardDatabase.getInstance(context) */
+            return false
         }
     }
 

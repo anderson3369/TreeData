@@ -1,31 +1,9 @@
 package com.orchardlog.treedata.data
 
 import android.content.Context
-import com.orchardlog.treedata.daos.FarmDao
-import com.orchardlog.treedata.daos.FarmWithOrchardsDao
-import com.orchardlog.treedata.daos.FarmWithOrchardsWithOrchardActivitiesDao
-import com.orchardlog.treedata.daos.FarmerDao
-import com.orchardlog.treedata.daos.FarmerWithFarmDao
-import com.orchardlog.treedata.daos.FertilizerApplicationDao
-import com.orchardlog.treedata.daos.FertilizerApplicationWithFertilizersDao
-import com.orchardlog.treedata.daos.FertilizerDao
-import com.orchardlog.treedata.daos.IrrigationDao
-import com.orchardlog.treedata.daos.IrrigationSystemDao
-import com.orchardlog.treedata.daos.IrrigationSystemWithIrrigationsDao
-import com.orchardlog.treedata.daos.OrcahardAndIrrigationSystemDao
-import com.orchardlog.treedata.daos.OrchardActivityDao
-import com.orchardlog.treedata.daos.OrchardDao
-import com.orchardlog.treedata.daos.OrchardWithOrchardActivitiesDao
-import com.orchardlog.treedata.daos.OrchardWithTreesDao
-import com.orchardlog.treedata.daos.PesticideApplicationDao
-import com.orchardlog.treedata.daos.PesticideApplicationWithPesticidesDao
-import com.orchardlog.treedata.daos.PesticideDao
-import com.orchardlog.treedata.daos.PumpDao
-import com.orchardlog.treedata.daos.PumpWithIrrigationSystemDao
-import com.orchardlog.treedata.daos.RootstockDao
-import com.orchardlog.treedata.daos.SoilMoistureDao
-import com.orchardlog.treedata.daos.TreeDao
-import com.orchardlog.treedata.daos.VarietyDao
+import com.orchardlog.treedata.shared.database.OrchardDatabase
+import com.orchardlog.treedata.shared.viewmodels.ViewModelProvider
+import com.orchardlog.treedata.shared.daos.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,9 +19,8 @@ class TreeDataModule {
     @Provides
     @Singleton
     fun provideOrchardDatabase(@ApplicationContext context: Context) : OrchardDatabase {
-         //val db = OrchardDatabase.buildDatabase(context)
-        return OrchardDatabase.getInstance(context)
-        //return db
+        ViewModelProvider.initialize(context)
+        return ViewModelProvider.getDb()
     }
 
     @Provides
@@ -117,7 +94,7 @@ class TreeDataModule {
     }
 
     @Provides
-    fun provideOrchardAndIrrigationSystem(orchardDatabase: OrchardDatabase): OrcahardAndIrrigationSystemDao {
+    fun provideOrchardAndIrrigationSystem(orchardDatabase: OrchardDatabase): OrchardAndIrrigationSystemDao {
         return orchardDatabase.orchardAndIrrigationSystemDao()
     }
 
@@ -129,6 +106,11 @@ class TreeDataModule {
     @Provides
     fun provideFertilizerApplicationDao(orchardDatabase: OrchardDatabase): FertilizerApplicationDao {
         return orchardDatabase.fertilizerApplicationDao()
+    }
+
+    @Provides
+    fun provideFertilizerApplicationItemDao(orchardDatabase: OrchardDatabase): FertilizerApplicationItemDao {
+        return orchardDatabase.fertilizerApplicationItemDao()
     }
 
     @Provides

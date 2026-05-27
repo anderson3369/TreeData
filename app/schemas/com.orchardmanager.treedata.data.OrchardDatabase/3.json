@@ -1,0 +1,1254 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "e034de190f009d81b6987ad150e90b39",
+    "entities": [
+      {
+        "tableName": "Disease",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `treeId` INTEGER NOT NULL, `name` TEXT NOT NULL, `scientificName` TEXT NOT NULL, `description` TEXT NOT NULL, `diseaseType` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treeId",
+            "columnName": "treeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "scientificName",
+            "columnName": "scientificName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diseaseType",
+            "columnName": "diseaseType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Orchard",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `farmId` INTEGER NOT NULL, `crop` TEXT NOT NULL, `plantedDate` TEXT NOT NULL, `rowWidth` REAL NOT NULL, `rowWidthLinearUnit` TEXT NOT NULL, `distanceBetweenTrees` REAL NOT NULL, `distanceBetweenTreesLinearUnit` TEXT NOT NULL, `sand` REAL NOT NULL, `silt` REAL NOT NULL, `clay` REAL NOT NULL, `organicMatter` REAL NOT NULL, FOREIGN KEY(`farmId`) REFERENCES `Farm`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "farmId",
+            "columnName": "farmId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "crop",
+            "columnName": "crop",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantedDate",
+            "columnName": "plantedDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rowWidth",
+            "columnName": "rowWidth",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rowWidthLinearUnit",
+            "columnName": "rowWidthLinearUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceBetweenTrees",
+            "columnName": "distanceBetweenTrees",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceBetweenTreesLinearUnit",
+            "columnName": "distanceBetweenTreesLinearUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sand",
+            "columnName": "sand",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "silt",
+            "columnName": "silt",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clay",
+            "columnName": "clay",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "organicMatter",
+            "columnName": "organicMatter",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Orchard_farmId",
+            "unique": false,
+            "columnNames": [
+              "farmId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Orchard_farmId` ON `${TABLE_NAME}` (`farmId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Farm",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "farmId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Farm",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `farmerId` INTEGER NOT NULL, `name` TEXT NOT NULL, `siteId` TEXT NOT NULL, FOREIGN KEY(`farmerId`) REFERENCES `Farmer`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "farmerId",
+            "columnName": "farmerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "siteId",
+            "columnName": "siteId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Farm_farmerId",
+            "unique": false,
+            "columnNames": [
+              "farmerId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Farm_farmerId` ON `${TABLE_NAME}` (`farmerId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "Farmer",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "farmerId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Farmer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `address` TEXT NOT NULL, `city` TEXT NOT NULL, `state` TEXT NOT NULL, `zip` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "address",
+            "columnName": "address",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "city",
+            "columnName": "city",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "state",
+            "columnName": "state",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zip",
+            "columnName": "zip",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "FertilizerApplication",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `fertilizerId` INTEGER NOT NULL, `applicationStart` TEXT NOT NULL, `applicationStop` TEXT NOT NULL, `applied` REAL NOT NULL, `weightOrMeasureUnit` TEXT NOT NULL, `areaTreated` REAL NOT NULL, `orchardUnit` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fertilizerId",
+            "columnName": "fertilizerId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicationStart",
+            "columnName": "applicationStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicationStop",
+            "columnName": "applicationStop",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applied",
+            "columnName": "applied",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weightOrMeasureUnit",
+            "columnName": "weightOrMeasureUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "areaTreated",
+            "columnName": "areaTreated",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardUnit",
+            "columnName": "orchardUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PesticideApplication",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `pesticideId` INTEGER NOT NULL, `applicationStart` TEXT NOT NULL, `applicationStop` TEXT NOT NULL, `applied` REAL NOT NULL, `appliedUnit` TEXT NOT NULL, `dilution` INTEGER NOT NULL, `dilutionUnit` TEXT NOT NULL, `areaTreated` REAL NOT NULL, `areaTreatedUnit` TEXT NOT NULL, `applicationMethod` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pesticideId",
+            "columnName": "pesticideId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicationStart",
+            "columnName": "applicationStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicationStop",
+            "columnName": "applicationStop",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applied",
+            "columnName": "applied",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedUnit",
+            "columnName": "appliedUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dilution",
+            "columnName": "dilution",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dilutionUnit",
+            "columnName": "dilutionUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "areaTreated",
+            "columnName": "areaTreated",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "areaTreatedUnit",
+            "columnName": "areaTreatedUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "applicationMethod",
+            "columnName": "applicationMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Pump",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `horsepower` REAL NOT NULL, `phase` INTEGER NOT NULL, `flowRate` REAL NOT NULL, `flowRateUnit` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "horsepower",
+            "columnName": "horsepower",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phase",
+            "columnName": "phase",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flowRate",
+            "columnName": "flowRate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "flowRateUnit",
+            "columnName": "flowRateUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Rootstock",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `cultivar` TEXT NOT NULL, `rootstockType` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cultivar",
+            "columnName": "cultivar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootstockType",
+            "columnName": "rootstockType",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SoilTest",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `testDate` TEXT NOT NULL, `nitrate` REAL NOT NULL, `nitrateUnit` TEXT NOT NULL, `phosphorousBray` REAL NOT NULL, `phosphorousBrayUnit` TEXT NOT NULL, `phosphorousNaHCO3` REAL NOT NULL, `phosphorousNaHCO3Unit` TEXT NOT NULL, `potassium` REAL NOT NULL, `potassiumUnit` TEXT NOT NULL, `calcium` REAL NOT NULL, `calciumUnit` TEXT NOT NULL, `magnesium` REAL NOT NULL, `magnesiumUnit` TEXT NOT NULL, `sodium` REAL NOT NULL, `sodiumUnit` TEXT NOT NULL, `sulfur` REAL NOT NULL, `sulfurUnit` TEXT NOT NULL, `zinc` REAL NOT NULL, `zincUnit` TEXT NOT NULL, `manganese` REAL NOT NULL, `manganeseUnit` TEXT NOT NULL, `iron` REAL NOT NULL, `ironUnit` TEXT NOT NULL, `copper` REAL NOT NULL, `copperUnit` TEXT NOT NULL, `boron` REAL NOT NULL, `boronUnit` TEXT NOT NULL, `chloride` REAL NOT NULL, `chlorideUnit` TEXT NOT NULL, `potassiumCation` REAL NOT NULL, `magnesiumCation` REAL NOT NULL, `calciumCation` REAL NOT NULL, `sodiumCation` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "testDate",
+            "columnName": "testDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nitrate",
+            "columnName": "nitrate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nitrateUnit",
+            "columnName": "nitrateUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phosphorousBray",
+            "columnName": "phosphorousBray",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phosphorousBrayUnit",
+            "columnName": "phosphorousBrayUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phosphorousNaHCO3",
+            "columnName": "phosphorousNaHCO3",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phosphorousNaHCO3Unit",
+            "columnName": "phosphorousNaHCO3Unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "potassium",
+            "columnName": "potassium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "potassiumUnit",
+            "columnName": "potassiumUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calcium",
+            "columnName": "calcium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calciumUnit",
+            "columnName": "calciumUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "magnesium",
+            "columnName": "magnesium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "magnesiumUnit",
+            "columnName": "magnesiumUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sodium",
+            "columnName": "sodium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sodiumUnit",
+            "columnName": "sodiumUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sulfur",
+            "columnName": "sulfur",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sulfurUnit",
+            "columnName": "sulfurUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zinc",
+            "columnName": "zinc",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zincUnit",
+            "columnName": "zincUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manganese",
+            "columnName": "manganese",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manganeseUnit",
+            "columnName": "manganeseUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iron",
+            "columnName": "iron",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ironUnit",
+            "columnName": "ironUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copper",
+            "columnName": "copper",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copperUnit",
+            "columnName": "copperUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boron",
+            "columnName": "boron",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boronUnit",
+            "columnName": "boronUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chloride",
+            "columnName": "chloride",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chlorideUnit",
+            "columnName": "chlorideUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "potassiumCation",
+            "columnName": "potassiumCation",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "magnesiumCation",
+            "columnName": "magnesiumCation",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calciumCation",
+            "columnName": "calciumCation",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sodiumCation",
+            "columnName": "sodiumCation",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Pesticide",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `productName` TEXT NOT NULL, `eparegno` TEXT NOT NULL, `signalWord` TEXT NOT NULL, `rei` INTEGER NOT NULL, `reiUnit` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "productName",
+            "columnName": "productName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "eparegno",
+            "columnName": "eparegno",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "signalWord",
+            "columnName": "signalWord",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rei",
+            "columnName": "rei",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "reiUnit",
+            "columnName": "reiUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Tree",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `rootstockId` INTEGER NOT NULL, `varietyId` INTEGER NOT NULL, `plantedDate` TEXT NOT NULL, `notes` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rootstockId",
+            "columnName": "rootstockId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "varietyId",
+            "columnName": "varietyId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plantedDate",
+            "columnName": "plantedDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Variety",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `cultivar` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cultivar",
+            "columnName": "cultivar",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "IrrigationSystem",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `pumpId` INTEGER NOT NULL, `name` TEXT NOT NULL, `irrigationMethod` TEXT NOT NULL, `emitterFlowRate` REAL NOT NULL, `emitterFlowUnit` TEXT NOT NULL, `emitterRadius` REAL NOT NULL, `emitterRadiusLinearUnit` TEXT NOT NULL, `emitterSpacing` REAL NOT NULL, `emitterSpacingLinearUnit` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pumpId",
+            "columnName": "pumpId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "irrigationMethod",
+            "columnName": "irrigationMethod",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterFlowRate",
+            "columnName": "emitterFlowRate",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterFlowUnit",
+            "columnName": "emitterFlowUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterRadius",
+            "columnName": "emitterRadius",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterRadiusLinearUnit",
+            "columnName": "emitterRadiusLinearUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterSpacing",
+            "columnName": "emitterSpacing",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emitterSpacingLinearUnit",
+            "columnName": "emitterSpacingLinearUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Irrigation",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `irrigationSystemId` INTEGER NOT NULL, `startTime` TEXT NOT NULL, `stopTime` TEXT NOT NULL, FOREIGN KEY(`irrigationSystemId`) REFERENCES `IrrigationSystem`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "irrigationSystemId",
+            "columnName": "irrigationSystemId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "startTime",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stopTime",
+            "columnName": "stopTime",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Irrigation_irrigationSystemId",
+            "unique": false,
+            "columnNames": [
+              "irrigationSystemId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Irrigation_irrigationSystemId` ON `${TABLE_NAME}` (`irrigationSystemId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "IrrigationSystem",
+            "onDelete": "NO ACTION",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "irrigationSystemId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Fertilizer",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `nitrogen` REAL NOT NULL, `phosphorous` REAL NOT NULL, `potassium` REAL NOT NULL, `sulfur` REAL NOT NULL, `calcium` REAL NOT NULL, `magnesium` REAL NOT NULL, `boron` REAL NOT NULL, `zinc` REAL NOT NULL, `iron` REAL NOT NULL, `manganese` REAL NOT NULL, `molybdenum` REAL NOT NULL, `chloride` REAL NOT NULL, `copper` REAL NOT NULL, `nickel` REAL NOT NULL, `organicMatter` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nitrogen",
+            "columnName": "nitrogen",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phosphorous",
+            "columnName": "phosphorous",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "potassium",
+            "columnName": "potassium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sulfur",
+            "columnName": "sulfur",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "calcium",
+            "columnName": "calcium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "magnesium",
+            "columnName": "magnesium",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boron",
+            "columnName": "boron",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "zinc",
+            "columnName": "zinc",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "iron",
+            "columnName": "iron",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "manganese",
+            "columnName": "manganese",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "molybdenum",
+            "columnName": "molybdenum",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "chloride",
+            "columnName": "chloride",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "copper",
+            "columnName": "copper",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nickel",
+            "columnName": "nickel",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "organicMatter",
+            "columnName": "organicMatter",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "OrchardActivity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `activity` TEXT NOT NULL, `notes` TEXT NOT NULL, `activityStart` TEXT NOT NULL, `activityStop` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activity",
+            "columnName": "activity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activityStart",
+            "columnName": "activityStart",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "activityStop",
+            "columnName": "activityStop",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "SoilMoisture",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orchardId` INTEGER NOT NULL, `date` TEXT NOT NULL, `centibar` INTEGER NOT NULL, `percent` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "orchardId",
+            "columnName": "orchardId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "centibar",
+            "columnName": "centibar",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "percent",
+            "columnName": "percent",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e034de190f009d81b6987ad150e90b39')"
+    ]
+  }
+}

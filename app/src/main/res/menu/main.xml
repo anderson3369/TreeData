@@ -2,42 +2,54 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_farmer"
+        android:id="@+id/nav_pesticideApplication"
         android:orderInCategory="1"
+        android:icon="@drawable/ic_baseline_bug_report_24"
+        android:title="@string/pesticide_application"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/nav_fertilizerApplication"
+        android:orderInCategory="2"
+        android:icon="@drawable/ic_baseline_science_24"
+        android:title="@string/fertilizer_application"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/nav_farmer"
+        android:orderInCategory="3"
         android:icon="@drawable/ic_baseline_contact_page_24"
         android:title="@string/farmer"
         app:showAsAction="never"/>
     <item
         android:id="@+id/nav_farm"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
         android:icon="@drawable/ic_baseline_agriculture_24"
         android:title="@string/farm"
         app:showAsAction="never"/>
     <item
         android:id="@+id/nav_orchard"
-        android:orderInCategory="3"
+        android:orderInCategory="5"
         android:icon="@drawable/ic_baseline_forest_24"
         android:title="@string/orchard"
         app:showAsAction="never"/>
     <item
         android:id="@+id/nav_version"
-        android:orderInCategory="4"
+        android:orderInCategory="6"
         android:title="@string/version"
         app:showAsAction="never"/>
     <item
         android:id="@+id/nav_login"
-        android:orderInCategory="5"
+        android:orderInCategory="7"
         android:title="@string/login"
         app:showAsAction="never"/>
     <item
         android:id="@+id/nav_logout"
-        android:orderInCategory="6"
+        android:orderInCategory="8"
         android:title="@string/logout"
         app:showAsAction="never"/>
 
     <item
         android:id="@+id/quit"
-        android:orderInCategory="7"
+        android:orderInCategory="9"
         android:title="@string/quit"
         app:showAsAction="never"/>
 </menu>

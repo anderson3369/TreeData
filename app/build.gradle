@@ -1,116 +1,127 @@
-
-
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'org.jetbrains.kotlin.android'
+    //id 'org.jetbrains.kotlin.android'
     id 'com.google.devtools.ksp'
-    id 'androidx.room'
+    id 'androidx.room' version "2.8.4"
     id 'kotlin-parcelize'
-    id 'dagger.hilt.android.plugin'
+    id 'com.google.dagger.hilt.android'
     id 'androidx.navigation.safeargs'
-    id 'com.google.android.gms.oss-licenses-plugin'
-    id 'com.google.gms.google-services'
+    //id 'com.google.android.gms.oss-licenses-plugin'
+    id 'org.jetbrains.kotlin.plugin.compose' version '2.2.10'
+    id 'com.google.gms.google-services' version '4.4.4'
 }
 
 android {
 
-    //compileSdkVersion rootProject.compileSdkVersion
-
     namespace 'com.orchardlog.treedata'
-    compileSdk 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId "com.orchardlog.treedata"
-        minSdk 34
-        targetSdk 34
-        versionCode 5
-        versionName "1.4"
+        minSdk = 33
+        targetSdkVersion 36
+        versionCode 9
+        versionName "1.8"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         room {
             schemaDirectory "$projectDir/schemas"
         }
-        //javaCompileOptions {
-        //    annotationProcessorOptions {
-        //        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-        //    }
-        //}
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            //applicationIdSuffix = ".release"
+        }
+
+        debug {
+            //signingConfig signingConfigs.release
+            //applicationIdSuffix = ".debug"
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = '17'
-        //useIR = true
 
-        // Enable Coroutines and Flow APIs
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.FlowPreview"
-
-    }
     buildFeatures {
         viewBinding true
         compose true
-        composeOptions {
-            kotlinCompilerExtensionVersion = "1.5.14"
-        }
+        // composeOptions {
+        //    kotlinCompilerExtensionVersion = "1.5.14"
+        // }
         dataBinding true
 
     }
-    //composeOptions {
-        //kotlinCompilerExtensionVersion rootProject.composeVersion
-    //}
+
     packagingOptions {
         resources {
             excludes += ['/META-INF/AL2.0', '/META-INF/LGPL2.1', 'META-INF/DEPENDENCIES']
         }
-    }
-
-    sourceSets {
-        main {
-            jniLibs.srcDir "src/main/jniLibs"
+        jniLibs {
+            // This tells AGP to use uncompressed native libraries
+            // and align them to 16KB boundaries if possible
+            useLegacyPackaging = false
         }
     }
 
 }
 
+kotlin {
+    compilerOptions {
+        optIn.add("kotlin.time.ExperimentalTime")
+    }
+}
+
+configurations {
+    implementation {
+        exclude group: 'com.j256.ormlite', module: 'ormlite-core'
+    }
+}
+
+
 dependencies {
+    // kotlinx-datetime
+    implementation "org.jetbrains.kotlinx:kotlinx-datetime:0.7.1"
+
     //Google Play
     implementation 'com.google.android.gms:play-services-location:21.3.0'
-    implementation 'com.google.android.gms:play-services-auth:20.7.0'
-    implementation 'com.google.android.gms:play-services-oss-licenses:17.1.0'
+    implementation 'com.google.android.gms:play-services-auth:21.5.1'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.4.0'
 
-    implementation 'androidx.datastore:datastore-preferences:1.1.1'
+    implementation 'androidx.datastore:datastore-preferences:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.core:core-ktx:1.17.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'com.google.android.material:material:1.13.0'
 
     implementation "com.google.android.play:app-update:2.1.0"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
-    implementation 'androidx.navigation:navigation-dynamic-features-fragment:2.7.7'
-    implementation 'androidx.annotation:annotation:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navigationVersion"
+    implementation 'androidx.annotation:annotation:1.9.1'
     //implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
     testImplementation 'junit:junit:4.13.2'
     implementation "androidx.paging:paging-runtime-ktx:$rootProject.pagingVersion"
     //Room
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
-    //annotationProcessor "androidx.room:room-compiler:$rootProject.$roomVersion"
     ksp "androidx.room:room-compiler:$rootProject.roomVersion"
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
 
@@ -127,50 +138,58 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     ksp "com.google.dagger:hilt-android-compiler:$rootProject.hiltVersion"
     implementation "androidx.profileinstaller:profileinstaller:$rootProject.profileInstallerVersion"
-    implementation "androidx.tracing:tracing-ktx:$rootProject.tracingVersion"
+    implementation "androidx.tracing:tracing-ktx:1.3.0"
     // Compose
     implementation "androidx.activity:activity-compose:$rootProject.activityComposeVersion"
-    implementation "androidx.constraintlayout:constraintlayout-compose:$rootProject.constraintLayoutComposeVersion"
-    implementation "androidx.compose.runtime:runtime:1.6.7"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.1.1"
+    implementation "androidx.compose.runtime:runtime:$rootProject.composeVersion"
     //implementation "androidx.compose.compiler:compiler:1.5.14"
-    implementation "androidx.compose.ui:ui:1.6.7"
-    implementation "androidx.compose.foundation:foundation:1.6.7"
-    implementation "androidx.compose.foundation:foundation-layout:1.6.7"
-    implementation "androidx.compose.material:material:1.6.7"
-    implementation "androidx.compose.ui:ui-viewbinding:1.6.7"
-    implementation "androidx.compose.ui:ui-tooling-preview:1.6.7"
+    implementation "androidx.compose.ui:ui:$rootProject.composeVersion"
+    implementation "androidx.compose.foundation:foundation:$rootProject.composeVersion"
+    implementation "androidx.compose.foundation:foundation-layout:$rootProject.composeVersion"
+    implementation "androidx.compose.material:material:$rootProject.composeVersion"
+    implementation "androidx.compose.material:material-icons-extended:$rootProject.composeVersion"
+    implementation "androidx.compose.ui:ui-viewbinding:$rootProject.composeVersion"
+    implementation "androidx.compose.ui:ui-tooling-preview:$rootProject.composeVersion"
 
-    implementation "androidx.compose.runtime:runtime-livedata:1.6.7"
+    implementation "androidx.compose.runtime:runtime-livedata:$rootProject.composeVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$rootProject.viewModelComposeVersion"
     implementation "com.google.android.material:compose-theme-adapter:$rootProject.composeThemeAdapterVersion"
     implementation "io.coil-kt:coil-compose:$rootProject.coilVersion"
 
     //OSM
-    implementation "org.osmdroid:osmdroid-android:6.1.14"
-    implementation "org.osmdroid:osmdroid-wms:6.1.14"
-    implementation "org.osmdroid:osmdroid-geopackage:6.1.14"
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
+    implementation 'org.osmdroid:osmdroid-wms:6.1.20'
+    //implementation 'org.osmdroid:osmdroid-geopackage:6.1.20'
 
-    debugImplementation "androidx.compose.ui:ui-tooling:1.6.8"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    //implementation 'com.google.http-client:google-http-client-gson:1.26.0'
-    //implementation 'com.google.api-client:google-api-client-android:1.26.0'
-    //implementation 'com.google.apis:google-api-services-drive:v3-rev136-1.25.0'
-    //implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.10.4'
+    androidTestImplementation 'androidx.test.ext:junit:1.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
 
-    //implementation "androidx.credentials:credentials:1.3.0-rc01"
-    //implementation 'androidx.credentials:credentials-play-services-auth:1.5.0-alpha04'
+    implementation "androidx.credentials:credentials:1.5.0"
+    implementation "androidx.credentials:credentials-play-services-auth:1.5.0"
+    implementation "com.google.android.libraries.identity.googleid:googleid:1.2.0"
+    //implementation group: 'com.google.api-client', name: 'google-api-client', version: '2.7.2'
 
     //Firebase
-    implementation platform('com.google.firebase:firebase-bom:33.2.0')
+    implementation 'androidx.browser:browser:1.9.0'
+
+    implementation platform('com.google.firebase:firebase-bom:34.10.0')
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-storage-ktx'
-    //implementation 'com.google.firebase:firebase-auth'
-    implementation('com.firebaseui:firebase-ui-auth:8.0.2') {
-        exclude group: 'com.google.android.gms', module: 'play-services-auth'
-    }
-    implementation("com.google.firebase:firebase-auth-ktx")
-    //implementation 'com.firebaseui:firebase-ui-auth:8.0.2'
-    implementation 'androidx.browser:browser:1.8.0'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-firestore' // Recommended to add this too
+
+    // Add these to resolve the specific "not found" errors for KTX variants
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-common-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+
+    implementation projects.shared
 }
 
+//android {
+    //lint {
+        //baseline = file("lint-baseline.xml")
+    //}
+//}

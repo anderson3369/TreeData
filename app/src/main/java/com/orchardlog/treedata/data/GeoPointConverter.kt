@@ -8,7 +8,7 @@ class GeoPointConverter {
 
     @TypeConverter
     fun toGeoPoint(latitude: Double?, longitude: Double?): IGeoPoint {
-        return GeoPoint(latitude!!, longitude!!)
+        return GeoPoint(latitude ?: 0.0, longitude ?: 0.0)
     }
 
    @TypeConverter

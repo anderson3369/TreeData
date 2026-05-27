@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_orchardTask"
+        android:icon="@drawable/ic_baseline_eco_24"
+        android:title="@string/orchard_activity"/>
+    <item
+        android:id="@+id/nav_irrigation"
+        android:icon="@drawable/ic_baseline_waves_24"
+        android:title="@string/irrigation"/>
+    <item
+        android:id="@+id/nav_tree"
+        android:icon="@drawable/ic_baseline_forest_24"
+        android:title="@string/trees"/>
+    <item
+        android:id="@+id/nav_more"
+        android:icon="@drawable/ic_baseline_more_horiz_24"
+        android:title="@string/more"/>
+</menu>

@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.8.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.8.0)" variant="all" version="8.8.0">
+
+    <issue
+        id="MissingDefaultResource"
+        message="The drawable &quot;ic_launcher_background&quot; in drawable-night has no declaration in the base `drawable` folder or in a `drawable-`*density*`dpi` folder; this can lead to crashes when the drawable is queried in a configuration that does not match this qualifier"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable-night/ic_launcher_background.xml"
+            line="2"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="CredentialManagerSignInWithGoogle"
+        message="Use of `:googleid` classes without use of `GoogleIdTokenCredential`"
+        errorLine1="            val signInWithGoogleOption = GetSignInWithGoogleOption("
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/login/LoginFragment.kt"
+            line="70"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="CredentialManagerSignInWithGoogle"
+        message="Use of `:googleid` classes without use of `GoogleIdTokenCredential`"
+        errorLine1="            val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/login/LoginFragment.kt"
+            line="181"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="EnsureInitializerMetadata"
+        message="Every Initializer needs to be accompanied by a corresponding &lt;meta-data> entry in the AndroidManifest.xml file."
+        errorLine1="class AuthInitializer : Initializer&lt;FirebaseAuth> {"
+        errorLine2="^">
+        <location
+            file="src/main/java/com/orchardlog/treedata/utils/AuthInitializer.kt"
+            line="10"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="EnsureInitializerMetadata"
+        message="Every Initializer needs to be accompanied by a corresponding &lt;meta-data> entry in the AndroidManifest.xml file."
+        errorLine1="class FireStorageInitializer : Initializer&lt;FirebaseStorage> {"
+        errorLine2="^">
+        <location
+            file="src/main/java/com/orchardlog/treedata/utils/FireStorageInitializer.kt"
+            line="11"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of org.jetbrains.kotlin.plugin.compose than 2.0.0 is available: 2.1.0"
+        errorLine1="    id &apos;org.jetbrains.kotlin.plugin.compose&apos; version &apos;2.0.0&apos;"
+        errorLine2="                                                     ~~~~~~~">
+        <location
+            file="build.gradle"
+            line="13"
+            column="54"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of com.google.gms.google-services than 4.4.0 is available: 4.4.2"
+        errorLine1="    id &apos;com.google.gms.google-services&apos; version &apos;4.4.0&apos;"
+        errorLine2="                                                ~~~~~~~">
+        <location
+            file="build.gradle"
+            line="15"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="DataBindingWithoutKapt"
+        message="If you plan to use data binding in a Kotlin project, you should apply the kotlin-kapt plugin."
+        errorLine1="        dataBinding true"
+        errorLine2="        ~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="79"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="DataExtractionRules"
+        message="The attribute `android:allowBackup` is deprecated from Android 12 and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures backups and device transfers on Android 12 and higher."
+        errorLine1="        android:allowBackup=&quot;false&quot;"
+        errorLine2="                             ~~~~~">
+        <location
+            file="$GRADLE_USER_HOME/caches/8.10.2/transforms/6b9831ec16a7a0c169e2979985cbcfea/transformed/geopackage-android-6.7.3/AndroidManifest.xml"
+            line="9"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.color.colorBackgroundDark` appears to be unused"
+        errorLine1="    &lt;color name=&quot;colorBackgroundDark&quot;>#000000&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/colors.xml"
+            line="9"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.mipmap.ic_launcher` appears to be unused">
+        <location
+            file="src/main/res/mipmap-xhdpi/ic_launcher.webp"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_launcher_background` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable-night/ic_launcher_background.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string._00_00` appears to be unused"
+        errorLine1="    &lt;string name=&quot;_00_00&quot;>00:00&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="136"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.prompt_email` appears to be unused"
+        errorLine1="    &lt;string name=&quot;prompt_email&quot;>Email&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="204"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.prompt_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;prompt_password&quot;>Password&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="205"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_sign_in` appears to be unused"
+        errorLine1="    &lt;string name=&quot;action_sign_in&quot;>Sign in or register&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="206"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.action_sign_in_short` appears to be unused"
+        errorLine1="    &lt;string name=&quot;action_sign_in_short&quot;>Sign in&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="207"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.welcome` appears to be unused"
+        errorLine1="    &lt;string name=&quot;welcome&quot;>&quot;Welcome!&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="208"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.invalid_username` appears to be unused"
+        errorLine1="    &lt;string name=&quot;invalid_username&quot;>Not a valid username&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="209"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.invalid_password` appears to be unused"
+        errorLine1="    &lt;string name=&quot;invalid_password&quot;>Password must be >5 characters&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="210"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.login_failed` appears to be unused"
+        errorLine1="    &lt;string name=&quot;login_failed&quot;>&quot;Login failed&quot;&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="211"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.sign_in_to_google` appears to be unused"
+        errorLine1="    &lt;string name=&quot;sign_in_to_google&quot;>Sign in to Google&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="212"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.no_network_connection` appears to be unused"
+        errorLine1="    &lt;string name=&quot;no_network_connection&quot;>No network connection&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="215"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.uknown_error` appears to be unused"
+        errorLine1="    &lt;string name=&quot;uknown_error&quot;>Unknown error&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="216"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.applied?.setText(obj.applied.toString())"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerApplicationFragment.kt"
+            line="282"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.fertilizerAreaTreated?.setText(obj.areaTreated.toString())"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerApplicationFragment.kt"
+            line="284"
+            column="53"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.nitrogen?.setText(obj.nitrogen.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="79"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.phosphorous?.setText(obj.phosphorous.toString())"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="80"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.potassium?.setText(obj.potassium.toString())"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="81"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.sulfur?.setText(obj.sulfur.toString())"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="82"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.calcium?.setText(obj.calcium.toString())"
+        errorLine2="                                      ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="83"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.magnesium?.setText(obj.magnesium.toString())"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="84"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.boron?.setText(obj.boron.toString())"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="85"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.zinc?.setText(obj.zinc.toString())"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="86"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.iron?.setText(obj.iron.toString())"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="87"
+            column="36"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.manganese?.setText(obj.manganese.toString())"
+        errorLine2="                                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="88"
+            column="41"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.molybdenum?.setText(obj.molybdenum.toString())"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="89"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.chloride?.setText(obj.chloride.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="90"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.copper?.setText(obj.copper.toString())"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="91"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.nickel?.setText(obj.nickel.toString())"
+        errorLine2="                                     ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="92"
+            column="38"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.organicMatter?.setText(obj.organicMatter.toString())"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/fertilizer/FertilizerFragment.kt"
+            line="93"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.rowWidth?.setText(orchard!!.rowWidth.toString())"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="296"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.distanceBetweenTrees?.setText(orchard!!.distanceBetweenTrees.toString())"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="298"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.sand?.setText(orchard!!.sand.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="300"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.silt?.setText(orchard!!.silt.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="301"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.clay?.setText(orchard!!.clay.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="302"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.organicMatter?.setText(orchard!!.organicMatter.toString())"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/FirstOrchardFragment.kt"
+            line="303"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.totalIrrigationHours?.text = totalHours.toString()"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationReportFragment.kt"
+            line="120"
+            column="51"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.totalIrrigationGallons?.text = gallonsPumped.toString()"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationReportFragment.kt"
+            line="132"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.totalIrrigationGallons?.text = gallonsPumped.toString()"
+        errorLine2="                                                        ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationReportFragment.kt"
+            line="135"
+            column="57"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.emitterFlowRate?.setText(obj.emitterFlowRate.toString())"
+        errorLine2="                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationSystemFragment.kt"
+            line="302"
+            column="47"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.emitterRadius?.setText(obj.emitterRadius.toString())"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationSystemFragment.kt"
+            line="304"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.emitterSpacing?.setText(obj.emitterSpacing.toString())"
+        errorLine2="                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/IrrigationSystemFragment.kt"
+            line="306"
+            column="46"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.rowWidth?.setText(orchard!!.rowWidth.toString())"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="275"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.distanceBetweenTrees?.setText(orchard!!.distanceBetweenTrees.toString())"
+        errorLine2="                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="277"
+            column="56"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.sand?.setText(orchard!!.sand.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="279"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.silt?.setText(orchard!!.silt.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="280"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.clay?.setText(orchard!!.clay.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="281"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="                binding?.organicMatter?.setText(orchard!!.organicMatter.toString())"
+        errorLine2="                                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/orchard/OrchardFragment.kt"
+            line="282"
+            column="49"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.pesticideApplied?.setText(obj.applied.toString())"
+        errorLine2="                                               ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/pesticide/PesticideApplicationFragment.kt"
+            line="373"
+            column="48"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.dilution?.setText(obj.dilution.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/pesticide/PesticideApplicationFragment.kt"
+            line="375"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.areaTreated?.setText(obj.areaTreated.toString())"
+        errorLine2="                                          ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/pesticide/PesticideApplicationFragment.kt"
+            line="377"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.horsepower?.setText(pump!!.horsepower.toString())"
+        errorLine2="                                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/PumpFragment.kt"
+            line="93"
+            column="42"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.phase?.setText(pump!!.phase.toString())"
+        errorLine2="                                    ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/PumpFragment.kt"
+            line="94"
+            column="37"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.pumpFlowRate?.setText(pump!!.flowRate.toString())"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/PumpFragment.kt"
+            line="95"
+            column="44"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.centibar?.setText(obj.centibar.toString())"
+        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/SoilMoistureFragment.kt"
+            line="146"
+            column="40"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        message="Number formatting does not take into account locale settings. Consider using `String.format` instead."
+        errorLine1="            binding?.percentSoilMoisture?.setText(obj.percent.toString())"
+        errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/orchardlog/treedata/ui/irrigation/SoilMoistureFragment.kt"
+            line="147"
+            column="51"/>
+    </issue>
+
+</issues>

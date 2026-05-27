@@ -5,24 +5,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/menu_home" />
-        <item
             android:id="@+id/nav_orchardTask"
-            android:icon="@drawable/ic_baseline_crop_landscape_24"
+            android:icon="@drawable/ic_baseline_eco_24"
             android:title="@string/orchard_activity"/>
         <item
-            android:id="@+id/nav_map"
-            android:icon="@drawable/baseline_map_24"
-            android:title="@string/map"/>
+            android:id="@+id/nav_tree"
+            android:icon="@drawable/ic_baseline_forest_24"
+            android:title="@string/trees"/>
         <item
             android:id="@+id/nav_irrigation"
-            android:icon="@drawable/ic_baseline_water_drop_24"
+            android:icon="@drawable/ic_baseline_waves_24"
             android:title="@string/irrigation"/>
         <item
             android:id="@+id/nav_fertilizerApplication"
-            android:icon="@drawable/ic_baseline_all_inclusive_24"
+            android:icon="@drawable/ic_baseline_science_24"
             android:title="@string/fertilizer_application"/>
         <item
             android:id="@+id/nav_pesticideApplication"

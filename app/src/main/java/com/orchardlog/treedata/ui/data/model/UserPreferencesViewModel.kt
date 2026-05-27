@@ -3,13 +3,13 @@ package com.orchardlog.treedata.ui.data.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.orchardlog.treedata.repositories.UserPreferencesRepository
+import com.orchardlog.treedata.repositories.TreeDataUserPreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class UserPreferencesViewModel @Inject constructor(
-    private val userPreferencesRepository: UserPreferencesRepository
+    private val userPreferencesRepository: TreeDataUserPreferencesRepository
 ) : ViewModel() {
 
     fun getCanBackup(): LiveData<Boolean> {
