@@ -37,18 +37,25 @@ object AuthService {
         }
     }
 
+    @Throws(Exception::class)
     suspend fun signInWithGoogleCredential(idToken: String): Boolean {
         val credential = GoogleAuthProvider.credential(idToken, null)
         val result = auth.signInWithCredential(credential)
         return result.user != null
     }
 
+    @Throws(Exception::class)
     suspend fun signInWithAppleCredential(idToken: String, nonce: String): Boolean {
-        val credential = OAuthProvider.credential("apple.com", idToken, rawNonce = nonce)
+        val credential = OAuthProvider.credential(
+            providerId = "apple.com",
+            idToken = idToken,
+            rawNonce = nonce
+        )
         val result = auth.signInWithCredential(credential)
         return result.user != null
     }
 
+    @Throws(Exception::class)
     suspend fun signOut() {
         auth.signOut()
     }

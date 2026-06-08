@@ -129,20 +129,24 @@ struct SignInView: View {
                 return
             }
             
-            let credential = OAuthProvider.credential(
-                providerID: AuthProviderID.apple,
-                idToken: idTokenString,
-                rawNonce: nonce
-            )
-            
-            Auth.auth().signIn(with: credential) { authResult, error in
-                if let error {
-                    errorMessage = error.localizedDescription
-                } else {
-                    errorMessage = nil
-                    // Push all existing local data to Firestore on first sign-in
-                    let db = DatabaseManager.shared.getDatabase()
-                    FirestoreSync.shared.triggerInitialSync(db: db)
+            // Sign in via the shared AuthService so GitLive's Firebase Kotlin SDK
+            // (used by FirestoreSync) sees the authenticated user. Calling native
+            // Auth.auth().signIn directly leaves the shared SDK's currentUser as nil.
+            Task {
+                do {
+                    let result = try await AuthService.shared.signInWithAppleCredential(
+                        idToken: idTokenString,
+                        nonce: nonce
+                    )
+                    if result.boolValue {
+                        await MainActor.run { errorMessage = nil }
+                        let db = DatabaseManager.shared.getDatabase()
+                        try? await FirestoreSync.shared.pushAllLocalData(db: db)
+                    } else {
+                        await MainActor.run { errorMessage = "Sign-in failed" }
+                    }
+                } catch {
+                    await MainActor.run { errorMessage = error.localizedDescription }
                 }
             }
             

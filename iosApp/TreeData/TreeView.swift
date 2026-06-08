@@ -569,7 +569,6 @@ struct TreeFormView: View {
         let plantedDateStr = dateFormatter.string(from: plantedDate)
         let tree = Tree(
             id: selectedTree?.id ?? 0,
-            persistentId: selectedTree?.persistentId ?? UUID().uuidString,
             orchardId: selectedOrchardId,
             rootstockId: selectedRootstockId,
             varietyId: selectedVarietyId,
@@ -578,6 +577,7 @@ struct TreeFormView: View {
             notes: notes,
             latitude: Double(latitude) ?? 0.0,
             longitude: Double(longitude) ?? 0.0,
+            persistentId: selectedTree?.persistentId ?? UUID().uuidString,
             validFrom: selectedTree?.validFrom ?? Date().toKotlinInstant(),
             validTo: nil
         )
@@ -603,7 +603,8 @@ struct TreeFormView: View {
             id: 0,
             name: newRootstockName,
             cultivar: newRootstockCultivar,
-            rootstockType: newRootstockType
+            rootstockType: newRootstockType,
+            firestoreId: UUID().uuidString
         )
         treeViewModel.addRootstock(rootstock: rootstock)
         newRootstockName = ""
@@ -616,7 +617,8 @@ struct TreeFormView: View {
         let variety = Variety(
             id: 0,
             name: newVarietyName,
-            cultivar: newVarietyCultivar
+            cultivar: newVarietyCultivar,
+            firestoreId: UUID().uuidString
         )
         treeViewModel.addVariety(variety: variety)
         newVarietyName = ""

@@ -145,7 +145,8 @@ struct SoilMoistureView: View {
             orchardId: selectedOrchardId,
             date: readingDate.toKotlinInstant(),
             centibar: Int32(centibar) ?? 0,
-            percent: Int32(percent) ?? 0
+            percent: Int32(percent) ?? 0,
+            firestoreId: selectedSoilMoisture?.firestoreId ?? UUID().uuidString
         )
 
         if reading.id > 0 {

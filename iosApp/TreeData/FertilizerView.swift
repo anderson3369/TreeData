@@ -223,7 +223,8 @@ struct FertilizerFormView: View {
             copper: Double(copper) ?? 0.0,
             selenium: Double(selenium) ?? 0.0,
             nickel: Double(nickel) ?? 0.0,
-            organicMatter: Double(organicMatter) ?? 0.0
+            organicMatter: Double(organicMatter) ?? 0.0,
+            firestoreId: selectedFertilizer?.firestoreId ?? UUID().uuidString
         )
 
         if fertilizer.id > 0 {
@@ -480,7 +481,8 @@ struct FertilizerApplicationFormView: View {
             applicationStart: applicationStart.toKotlinInstant(),
             applicationStop: applicationStop.toKotlinInstant(),
             areaTreated: Double(areaTreated) ?? 0.0,
-            orchardUnit: orchardUnit
+            orchardUnit: orchardUnit,
+            firestoreId: selectedApplication?.application.firestoreId ?? UUID().uuidString
         )
 
         if application.id > 0 {

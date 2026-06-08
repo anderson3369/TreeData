@@ -116,10 +116,10 @@ struct FarmView: View {
         
         let farm = Farm(
             id: selectedFarm?.id ?? 0,
-            persistentId: selectedFarm?.persistentId ?? UUID().uuidString,
             farmerId: selectedFarmerId,
             name: farmName,
             siteId: siteId,
+            persistentId: selectedFarm?.persistentId ?? UUID().uuidString,
             validFrom: selectedFarm?.validFrom ?? Date().toKotlinInstant(),
             validTo: nil
         )

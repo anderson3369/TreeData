@@ -155,7 +155,8 @@ struct PesticideFormView: View {
             eparegno: eparegno,
             signalWord: signalWord,
             rei: Int32(rei) ?? 0,
-            reiUnit: reiUnit
+            reiUnit: reiUnit,
+            firestoreId: selectedPesticide?.firestoreId ?? UUID().uuidString
         )
 
         if pesticide.id > 0 {
@@ -468,7 +469,8 @@ struct PesticideApplicationFormView: View {
             dilutionUnit: dilutionUnit,
             areaTreated: Double(areaTreated) ?? 0.0,
             areaTreatedUnit: areaTreatedUnit,
-            applicationMethod: applicationMethod
+            applicationMethod: applicationMethod,
+            firestoreId: selectedApplication?.application.firestoreId ?? UUID().uuidString
         )
 
         if application.id > 0 {

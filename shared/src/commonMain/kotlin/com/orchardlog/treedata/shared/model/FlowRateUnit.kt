@@ -1,0 +1,14 @@
+package com.orchardlog.treedata.shared.model
+
+enum class FlowRateUnit(val unit: String) {
+    GALLONSPERHOUR("Gallons per Hour"),
+    GALLONSPERMINUTE("Gallons per Minute");
+
+    override fun toString(): String {
+        return unit
+    }
+
+    companion object {
+        fun from(search: String): FlowRateUnit = requireNotNull(entries.find { it.unit == search }) { "No FlowRateUnit with value $search" }
+    }
+}

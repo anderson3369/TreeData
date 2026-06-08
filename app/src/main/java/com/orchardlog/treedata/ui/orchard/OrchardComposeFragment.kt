@@ -33,7 +33,7 @@ import com.orchardlog.treedata.shared.TemporalUtils
 import com.orchardlog.treedata.utils.DatePickerFragment
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone as KtTimeZone
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 

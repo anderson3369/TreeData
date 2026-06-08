@@ -72,7 +72,8 @@ struct FarmerView: View {
             state: state,
             zip: zip,
             phone: phone,
-            email: email
+            email: email,
+            persistentId: UUID().uuidString
         )
         
         // 4. Call the ViewModel (which uses the Repository internally)

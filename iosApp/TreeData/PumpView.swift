@@ -122,7 +122,8 @@ struct PumpView: View {
             horsepower: Double(horsepower) ?? 0.0,
             phase: Int32(phase) ?? 1,
             flowRate: Double(flowRate) ?? 0.0,
-            flowRateUnit: flowRateUnit
+            flowRateUnit: flowRateUnit,
+            firestoreId: selectedPump?.firestoreId ?? UUID().uuidString
         )
 
         if pump.id > 0 {

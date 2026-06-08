@@ -190,7 +190,6 @@ struct OrchardFormView: View {
         let existingOrchard = selectedOrchard?.orchard
         let orchard = Orchard(
             id: existingOrchard?.id ?? 0,
-            persistentId: existingOrchard?.persistentId ?? UUID().uuidString,
             farmId: selectedFarmId,
             crop: crop,
             plantedDate: plantedDateStr,
@@ -202,6 +201,7 @@ struct OrchardFormView: View {
             silt: Double(silt) ?? 0.0,
             clay: Double(clay) ?? 0.0,
             organicMatter: Double(organicMatter) ?? 0.0,
+            persistentId: existingOrchard?.persistentId ?? UUID().uuidString,
             validFrom: existingOrchard?.validFrom ?? Date().toKotlinInstant(),
             validTo: nil
         )
@@ -362,7 +362,8 @@ struct OrchardActivityFormView: View {
             activity: activity,
             notes: notes,
             activityStart: activityStart.toKotlinInstant(),
-            activityStop: activityStop.toKotlinInstant()
+            activityStop: activityStop.toKotlinInstant(),
+            firestoreId: selectedActivity?.firestoreId ?? UUID().uuidString
         )
 
         if orchardActivity.id > 0 {

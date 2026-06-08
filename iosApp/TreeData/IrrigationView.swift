@@ -239,7 +239,8 @@ struct IrrigationSystemFormView: View {
             emitterRadius: Double(emitterRadius) ?? 0.0,
             emitterRadiusLinearUnit: emitterRadiusUnit,
             emitterSpacing: Double(emitterSpacing) ?? 0.0,
-            emitterSpacingLinearUnit: emitterSpacingUnit
+            emitterSpacingLinearUnit: emitterSpacingUnit,
+            firestoreId: selectedSystem?.firestoreId ?? UUID().uuidString
         )
 
         if system.id > 0 {
@@ -373,7 +374,8 @@ struct IrrigationEventFormView: View {
             id: selectedIrrigation?.id ?? 0,
             irrigationSystemId: selectedSystemId,
             startTime: startTime.toKotlinInstant(),
-            stopTime: stopTime.toKotlinInstant()
+            stopTime: stopTime.toKotlinInstant(),
+            firestoreId: selectedIrrigation?.firestoreId ?? UUID().uuidString
         )
 
         if irrigation.id > 0 {

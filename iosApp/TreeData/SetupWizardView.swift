@@ -278,7 +278,8 @@ struct FarmerStepView: View {
         let farmer = Farmer(
             id: existingFarmer?.id ?? 0,
             name: name, address: address, city: city,
-            state: state, zip: zip, phone: phone, email: email
+            state: state, zip: zip, phone: phone, email: email,
+            persistentId: existingFarmer?.persistentId ?? UUID().uuidString
         )
         if farmer.id > 0 {
             farmerViewModel.updateFarmer(farmer: farmer)
@@ -364,10 +365,10 @@ struct FarmStepView: View {
     private func saveFarm() {
         let farm = Farm(
             id: existingFarm?.id ?? 0,
-            persistentId: existingFarm?.persistentId ?? UUID().uuidString,
             farmerId: farmerId,
             name: farmName,
             siteId: siteId,
+            persistentId: existingFarm?.persistentId ?? UUID().uuidString,
             validFrom: existingFarm?.validFrom ?? Date().toKotlinInstant(),
             validTo: nil
         )
@@ -493,7 +494,6 @@ struct OrchardStepView: View {
         let plantedDateStr = dateFormatter.string(from: plantedDate)
         let orchard = Orchard(
             id: existingOrchard?.id ?? 0,
-            persistentId: existingOrchard?.persistentId ?? UUID().uuidString,
             farmId: farmId,
             crop: crop,
             plantedDate: plantedDateStr,
@@ -502,6 +502,7 @@ struct OrchardStepView: View {
             distanceBetweenTrees: Double(distanceBetweenTrees) ?? 0.0,
             distanceBetweenTreesLinearUnit: distanceUnit,
             sand: 0.0, silt: 0.0, clay: 0.0, organicMatter: 0.0,
+            persistentId: existingOrchard?.persistentId ?? UUID().uuidString,
             validFrom: existingOrchard?.validFrom ?? Date().toKotlinInstant(),
             validTo: nil
         )
