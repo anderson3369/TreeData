@@ -25,4 +25,10 @@ interface IrrigationDao {
      */
     @Query("SELECT * FROM Irrigation WHERE startTime BETWEEN :firstYear AND :endYear ORDER BY startTime DESC")
     fun getIrrigationsBySeason(firstYear: Instant, endYear: Instant): Flow<List<Irrigation>>
+
+    @Query("SELECT * FROM Irrigation WHERE firestoreId = :firestoreId LIMIT 1")
+    suspend fun getByFirestoreId(firestoreId: String): Irrigation?
+
+    @Query("DELETE FROM Irrigation WHERE firestoreId = :firestoreId")
+    suspend fun deleteByFirestoreId(firestoreId: String)
 }
